@@ -17,14 +17,7 @@ app.use('/public', express.static('public'));
 const client = new pg.Client(process.env.DATABASE_URL);
 client.on('error', err => console.log(err));
 
-const location = require('./modules/location.js');
-const trails = require('./modules/trails.js');
+const getTrails = (request, response) => {
+};
 
-
-
-client.connect()
-  .then(() => {
-    app.listen(PORT, () => {
-      console.log(`Listening on ${PORT}`);
-    })
-  });
+module.exports.getTrails = getTrails;
