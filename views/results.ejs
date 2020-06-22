@@ -1,0 +1,75 @@
+<%- include('header.ejs') %>
+<h3>Your weekend suggestions</h3>
+
+<h4> Hiking </h4>
+<% searchResults.ForEach(value => { %>
+<img src="<% %>" alt="<% name %>"/>
+<h5> <%= name %> </h5>
+<h5> <%= Distance %> </h5>
+<h5> <%= Total elevation %> </h5>
+<p> <%= Description %> </p>
+<h6> <%= Difficulty rating %> </h6>
+<h6> <%= Condtion status %> </h6>
+<h7> <%= Reviews %> </h7>
+<form action ="/favorites.ejs" method = "POST" >
+  <input type="hidden" name="image" value="<% %>"/> 
+  <input type="hidden" name="name" value="<% %>"/>
+  <input type="hidden" name="distance" value="<% %>"/>
+  <input type="hidden" name="total elevation" value="<% %>"/>
+  <input type="hidden" name="Description" value="<% %>"/>
+  <input type="hidden" name="Difficulty rating" value="<% %>"/>
+  <input type="hidden" name="Condition Status" value="<% %>"/>
+  <input type="hidden" name="Reviews" value="<% %>"/>
+  <button type = "submit"> Add to my favorites </button>
+</form>
+<% }) %>
+
+
+<h4> Camping </h4>
+<% searchResults.ForEach(value => { %>
+  <img src="<% %>" alt="<% name %>"/>
+<h5>  <%= Name %> </h5>
+<p> <%= Description %> </p>
+<h5> <%= Accesibility %> </h5>
+<h6> <%= Restrooms %> </h6> 
+<h6> <%= Firewood on site? %> </h6>
+<h6> <%= Potable Water %> </h6>
+<h6> <%= Reservations %> </h6>
+<h6> <%= Fees %> </h6>
+<form action ="/favorites.ejs" method = "POST" >
+  <input type="hidden" name="image" value="<% %>"/> 
+  <input type="hidden" name="name" value="<% %>"/>
+  <input type="hidden" name="Description" value="<% %>"/>
+  <input type="hidden" name="Accesibility" value="<% %>"/>
+  <input type="hidden" name="Restrooms" value="<% %>"/>
+  <input type="hidden" name="Firewood on site" value="<% %>"/>
+  <input type="hidden" name="Potable Water" value="<% %>"/>
+  <input type="hidden" name="Reservations" value="<% %>"/>
+  <input type="hidden" name="Fees" value="<% %>"/>
+  <button type = "submit"> Add to my favorites </button>
+</form>
+<% }) %>
+
+
+<h4> Rock Climbing </h4>
+<% searchResults.ForEach(value => { %>
+  <img src="<% %>" alt="<% name %>"/>
+<h5> <%= Name %> </h5>
+<h5> <%= Type (sport or trad) %> </h5>
+<h6> <%= # of pitches %> </h6>
+<h6> <%= Condition Status %> </h6>
+<h6> <%= Stars %> </h6>
+<h7> <%= Reviews %> </h7>
+<form action ="/favorites.ejs" method = "POST" >
+  <input type="hidden" name="image" value="<% %>"/> 
+  <input type="hidden" name="name" value="<% %>"/>
+  <input type="hidden" name="type (sport or trad)" value="<% %>"/>
+  <input type="hidden" name="# of pitches" value="<% %>"/>
+  <input type="hidden" name="Condition Status" value="<% %>"/>
+  <input type="hidden" name="Stars" value="<% %>"/>
+  <input type="hidden" name="Reviews" value="<% %>"/>
+  <button type = "submit"> Add to my favorites </button>
+</form>
+<% }) %>
+
+<%- include('footer.ejs') %>
