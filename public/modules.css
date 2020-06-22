@@ -1,0 +1,48 @@
+/* // h tags */
+
+/* h1 {
+background-color: red;
+} */
+
+h2{
+background-color: royalblue;
+}
+
+h3 {
+  font-family: 'Oswald', sans-serif;
+  font-size: 4em;
+  text-align: center;
+}
+
+/* h4 {
+
+}
+
+h5{
+
+
+}
+
+h6 {
+
+}
+
+h7 {
+
+} */
+
+/* favorites page  */
+#hiking_favorites {
+background-color: #DA7635;
+}
+
+#camping_favorites {
+background-color: #654236;
+}
+
+#climbing_favorites {
+  background-color: #DA7635;
+}
+
+
+
