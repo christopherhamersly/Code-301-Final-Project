@@ -47,7 +47,7 @@ https://www.trailrunproject.com/data/get-trails?lat=40.0274&lon=-105.2519&maxDis
 ## Database Schemas and Relationship Diagram
 SQL Tables - MVP
 * **Hiking**
- * Key | Image | Trail Name | Latitude | Longitude | Distance | Total Elevation | Difficulty Rating | Condition Status | Reviews 
+ * Key | Image | Trail Name | Summary | Latitude | Longitude | Distance | Total Elevation | Max Height | Difficulty Rating | Condition Status | Reviews 
 * **Camping**
  * Key | Image | Campground Name | Latitude | Longitude | Description | Firewood | Restrooms | Reservations | Fees | Potable Water | Accessibility
 * **Rock Climbing**
