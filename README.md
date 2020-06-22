@@ -20,6 +20,14 @@ The user has a limited amount of time and wants to get the most out their weeken
 ## Architecture
 Backend utilizes superagent for API calls to googlebooks API and postgres to query a SQL database. Frontend is served with EJS components.
 
+## WireFrame
+
+![Weekend Warrior Wireframe](diagrams/Weekend_Warrior_Wireframe.png)
+
+## Domain Model
+
+![Domain Model](diagrams/domain_model.png)
+
 ## Libraries Used:
  - Express
  - EJS
@@ -32,25 +40,28 @@ Backend utilizes superagent for API calls to googlebooks API and postgres to que
 https://www.mountainproject.com/data/get-routes-for-lat-lon?lat=40.03&lon=-105.25&maxDistance=10&minDiff=5.6&maxDiff=5.10&key=200790534-05370a505ab38e493dbb8b4c24c7dadd
 **Hiking Routes API by lat & lon**
 https://www.hikingproject.com/data/get-trails?lat=40.0274&lon=-105.2519&maxDistance=10&key=200790534-badad5b9f2f1c28cff7c1bd0f669131e
-**Mountain biking by lat & lon**
-https://www.mtbproject.com/data/get-trails?lat=40.0274&lon=-105.2519&maxDistance=10&key=200790534-badad5b9f2f1c28cff7c1bd0f669131e
 **Trail Running API by lat & lon**
 https://www.trailrunproject.com/data/get-trails?lat=40.0274&lon=-105.2519&maxDistance=10&key=200790534-badad5b9f2f1c28cff7c1bd0f669131e
-**Powder Project API by lat & lon**
-https://www.powderproject.com/data/get-trails?lat=40.0274&lon=-105.2519&maxDistance=10&key=200790534-badad5b9f2f1c28cff7c1bd0f669131e
 
-## Database Schemas
+
+## Database Schemas and Relationship Diagram
 SQL Tables - MVP
 * **Hiking**
- * Key / * Image / * Trail Name / * Latitude / * Longitude / * Distance / * Total Elevation / * Difficulty Rating / * Condition Status / * Reviews 
+ * Key | Image | Trail Name | Latitude | Longitude | Distance | Total Elevation | Difficulty Rating | Condition Status | Reviews 
 * **Camping**
- * Key / * Image / * Campground Name / * Description / * Firewood / * Restrooms / * Reservations / * Fees / * Potable Water / * Accessibility
+ * Key | Image | Campground Name | Latitude | Longitude | Description | Firewood | Restrooms | Reservations | Fees | Potable Water | Accessibility
+* **Rock Climbing**
+ * Key | Image | Name | Latitude | Longitude | Type | Pitches | Stars 
+* **Location ID**
+ * Key | Search_Query | Formatted_Query | Latitude | Longitude
 
-SQL Tables - Stretch Goals
+![Entity Relationship Diagram](diagrams/entity_relationship.png)
+
+SQL Tables - Stretch Goals (TBD)
 * **Restaurants**
-* / * / * / * / * / * / * / * / * / * / * /
+
 * **Music**
-* / * / * / * / * / * / * / * / * / * / * / 
+
 
 
 ## Getting Started
