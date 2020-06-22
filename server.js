@@ -17,10 +17,16 @@ app.use('/public', express.static('public'));
 const client = new pg.Client(process.env.DATABASE_URL);
 client.on('error', err => console.log(err));
 
+const search = require('./modules/index.js');
 const location = require('./modules/location.js');
-const trails = require('./modules/trails.js');
+// const trails = require('./modules/trails.js');
 
 
+app.route('/')
+  .get(search.searchPage);
+
+app.route('/location')
+  .get((request, response) => location.getLocation(request, response));
 
 client.connect()
   .then(() => {
