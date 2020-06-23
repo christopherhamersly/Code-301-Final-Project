@@ -19,8 +19,8 @@ client.on('error', err => console.log(err));
 
 const getTrails = (location, response) => {
   //START-CONSOLE-TESTING
-  console.log('getTrails, location:');
-  console.log(location);
+  // console.log('getTrails, location:');
+  // console.log(location);
   //END-CONSOLE-TESTING
   let apiURL = 'https://www.hikingproject.com/data/get-trails';
   let apiParams = {
@@ -32,9 +32,17 @@ const getTrails = (location, response) => {
   superagent.get(apiURL, apiParams)
     .then(apiData => {
       //START-CONSOLE-TESTING
-      console.log('getTrails apiData.body:');
-      console.log(apiData.body);
+      // console.log('getTrails apiData.body:');
+      // console.log(apiData.body);
       //END-CONSOLE-TESTING
+      let rtnTrails = apiData.body.trails.map(oneTrail => {
+        return new Trail(oneTrail);
+      });
+      //START-CONSOLE-TESTING
+      // console.log('rtnTrails:');
+      // console.log(rtnTrails);
+      //END-CONSOLE-TESTING
+      response.render('results.ejs', {trailResults: rtnTrails});
     })
     .catch(error => {
       console.error('Error getting trail data');
@@ -45,20 +53,16 @@ const getTrails = (location, response) => {
 module.exports.getTrails = getTrails;
 
 //constructor
-
-
-
-// CREATE TABLE trails (
-//   "id" SERIAL PRIMARY KEY,
-//   "imgMedium" VARCHAR(255),
-//   "name" VARCHAR(255),
-//   "summary" VARCHAR(10000),
-//   "latitude" DECIMAL(12, 9),
-//   "longitude" DECIMAL(12, 9),
-//   "length" DECIMAL(7, 2),
-//   "ascent" DECIMAL(7, 2),
-//   "high" DECIMAL(7, 2),
-//   "difficulty" VARCHAR(255),
-//   "conditionstatus" VARCHAR(255),
-//   "stars" DECIMAL(2,1)
-// );
+function Trail(object) {
+  this.name = object.name ? object.name : 'No name available';
+  this.summary = object.summary ? object.summary : 'No summary available';
+  this.img_medium = object.imgMedium ? object.imgMedium : 'No image link available';
+  this.latitude = object.latitude ? object.latitude : 'No latitude available';
+  this.longitude = object.longitude ? object.longitude : 'No longitude available';
+  this.length = object.length ? object.length : 'No trail length available';
+  this.ascent = object.ascent ? object.ascent : 'No total ascent available';
+  this.high = object.high ? object.high : 'No max height available';
+  this.difficulty = object.difficulty ? object.difficulty : 'No trail difficulty available';
+  this.conditionStatus = object.conditionStatus ? object.conditionStatus : 'No trail condition available';
+  this.stars = object.stars ? object.stars : 'No trail rating available';
+}

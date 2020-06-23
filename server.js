@@ -19,6 +19,7 @@ client.on('error', err => console.log(err));
 
 const search = require('./modules/index.js');
 const location = require('./modules/location.js');
+const favorites = require('./modules/favorites.js');
 // const trails = require('./modules/trails.js');
 
 
@@ -28,81 +29,12 @@ app.route('/')
 app.route('/location')
   .get((request, response) => location.getLocation(request, response));
 
+app.route('/favorites')
+  .post((request, response) => favorites.saveTrail(request, response));
+
 client.connect()
   .then(() => {
     app.listen(PORT, () => {
       console.log(`Listening on ${PORT}`);
     })
   });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

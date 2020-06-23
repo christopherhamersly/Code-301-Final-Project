@@ -13,9 +13,9 @@ DROP TABLE IF EXISTS trails;
 
 CREATE TABLE trails (
   "id" SERIAL PRIMARY KEY,
-  "imgMedium" VARCHAR(255),
   "name" VARCHAR(255),
   "summary" VARCHAR(10000),
+  "img_medium" VARCHAR(255),
   "latitude" DECIMAL(12, 9),
   "longitude" DECIMAL(12, 9),
   "length" DECIMAL(7, 2),
