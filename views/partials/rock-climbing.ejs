@@ -1,20 +1,19 @@
 <h4> Rock Climbing </h4>
-<% searchResults.forEach(value => { %>
-  <img src="<% %>" alt="<% name %>"/>
-<h5> <%= Name %> </h5>
-<h5> <%= Type (sport or trad) %> </h5>
-<h6> <%= # of pitches %> </h6>
-<h6> <%= Condition Status %> </h6>
-<h6> <%= Stars %> </h6>
-<h7> <%= Reviews %> </h7>
+<% climbResults.forEach(oneClimb => { %>
+  <img src="<%= oneClimb.imgMedium %>" alt="<%= oneClimb.name %>"/>
+  <h5> <%= oneClimb.location %> </h5>
+  <h5> <%= oneClimb.name %> </h5>
+  <h5> <%= oneClimb.type %> </h5>
+  <h6> <%= oneClimb.pitches %> </h6>
+  <h6> <%= oneClimb.stars %> </h6>
+
 <form action ="/favorites.ejs" method = "POST" >
-  <input type="hidden" name="image" value="<% %>"/> 
-  <input type="hidden" name="name" value="<% %>"/>
-  <input type="hidden" name="type (sport or trad)" value="<% %>"/>
-  <input type="hidden" name="# of pitches" value="<% %>"/>
-  <input type="hidden" name="Condition Status" value="<% %>"/>
-  <input type="hidden" name="Stars" value="<% %>"/>
-  <input type="hidden" name="Reviews" value="<% %>"/>
+  <input type="hidden" name="image" value="<%= oneClimb.imgMedium  %>"/> 
+  <input type="hidden" name="location" value="<%= oneClimb.location %>"/>
+  <input type="hidden" name="name" value="<%= oneClimb.name %>"/>
+  <input type="hidden" name="type (sport or trad)" value="<%= oneClimb.type %>"/>
+  <input type="hidden" name="# of pitches" value="<%= oneClimb.pitches %>"/>
+  <input type="hidden" name="Stars" value="<%= oneClimb.stars %>"/>
   <button type = "submit"> Add to my favorites </button>
 </form>
 <% }); %>
