@@ -1,0 +1,24 @@
+<h4> Camping </h4>
+<% searchResults.forEach(value => { %>
+  <img src="<% %>" alt="<% name %>"/>
+<h5>  <%= Name %> </h5>
+<p> <%= Description %> </p>
+<h5> <%= Accessibility %> </h5>
+<h6> <%= Restrooms %> </h6> 
+<h6> <%= Firewood on site? %> </h6>
+<h6> <%= Potable Water %> </h6>
+<h6> <%= Reservations %> </h6>
+<h6> <%= Fees %> </h6>
+<form action ="/favorites.ejs" method = "POST" >
+  <input type="hidden" name="image" value="<% %>"/> 
+  <input type="hidden" name="name" value="<% %>"/>
+  <input type="hidden" name="Description" value="<% %>"/>
+  <input type="hidden" name="Accessibility" value="<% %>"/>
+  <input type="hidden" name="Restrooms" value="<% %>"/>
+  <input type="hidden" name="Firewood on site" value="<% %>"/>
+  <input type="hidden" name="Potable Water" value="<% %>"/>
+  <input type="hidden" name="Reservations" value="<% %>"/>
+  <input type="hidden" name="Fees" value="<% %>"/>
+  <button type = "submit"> Add to my favorites </button>
+</form>
+<% }); %>

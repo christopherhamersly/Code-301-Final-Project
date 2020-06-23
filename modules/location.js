@@ -66,30 +66,10 @@ const activityType = (location, queryType, response) => {
 module.exports.getLocation = getLocation;
 
 //constructor
-
 function LocationQuery(userName, object) {
-  //START-CONSOLE-TESTING
-  // console.log('LocationQuery, object:');
-  // console.log(object);
-  //END-CONSOLE-TESTING
   this.userName = userName;
   this.display_name = object.display_name ? object.display_name : 'No display name available';
   this.lat = object.lat ? object.lat : 'No latitude available';
   this.lon = object.lon ? object.lon : 'No longitude available';
   this.icon = object.icon ? object.icon : 'No icon available';
 }
-
-// {
-//   place_id: '236114304',
-//   licence: 'https://locationiq.com/attribution',
-//   osm_type: 'relation',
-//   osm_id: '237440',
-//   boundingbox: [ '48.6880058', '48.8174119', '-122.531455', '-122.3987106' ],
-//   lat: '48.7544012',
-//   lon: '-122.4788361',
-//   display_name: 'Bellingham, Whatcom County, Washington, USA',
-//   class: 'place',
-//   type: 'city',
-//   importance: 0.56068814436388,
-//   icon: 'https://locationiq.org/static/images/mapicons/poi_place_city.p.20.png'
-// }
