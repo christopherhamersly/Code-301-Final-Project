@@ -1,6 +1,12 @@
 <%- include('./partials/header.ejs') %>
 <h3>Your weekend suggestions</h3>
 
-<%- include('./partials/hiking.ejs') %>
-<%- include('./partials/rock-climbing.ejs') %>
+<% if (queryType == 'hiking') { %>
+  <%- include('./partials/hiking.ejs') %>
+<% } else if (queryType == 'climbing') {  %>
+  <%- include('./partials/rock-climbing.ejs') %>
+<% } else if (queryType == 'camping') { %>
+  <% console.log('Camping time! (EJS from the results.ejs file)') %>
+<% } %>
+
 <%- include('./partials/footer.ejs') %>

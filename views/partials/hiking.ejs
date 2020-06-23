@@ -1,6 +1,6 @@
 <h4> Hiking </h4>
 <% trailResults.forEach(oneTrail => { %>
-  <section>
+  <section id="<%= oneTrail.api_id %>">
     <img src="<%= oneTrail.img_medium %>" alt="<% oneTrail.name %>"/>
     <h5> <%= oneTrail.name %> </h5>
     <h5> <%= oneTrail.length %> </h5>
