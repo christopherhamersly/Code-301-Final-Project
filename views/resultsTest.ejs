@@ -1,0 +1,25 @@
+<%- include('./partials/header.ejs') %>
+<h3>Your weekend suggestions</h3>
+
+<h4> Hiking </h4>
+<% trailResults.forEach(oneTrail => { %>
+<img src="<% oneTrail.imgMedium %>" alt="<% oneTrail.name %>"/>
+<h5> <%= oneTrail.name %> </h5>
+<h5> <%= oneTrail.length %> </h5>
+<h5> <%= oneTrail.ascent %> </h5>
+<p> <%= oneTrail.summary %> </p>
+<h6> <%= oneTrail.difficulty %> </h6>
+<h6> <%= oneTrail.conditionStatus %> </h6>
+<h7> <%= oneTrail.stars %> </h7>
+<form action ="/favorites.ejs" method = "POST" >
+  <input type="hidden" name="image" value="<% oneTrail.imgMedium %>"/> 
+  <input type="hidden" name="name" value="<% oneTrail.name %>"/>
+  <input type="hidden" name="distance" value="<% oneTrail.length %>"/>
+  <input type="hidden" name="total elevation" value="<% oneTrail.ascent %>"/>
+  <input type="hidden" name="Description" value="<% oneTrail.summary %>"/>
+  <input type="hidden" name="Difficulty rating" value="<% oneTrail.difficulty %>"/>
+  <input type="hidden" name="Condition Status" value="<% oneTrail.conditionStatus %>"/>
+  <input type="hidden" name="Reviews" value="<% oneTrail.stars %>"/>
+  <button type = "submit"> Add to my favorites </button>
+</form>
+<% }); %>

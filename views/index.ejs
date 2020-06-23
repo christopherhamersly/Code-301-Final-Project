@@ -1,18 +1,19 @@
-<%- include('header.ejs') %>
+<%- include('./partials/header.ejs') %>
 
-<form> 
+<form action="/location" method="GET">  
   <h2>What is your name?</h2>
-  <input type="text" name="name" placeholder="Enter your name!" required>
+  <input type="text" name="userName" placeholder="Enter your name!" required>
   <h2>Where do you want to go?</h2>
-  <input type="text" name="place" placeholder="Enter a city or zipcode" required>
+  <input type="text" name="city" placeholder="Enter a city or zipcode" required>
   <h2>How much time do you have?</h2>
   <input type="text" name="time" placeholder="Enter amount of time" required>
   <h2>How do you want to spend your weekend?</h2>
-  <select name="activities">
+  <select name="type">
     <option value="hiking">Hiking</option>
     <option value="rock-climbing">Rock Climbing</option>
     <option value="camping">Camping</option>
   </select>
+  <button type="submit">Click Me Bitch (says Daisy)</button>
 </form>
 
-<%- include('footer.ejs') %>
+<%- include('./partials/footer.ejs') %>
