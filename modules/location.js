@@ -18,6 +18,8 @@ const client = new pg.Client(process.env.DATABASE_URL);
 client.on('error', err => console.log(err));
 
 const trails = require('./trails.js');
+const camping = require('./camping.js');
+const rock_climbing = require('./rock_climbing');
 
 const getLocation = (request, response) => {
   //START-CONSOLE-TESTING
