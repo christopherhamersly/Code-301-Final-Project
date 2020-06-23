@@ -1,0 +1,55 @@
+
+
+
+body{
+  width: 100%;
+  text-align: center;
+
+}
+
+
+/* Tablet View  */
+@media only screen and (min-width: 767px){
+  body{
+    width: 100%;
+    background-color: red;
+  }
+}
+
+/* Desktop View */
+@media only screen and (min-width: 992px){
+  body{
+    width:100%;
+    background-color: aqua;
+
+  }
+#bioPage{
+    display: grid;
+    grid-template-columns: 1fr 3fr 1fr 3fr 1fr;
+    grid-template-rows: 120px 320px 200px 320px 120px;  
+}
+  #daisy{
+    grid-column-start: 2;
+    grid-column-end: 3;
+    grid-row-start: 2;
+    grid-row-end: 3;
+  }
+  #chris{
+    grid-column-start: 4;
+    grid-column-end: 5;
+    grid-row-start: 2;
+    grid-row-end: 3;
+  }
+  #stephen{
+    grid-column-start: 4;
+    grid-column-end: 5;
+    grid-row-start: 4;
+    grid-row-end: 5;
+  }
+  #paul{
+    grid-column-start: 2;
+    grid-column-end: 3;
+    grid-row-start: 4;
+    grid-row-end: 5;
+  }
+}
