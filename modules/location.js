@@ -25,8 +25,8 @@ const climbing = require('./rock_climbing.js');
 
 const getLocation = (request, response) => {
   //START-CONSOLE-TESTING
-  // console.log('getLocation, request.query:');
-  // console.log(request.query);
+  console.log('getLocation, request.query:');
+  console.log(request.query);
   //END-CONSOLE-TESTING
   let queryCity = request.query.city;
   let queryType = request.query.type;
@@ -100,18 +100,22 @@ const saveLocationToDB = (queryType, location, response) => {
 };
 
 const activityType = (location, queryType, response) => {
+  //START-CONSOLE-TESTING
+  console.log('activityType, queryType:');
+  console.log(queryType);
+  //END-CONSOLE-TESTING
   switch (queryType) {
-  // case 'hiking':
-  //   trails.getTrails(location, response);
-  //   break;
-  // case 'climbing':
-  //   climbing.rockClimbing(location, response);
-  //   break;
+  case 'hiking':
+    trails.getTrails(location, response);
+    break;
+  case 'climbing':
+    climbing.rockClimbing(location, response);
+    break;
   case 'camping':
     camping.getCampgrounds(location, response);
     break;
-  // default:
-  //   response.status(404).send('\'Nuffin here');
+  default:
+    response.status(404).send('\'Nuffin here');
   }
 };
 
