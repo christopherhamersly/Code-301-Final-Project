@@ -1,10 +1,15 @@
 'use strict';
 
+//global vars
+const queryType = 'hiking';
+
+//setup
 const express = require('express');
 const app = express();
 
 const pg = require('pg');
 const superagent = require('superagent');
+const { query } = require('express');
 require('ejs');
 require('dotenv').config();
 
@@ -66,10 +71,14 @@ const getTrailsFromAPI = (apiIDsFromCache, location, response) => {
         return newTrail;
       });
       //START-CONSOLE-TESTING
-      console.log('rtnTrails:');
-      console.log(rtnTrails);
+      // console.log('rtnTrails:');
+      // console.log(rtnTrails);
       //END-CONSOLE-TESTING
-      response.render('results.ejs', {trailResults: rtnTrails});
+      response.render('results.ejs',
+        {
+          queryType: queryType,
+          trailResults: rtnTrails
+        });
     })
     .catch(error => {
       console.error('Error getting trail data from API');
