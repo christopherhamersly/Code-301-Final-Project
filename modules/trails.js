@@ -17,11 +17,29 @@ app.use('/public', express.static('public'));
 const client = new pg.Client(process.env.DATABASE_URL);
 client.on('error', err => console.log(err));
 
+client.connect();
+
 const getTrails = (location, response) => {
   //START-CONSOLE-TESTING
   // console.log('getTrails, location:');
   // console.log(location);
   //END-CONSOLE-TESTING
+  let sqlSelect = 'SELECT api_id FROM trails;';
+  client.query(sqlSelect)
+    .then(sqlData => {
+      //START-CONSOLE-TESTING
+      // console.log('getTrails, DB api_ids:');
+      // console.log(sqlData.rows);
+      //END-CONSOLE-TESTING
+      getTrailsFromAPI(sqlData.rows, location, response);
+    })
+    .catch(error => {
+      console.error('Error checking cache for favorited trails');
+      console.error(error);
+    });
+};
+
+const getTrailsFromAPI = (apiIDsFromCache, location, response) => {
   let apiURL = 'https://www.hikingproject.com/data/get-trails';
   let apiParams = {
     lat: location.lat,
@@ -29,6 +47,13 @@ const getTrails = (location, response) => {
     maxDistance: 10,
     key: process.env.HIKING_ROUTES_API_KEY
   };
+  //flatten the array from an array of objects with a single key-value pair, to
+  //an array of numbers
+  apiIDsFromCache = apiIDsFromCache.map(sqlObject => sqlObject.api_id);
+  //START-CONSOLE-TESTING
+  // console.log('getTrailsFromAPI, apiIDsFromCache, flattened:');
+  // console.log(apiIDsFromCache);
+  //END-CONSOLE-TESTING
   superagent.get(apiURL, apiParams)
     .then(apiData => {
       //START-CONSOLE-TESTING
@@ -36,16 +61,18 @@ const getTrails = (location, response) => {
       // console.log(apiData.body);
       //END-CONSOLE-TESTING
       let rtnTrails = apiData.body.trails.map(oneTrail => {
-        return new Trail(oneTrail);
+        let newTrail = new Trail(oneTrail);
+        newTrail.cached = apiIDsFromCache.includes(oneTrail.id);
+        return newTrail;
       });
       //START-CONSOLE-TESTING
-      // console.log('rtnTrails:');
-      // console.log(rtnTrails);
+      console.log('rtnTrails:');
+      console.log(rtnTrails);
       //END-CONSOLE-TESTING
       response.render('results.ejs', {trailResults: rtnTrails});
     })
     .catch(error => {
-      console.error('Error getting trail data');
+      console.error('Error getting trail data from API');
       console.error(error);
     });
 };
@@ -54,6 +81,8 @@ module.exports.getTrails = getTrails;
 
 //constructor
 function Trail(object) {
+  this.api_id = object.id;
+  this.cached = false;
   this.name = object.name ? object.name : 'No name available';
   this.summary = object.summary ? object.summary : 'No summary available';
   this.img_medium = object.imgMedium ? object.imgMedium : 'No image link available';
