@@ -21,8 +21,7 @@ client.connect();
 
 const trails = require('./trails.js');
 const camping = require('./camping.js');
-const rock_climbing = require('./rock_climbing');
-const { searchPage } = require('./index.js');
+const climbing = require('./rock_climbing.js');
 
 const getLocation = (request, response) => {
   //START-CONSOLE-TESTING
@@ -102,15 +101,17 @@ const saveLocationToDB = (queryType, location, response) => {
 
 const activityType = (location, queryType, response) => {
   switch (queryType) {
-  case 'hiking':
-    trails.getTrails(location, response);
-    break;
-  case 'climbing':
-    break;
+  // case 'hiking':
+  //   trails.getTrails(location, response);
+  //   break;
+  // case 'climbing':
+  //   climbing.rockClimbing(location, response);
+  //   break;
   case 'camping':
+    camping.getCampgrounds(location, response);
     break;
-  default:
-    response.status(404).send('\'Nuffin here');
+  // default:
+  //   response.status(404).send('\'Nuffin here');
   }
 };
 
