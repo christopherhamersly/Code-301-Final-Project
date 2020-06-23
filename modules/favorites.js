@@ -24,8 +24,9 @@ const saveTrail = (request, response) => {
   console.log('saveTrail, request.body:');
   console.log(request.body);
   //END-CONSOLE-TESTING
-  let sqlInsert = 'INSERT INTO trails (name, summary, img_medium, latitude, longitude, length, ascent, high, difficulty, conditionStatus, stars) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11);';
+  let sqlInsert = 'INSERT INTO trails (api_id, name, summary, img_medium, latitude, longitude, length, ascent, high, difficulty, conditionStatus, stars) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12);';
   let {
+    api_id,
     name,
     summary,
     img_medium,
@@ -38,7 +39,7 @@ const saveTrail = (request, response) => {
     conditionStatus,
     stars
   } = request.body;
-  let sqlSafe = [name, summary, img_medium, latitude, longitude, length, ascent, high, difficulty, conditionStatus, stars];
+  let sqlSafe = [api_id, name, summary, img_medium, latitude, longitude, length, ascent, high, difficulty, conditionStatus, stars];
   client.query(sqlInsert, sqlSafe)
     .then(() => {
       //START-CONSOLE-TESTING
@@ -52,4 +53,3 @@ const saveTrail = (request, response) => {
 }
 
 module.exports.saveTrail = saveTrail;
-

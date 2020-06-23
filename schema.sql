@@ -13,6 +13,7 @@ DROP TABLE IF EXISTS trails;
 
 CREATE TABLE trails (
   "id" SERIAL PRIMARY KEY,
+  "api_id" INT,
   "name" VARCHAR(255),
   "summary" VARCHAR(10000),
   "img_medium" VARCHAR(255),
