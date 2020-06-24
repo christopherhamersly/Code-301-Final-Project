@@ -105,12 +105,12 @@ const activityType = (location, queryType, response) => {
   console.log(queryType);
   //END-CONSOLE-TESTING
   switch (queryType) {
-  case 'hiking':
-    trails.getTrails(location, response);
-    break;
-  case 'climbing':
-    climbing.rockClimbing(location, response);
-    break;
+  // case 'hiking':
+  //   trails.getTrails(location, response);
+  //   break;
+  // case 'climbing':
+  //   climbing.rockClimbing(location, response);
+  //   break;
   case 'camping':
     camping.getCampgrounds(location, response);
     break;

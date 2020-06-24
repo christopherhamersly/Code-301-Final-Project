@@ -90,11 +90,12 @@ module.exports.getTrails = getTrails;
 
 //constructor
 function Trail(object) {
+  let placeholderImage = './public/images/weekend_warrior_imagenotavailable.png'
   this.api_id = object.id;
   this.cached = false;
   this.name = object.name ? object.name : 'No name available';
   this.summary = object.summary ? object.summary : 'No summary available';
-  this.img_medium = object.imgMedium ? object.imgMedium : 'No image link available';
+  this.img_medium = object.imgMedium ? object.imgMedium : placeholderImage;
   this.latitude = object.latitude ? object.latitude : 'No latitude available';
   this.longitude = object.longitude ? object.longitude : 'No longitude available';
   this.length = object.length ? object.length : 'No trail length available';
