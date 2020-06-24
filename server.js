@@ -17,6 +17,9 @@ app.use('/public', express.static('public'));
 const client = new pg.Client(process.env.DATABASE_URL);
 client.on('error', err => console.log(err));
 
+const methodOverride = require('method-override');
+app.use(methodOverride('_method'));
+
 const search = require('./modules/index.js');
 const location = require('./modules/location.js');
 const favorites = require('./modules/favorites.js');
@@ -26,11 +29,15 @@ app.route('/')
   .get(search.searchPage);
 
 app.route('/location')
-  .post((request, response) => favorites.saveTrail(request, response))
   .get((request, response) => location.getLocation(request, response));
 
 app.route('/favorites')
+  .post((request, response) => favorites.saveTrail(request, response))
   .get((request, response) => favorites.showFavorites(request, response));
+
+app.route('/favorites/:api_id')
+  .put((request, response) => favorites.updateNote(request, response))
+  .delete((request, response) => favorites.deleteFavorite(request, response));
 
 client.connect()
   .then(() => {

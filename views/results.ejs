@@ -8,7 +8,11 @@
 <% } else if (queryType == 'climbing') {  %>
   <%- include('./partials/rock-climbing.ejs') %>
 <% } else if (queryType == 'camping') { %>
-  <% console.log('Camping time! (EJS from the results.ejs file)') %>
+  <%- include('./partials/camping.ejs') %>
+<% } else if (queryType == 'mountainbiking') { %>
+  <%- include('./partials/mtbiking.ejs') %>
+<% } else if (queryType == 'snowsports') { %>
+  <%- include('./partials/snowsports.ejs') %>
 <% } %>
 
 
@@ -17,7 +21,9 @@
 
 
 
+
 <%- include('./partials/brewery.ejs') %>
+
 
 
 <%- include('./partials/footer.ejs') %>

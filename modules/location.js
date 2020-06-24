@@ -119,10 +119,10 @@ const activityType = (location, queryType, response) => {
     camping.getCampgrounds(location, response);
     break;
   case 'mountainbiking':
-    mtbiking.mountainBiking(location, response);
+    mtBiking.mountainBiking(location, response);
     break;
   case 'snowsports':
-    snowSports.getSnowSports(location, response);
+    snowSports.snowSports(location, response);
     break;
   default:
     response.status(404).send('\'Nuffin here');
