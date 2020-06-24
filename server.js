@@ -20,6 +20,7 @@ client.on('error', err => console.log(err));
 const search = require('./modules/index.js');
 const location = require('./modules/location.js');
 const favorites = require('./modules/favorites.js');
+const { response } = require('express');
 
 app.route('/')
   .get(search.searchPage);
@@ -62,3 +63,5 @@ app.get('/test', testCss);
 function testCss(request, response){
   response.status(200).render('bio.ejs');
 }
+
+
