@@ -1,0 +1,21 @@
+
+<h4> Snow Sports </h4>
+<% snowSportsResults.forEach(oneRoute => { %>
+  <img src="<%= oneRoute.imgMedium %>" alt="<%= oneRoute.name %>"/>
+  <h5> <%= oneRoute.location %> </h5>
+  <h5> <%= oneRoute.name %> </h5>
+  <h5> <%= oneRoute.type %> </h5>
+  <h6> <%= oneRoute.difficulty %> </h6>
+  <h6> <%= oneRoute.stars %> </h6>
+
+<form action ="/favorites.ejs" method = "POST" >
+  <input type="hidden" name="image" value="<%= oneRoute.imgMedium  %>"/> 
+  <input type="hidden" name="location" value="<%= oneRoute.location %>"/>
+  <input type="hidden" name="name" value="<%= oneRoute.name %>"/>
+  <input type="hidden" name="type (sport or trad)" value="<%= oneRoute.type %>"/>
+  <input type="hidden" name="# of pitches" value="<%= oneRoute.difficulty %>"/>
+  <input type="hidden" name="Stars" value="<%= oneRoute.stars %>"/>
+  <button type = "submit"> Add to my favorites </button>
+</form>
+<% }); %>
+

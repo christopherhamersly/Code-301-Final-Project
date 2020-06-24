@@ -17,13 +17,13 @@ app.use('/public', express.static('public'));
 const client = new pg.Client(process.env.DATABASE_URL);
 client.on('error', err => console.log(err));
 
+const methodOverride = require('method-override');
+app.use(methodOverride('_method'));
+
 const search = require('./modules/index.js');
 const location = require('./modules/location.js');
 const favorites = require('./modules/favorites.js');
-// const trails = require('./modules/trails.js');
-const camping = require('./modules/camping.js');
-// const climbing = require('./modules/rock_climbing.js');
-
+const { response } = require('express');
 
 app.route('/')
   .get(search.searchPage);
@@ -32,15 +32,12 @@ app.route('/location')
   .get((request, response) => location.getLocation(request, response));
 
 app.route('/favorites')
-  .post((request, response) => favorites.saveTrail(request, response));
+  .post((request, response) => favorites.saveTrail(request, response))
+  .get((request, response) => favorites.showFavorites(request, response));
 
-// app.route('/climbing')
-// console.log('hello')
-// .post((request, response) => climbing.rockClimbing(request, response));
-
-app.route('/test')
-console.log('we are camping')
-  // .post((request, response) => camping.getCampgrounds(request, response));
+app.route('/favorites/:api_id')
+  .put((request, response) => favorites.updateNote(request, response))
+  .delete((request, response) => favorites.deleteFavorite(request, response));
 
 client.connect()
   .then(() => {
@@ -73,3 +70,5 @@ app.get('/test', testCss);
 function testCss(request, response){
   response.status(200).render('bio.ejs');
 }
+
+

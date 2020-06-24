@@ -1,0 +1,20 @@
+<%- include('./partials/header.ejs') %>
+<h4> Mountain Biking </h4>
+<% mtBikeResults.forEach(oneBike => { %>
+  <img src="<%= oneBike.imgMedium %>" alt="<%= oneBike.name %>"/>
+  <h5> <%= oneBike.location %> </h5>
+  <h5> <%= oneBike.name %> </h5>
+  <h5> <%= oneBike.type %> </h5>
+  <h6> <%= oneBike.pitches %> </h6>
+  <h6> <%= oneBike.stars %> </h6>
+
+<form action ="/favorites.ejs" method = "POST" >
+  <input type="hidden" name="image" value="<%= oneBike.imgMedium  %>"/> 
+  <input type="hidden" name="location" value="<%= oneBike.location %>"/>
+  <input type="hidden" name="name" value="<%= oneBike.name %>"/>
+  <input type="hidden" name="type (sport or trad)" value="<%= oneBike.type %>"/>
+  <input type="hidden" name="# of pitches" value="<%= oneBike.pitches %>"/>
+  <input type="hidden" name="Stars" value="<%= oneBike.stars %>"/>
+  <button type = "submit"> Add to my favorites </button>
+</form>
+<% }); %>

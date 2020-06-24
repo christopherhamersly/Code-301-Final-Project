@@ -1,5 +1,5 @@
 'use strict';
-const queryType = 'climbing';
+const queryType = 'mountainbiking';
 
 const express = require('express');
 const app = express();
@@ -18,43 +18,44 @@ app.use('/public', express.static('public'));
 const client = new pg.Client(process.env.DATABASE_URL);
 client.on('error', err => console.log(err));
 
-const rockClimbing = (location, response) => {
-  // console.log('we are in the function')
-  let apiUrl = 'https://www.mountainproject.com/data/get-routes-for-lat-lon';
+const mountainBiking = (location, response) => {
+  console.log('we are in the mountain biking function')
+  let apiUrl = 'https://www.mtbproject.com/data/get-trails';
   let apiParams = {
     lat: location.lat,
     lon: location.lon,
     maxDistance: 30,
-    key: process.env.CLIMBING_ROUTES_API_KEY
+    key: process.env.MTN_BIKING_API_KEY
   };
   superagent.get(apiUrl, apiParams)
+  // console.log('results', results.body);
     .then(apiData => {
-      let climbingArray = apiData.body.routes.map(oneClimb => {
-        return new Climbs(oneClimb);
+      // console.log(apiData.body.trails)
+      let mtnbikearrary = apiData.body.trails.map(oneBike => {
+        return new MtBikes(oneBike);
       });
       response.status(200).render('results.ejs',
         {
           queryType: queryType,
-          climbResults: climbingArray
+          mtBikeResults: mtnbikearrary
         });
-    })
-    .catch(error => {
+    }) .catch(error => {
       console.error('error', error)
     })
 }
 
-module.exports.rockClimbing = rockClimbing;
+module.exports.mountainBiking = mountainBiking;
 
 // constructor
-function Climbs(obj) {
-  let placeholderImage = './public/images/weekend_warrior_imagenotavailable.png'
-  this.location = obj.location[1] ? obj.location[1] : 'No city available';
+function MtBikes(obj) {
+  this.location = obj.location ? obj.location : 'No city available';
   this.name = obj.name ? obj.name : 'No name available';
   this.type = obj.type ? obj.type : 'No type available';
-  this.pitches = obj.pitches ? obj.pitches : 'No info available';
+  this.difficulty = obj.difficulty ? obj.difficulty : 'No difficulty available';
   this.stars = obj.stars ? obj.stars : 'No rating available';
   this.latitude = obj.latitude ? obj.latitude : 'No info available';
   this.longitude = obj.longitude ? obj.longitude : 'No info available';
-  this.imgMedium = obj.imgMedium ? obj.imgMedium : placeholderImage;
+  this.imgMedium = obj.imgMedium ? obj.imgMedium : 'No image available';
+  this.summary = obj.summary ? obj.summary : 'No description available';
+  this.length = obj.length ? obj.length : 'No length available'
 }
-

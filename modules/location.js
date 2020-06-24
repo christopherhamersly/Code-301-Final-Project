@@ -22,6 +22,9 @@ client.connect();
 const trails = require('./trails.js');
 const camping = require('./camping.js');
 const climbing = require('./rock_climbing.js');
+const mtbiking = require('./mtn_biking.js');
+const snowSports = require('./snow_sports.js');
+const brewery = require('./brewery.js');
 
 const getLocation = (request, response) => {
   //START-CONSOLE-TESTING
@@ -35,8 +38,8 @@ const getLocation = (request, response) => {
   client.query(sqlSelect, sqlSafe)
     .then(sqlData => {
       //START-CONSOLE-TESTING
-      // console.log('sqlData.rows:');
-      // console.log(sqlData.rows);
+      console.log('sqlData.rows:');
+      console.log(sqlData.rows);
       //END-CONSOLE-TESTING
       if (sqlData.rows.length === 0)
       {
@@ -68,8 +71,8 @@ const getLocationFromAPI = (queryType, request, response) => {
   superagent.get(apiURL, apiParams)
     .then(apiData => {
       //START-CONSOLE-TESTING
-      // console.log('apiData.body:');
-      // console.log(apiData.body);
+      console.log('apiData.body:');
+      console.log(apiData.body);
       //END-CONSOLE-TESTING
       let location = new LocationQuery(userName, queryCity, apiData.body[0]);
       saveLocationToDB(queryType, location, response);
@@ -104,19 +107,27 @@ const activityType = (location, queryType, response) => {
   console.log('activityType, queryType:');
   console.log(queryType);
   //END-CONSOLE-TESTING
+  brewery.getBrewery(location, response);
   switch (queryType) {
-  // case 'hiking':
-  //   trails.getTrails(location, response);
-  //   break;
+  case 'hiking':
+    trails.getTrails(location, response);
+    break;
   // case 'climbing':
   //   climbing.rockClimbing(location, response);
   //   break;
   case 'camping':
     camping.getCampgrounds(location, response);
     break;
+  case 'mountainbiking':
+    mtBiking.mountainBiking(location, response);
+    break;
+  case 'snowsports':
+    snowSports.snowSports(location, response);
+    break;
   default:
     response.status(404).send('\'Nuffin here');
   }
+  
 };
 
 module.exports.getLocation = getLocation;

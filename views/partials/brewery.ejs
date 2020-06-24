@@ -1,0 +1,16 @@
+
+
+<h4> Breweries </h4>
+<% console.log(brewery); %>
+<% brewery.forEach(oneBrew => { %>
+  <h5><%= oneBrew.name %></h5>
+  <h5><%= oneBrew.type %></h5>
+  <h5><%= oneBrew.website %></h5>
+
+  <form action ="/favorites.ejs" method = "POST" >
+    <input type="hidden" name="name" value="<%= oneBrew.name  %>"/> 
+    <input type="hidden" name="type" value="<%= oneBrew.type %>"/>
+    <input type="hidden" name="website" value="<%= oneBrew.website %>"/>
+    <button type = "submit"> Add to my favorites </button>
+  </form>
+<% }); %>

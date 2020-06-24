@@ -1,6 +1,5 @@
 'use strict';
 
-//global vars
 const queryType = 'hiking';
 
 //setup
@@ -10,6 +9,7 @@ const app = express();
 const pg = require('pg');
 const superagent = require('superagent');
 const { query } = require('express');
+
 require('ejs');
 require('dotenv').config();
 
@@ -86,8 +86,6 @@ const getTrailsFromAPI = (apiIDsFromCache, location, response) => {
     });
 };
 
-module.exports.getTrails = getTrails;
-
 //constructor
 function Trail(object) {
   let placeholderImage = './public/images/weekend_warrior_imagenotavailable.png'
@@ -105,3 +103,6 @@ function Trail(object) {
   this.conditionStatus = object.conditionStatus ? object.conditionStatus : 'No trail condition available';
   this.stars = object.stars ? object.stars : 'No trail rating available';
 }
+
+module.exports.getTrails = getTrails;
+module.exports.Trail = Trail;
