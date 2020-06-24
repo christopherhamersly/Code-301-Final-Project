@@ -22,8 +22,8 @@ client.connect();
 const trails = require('./trails.js');
 const camping = require('./camping.js');
 const climbing = require('./rock_climbing.js');
-// const mtbiking = require('/mtn_biking.js');
-// const snowSports = require('/snow_sports.js')
+const mtbiking = require('./mtn_biking.js');
+const snowSports = require('./snow_sports.js')
 
 const getLocation = (request, response) => {
   //START-CONSOLE-TESTING
