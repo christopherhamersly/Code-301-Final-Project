@@ -10,7 +10,7 @@ require('dotenv').config();
 
 const PORT = process.env.PORT || 3001;
 
-app.use(express.urlencoded({extended: true}));
+app.use(express.urlencoded({ extended: true }));
 app.set('view engine', 'ejs');
 app.use('/public', express.static('public'));
 
@@ -20,38 +20,44 @@ client.on('error', err => console.log(err));
 const getCampgrounds = (location, response) => {
   console.log('we are in the function')
   let apiUrl = 'https://developer.nps.gov/api/v1/parks';
-  console.log(location)
+  // console.log(location)
   let apiParams = {
     q: location.search_query,
+    limit: 3,
     api_key: process.env.CAMPING_API_KEY
   };
   superagent.get(apiUrl, apiParams)
     .then(apiData => {
       //START-CONSOLE-TESTING
-      console.log(apiData.body);
-      console.log('We are in');
+      // console.log(apiData.body.data);
+      // console.log('We are in');
       //END-CONSOLE-TESTING
-      // let campingArray = apiData.body.map(oneCamp => {
-      //   return new Camp(oneCamp);
-      // });
-      // response.status(200).render('test.ejs', {campResults: campingArray});
-    }) .catch(error => {
+      let campingArray = apiData.body.data.map(oneCamp => {
+        return new Camp(oneCamp);
+      });
+      console.log('this is my campingArray', campingArray);
+      response.status(200).render('test.ejs', { campResults: campingArray });
+    }).catch(error => {
       console.error('error', error)
+
     })
+  // })
 }
 
 module.exports.getCampgrounds = getCampgrounds;
 
-// function Camp (obj) {
-//   this.location = obj.location[1] ? obj.location[1] : 'No city available';
-//   this.name = obj.name ? obj.name : 'No name available';
-//   this.type = obj.type ? obj.type : 'No type available';
-//   this.pitches = obj.pitches ? obj.pitches : 'No info available';
-//   this.stars = obj.stars ? obj.stars : 'No rating available';
-//   this.latitude = obj.latitude ? obj.latitude : 'No info available';
-//   this.longitude = obj.longitude ? obj.longitude : 'No info available';
-//   this.imgMedium = obj.imgMedium ? obj.imgMedium : 'No image available'
-// }
+function Camp(obj) {
+  let placeholderImage = './public/images/weekend_warrior_imagenotavailable.png'
+  this.images = obj.images.url ? obj.images.url : placeholderImage;
+  this.name = obj.name ? obj.name : 'No name available';
+  this.latitude = obj.latitude ? obj.latitude : 'No info available';
+  this.longitude = obj.longitude ? obj.longitude : 'No info available';
+  this.description = obj.description ? obj.description : 'No description available';
+  this.entranceFees = obj.entranceFees ? obj.entranceFees : 'No info available';
+  this.activities = obj.activities ? obj.activities : 'No info available';
+  console.log(' OUR HERRRRE activities', this.entranceFees);
+}
+
 
 // contacts: [Object],
 // states: 'WA',

@@ -1,24 +1,23 @@
 <h4> Camping </h4>
-<% campResults.forEach(value => { %>
-  <img src="<% %>" alt="<% name %>"/>
-<h5>  <%= Name %> </h5>
-<p> <%= Description %> </p>
-<h5> <%= Accessibility %> </h5>
-<h6> <%= Restrooms %> </h6> 
-<h6> <%= Firewood on site? %> </h6>
-<h6> <%= Potable Water %> </h6>
-<h6> <%= Reservations %> </h6>
-<h6> <%= Fees %> </h6>
-<form action ="/favorites.ejs" method = "POST" >
-  <input type="hidden" name="image" value="<% %>"/> 
-  <input type="hidden" name="name" value="<% %>"/>
-  <input type="hidden" name="Description" value="<% %>"/>
-  <input type="hidden" name="Accessibility" value="<% %>"/>
-  <input type="hidden" name="Restrooms" value="<% %>"/>
-  <input type="hidden" name="Firewood on site" value="<% %>"/>
-  <input type="hidden" name="Potable Water" value="<% %>"/>
-  <input type="hidden" name="Reservations" value="<% %>"/>
-  <input type="hidden" name="Fees" value="<% %>"/>
-  <button type = "submit"> Add to my favorites </button>
+<% campResults.forEach(oneCamp => { %>
+
+<img src="<%= oneCamp.images %>" alt="<%= oneCamp.name %>" />
+<h5> <%=oneCamp.name %> </h5>
+<p> <%= oneCamp.description %> </p>
+<% oneCamp.entranceFees.forEach(feeObj => { %>
+<h5> <%= feeObj.description %> </h5>
+<% }) %>
+
+<% oneCamp.activities.forEach(aObj => { %>
+<h6> <%= aObj.name %></h6>
+<% }) %>
+
+<form action="/favorites.ejs" method="POST">
+  <input type="hidden" name="images" value="<%=oneCamp.images %>" />
+  <input type="hidden" name="name" value="<%=oneCamp.name %>" />
+  <input type="hidden" name="description" value="<%=oneCamp.description %>" />
+  <input type="hidden" name="entranceFees" value="<%=oneCamp.entranceFees%>" />
+  <input type="hidden" name="activities" value="<%=oneCamp.activities %>" />
+  <button type="submit"> Add to my favorites </button>
 </form>
 <% }); %>
