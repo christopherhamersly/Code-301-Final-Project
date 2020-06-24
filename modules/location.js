@@ -22,7 +22,7 @@ client.connect();
 const trails = require('./trails.js');
 const camping = require('./camping.js');
 const climbing = require('./rock_climbing.js');
-const mtbiking = require('./mtn_biking.js');
+const mtBiking = require('./mtn_biking.js');
 const snowSports = require('./snow_sports.js')
 
 const getLocation = (request, response) => {
@@ -107,20 +107,20 @@ const activityType = (location, queryType, response) => {
   console.log(queryType);
   //END-CONSOLE-TESTING
   switch (queryType) {
-  // case 'hiking':
-  //   trails.getTrails(location, response);
-  //   break;
-  // case 'climbing':
-  //   climbing.rockClimbing(location, response);
-  //   break;
+  case 'hiking':
+    trails.getTrails(location, response);
+    break;
+  case 'climbing':
+    climbing.rockClimbing(location, response);
+    break;
   case 'camping':
     camping.getCampgrounds(location, response);
     break;
   case 'mountainbiking':
-    mtbiking.mountainBiking(location, response);
+    mtBiking.mountainBiking(location, response);
     break;
   case 'snowsports':
-    snowSports.getSnowSports(location, response);
+    snowSports.snowSports(location, response);
     break;
   default:
     response.status(404).send('\'Nuffin here');

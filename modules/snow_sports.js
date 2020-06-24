@@ -1,5 +1,7 @@
 'use strict';
 
+const queryType = 'snowsports';
+
 const express = require('express');
 const app = express();
 
@@ -17,7 +19,7 @@ app.use('/public', express.static('public'));
 const client = new pg.Client(process.env.DATABASE_URL);
 client.on('error', err => console.log(err));
 
-const getSnowSports = (location, response) => {
+const snowSports = (location, response) => {
   // console.log('we are in the function')
   let apiUrl = 'https://www.powderproject.com/data/get-trails';
   let apiParams = {
@@ -26,32 +28,38 @@ const getSnowSports = (location, response) => {
     maxDistance: 30,
     key: process.env.POWDER_PROJECT_API_KEY
   };
-  console.log('results', results.body);
-  // superagent.get(apiUrl, apiParams)
-  //   .then(apiData => {
-  //     //START-CONSOLE-TESTING
-  //     // console.log(apiData.body.routes)
-  //     // console.log('We are in');
-  //     //END-CONSOLE-TESTING
-  //     let snowSportsArray = apiData.body.routes.map(oneSnowSport => {
-  //       return new SnowSports(oneSnowSport);
-  //     });
-  //     response.status(200).render('results.ejs', {snowSportsResults: snowSportsArray});
-  //   }) .catch(error => {
-  //     console.error('error', error)
-  //   })
+  console.log('made it into the snow sports')
+  superagent.get(apiUrl, apiParams)
+    .then(apiData => {
+      //START-CONSOLE-TESTING
+       console.log(apiData)
+      // console.log('We are in');
+      //     //END-CONSOLE-TESTING
+      let snowSportsArray = apiData.body.trails.map(oneSnowSport => {
+        return new SnowSports(oneSnowSport);
+      });
+      console.log(snowSportsArray,'snow sports array');
+      response.status(200).render('results.ejs',
+        {
+          queryType: queryType,
+          snowSportsResults: snowSportsArray
+        });
+    }) .catch(error => {
+      console.error('error', error)
+    })
 }
 
-module.exports.snowSports = getSnowSports;
 
-// // constructor
-// function SnowSports(obj) {
-//   this.location = obj.location[1] ? obj.location[1] : 'No city available';
-//   this.name = obj.name ? obj.name : 'No name available';
-//   this.type = obj.type ? obj.type : 'No type available';
-//   this.pitches = obj.pitches ? obj.pitches : 'No info available';
-//   this.stars = obj.stars ? obj.stars : 'No rating available';
-//   this.latitude = obj.latitude ? obj.latitude : 'No info available';
-//   this.longitude = obj.longitude ? obj.longitude : 'No info available';
-//   this.imgMedium = obj.imgMedium ? obj.imgMedium : 'No image available'
-// }
+module.exports.snowSports = snowSports;
+
+// constructor
+function SnowSports(obj) {
+  this.location = obj.location ? obj.location : 'No city available';
+  this.name = obj.name ? obj.name : 'No name available';
+  this.type = obj.type ? obj.type : 'No type available';
+  this.pitches = obj.difficulty ? obj.difficulty : 'No info available';
+  this.stars = obj.stars ? obj.stars : 'No rating available';
+  this.latitude = obj.latitude ? obj.latitude : 'No info available';
+  this.longitude = obj.longitude ? obj.longitude : 'No info available';
+  this.imgMedium = obj.imgMedium ? obj.imgMedium : 'No image available'
+}

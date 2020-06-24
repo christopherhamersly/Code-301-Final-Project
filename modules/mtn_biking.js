@@ -1,4 +1,5 @@
 'use strict';
+const queryType = 'mountainbiking';
 
 const express = require('express');
 const app = express();
@@ -18,7 +19,7 @@ const client = new pg.Client(process.env.DATABASE_URL);
 client.on('error', err => console.log(err));
 
 const mountainBiking = (location, response) => {
-  // console.log('we are in the function')
+  console.log('we are in the mountain biking function')
   let apiUrl = 'https://www.mtbproject.com/data/get-trails';
   let apiParams = {
     lat: location.lat,
@@ -26,32 +27,35 @@ const mountainBiking = (location, response) => {
     maxDistance: 30,
     key: process.env.MTN_BIKING_API_KEY
   };
-  console.log('results', results.body);
-  // superagent.get(apiUrl, apiParams)
-  //   .then(apiData => {
-  //     //START-CONSOLE-TESTING
-  //     // console.log(apiData.body.routes)
-  //     // console.log('We are in');
-  //     //END-CONSOLE-TESTING
-  //     let mtnbikearrary = apiData.body.routes.map(oneBike => {
-  //       return new mtBikes(oneBike);
-  //     });
-  //     response.status(200).render('results.ejs', {mtBikeResults: mtnbikearray});
-  //   }) .catch(error => {
-  //     console.error('error', error)
-  //   })
+  superagent.get(apiUrl, apiParams)
+  // console.log('results', results.body);
+    .then(apiData => {
+      // console.log(apiData.body.trails)
+      let mtnbikearrary = apiData.body.trails.map(oneBike => {
+        return new MtBikes(oneBike);
+      });
+      response.status(200).render('results.ejs',
+        {
+          queryType: queryType,
+          mtBikeResults: mtnbikearrary
+        });
+    }) .catch(error => {
+      console.error('error', error)
+    })
 }
 
-module.exports.mtnBiking = mountainBiking;
+module.exports.mountainBiking = mountainBiking;
 
-// // constructor
-// function mtBikes(obj) {
-//   this.location = obj.location[1] ? obj.location[1] : 'No city available';
-//   this.name = obj.name ? obj.name : 'No name available';
-//   this.type = obj.type ? obj.type : 'No type available';
-//   this.pitches = obj.pitches ? obj.pitches : 'No info available';
-//   this.stars = obj.stars ? obj.stars : 'No rating available';
-//   this.latitude = obj.latitude ? obj.latitude : 'No info available';
-//   this.longitude = obj.longitude ? obj.longitude : 'No info available';
-//   this.imgMedium = obj.imgMedium ? obj.imgMedium : 'No image available'
-// }
+// constructor
+function MtBikes(obj) {
+  this.location = obj.location ? obj.location : 'No city available';
+  this.name = obj.name ? obj.name : 'No name available';
+  this.type = obj.type ? obj.type : 'No type available';
+  this.difficulty = obj.difficulty ? obj.difficulty : 'No difficulty available';
+  this.stars = obj.stars ? obj.stars : 'No rating available';
+  this.latitude = obj.latitude ? obj.latitude : 'No info available';
+  this.longitude = obj.longitude ? obj.longitude : 'No info available';
+  this.imgMedium = obj.imgMedium ? obj.imgMedium : 'No image available';
+  this.summary = obj.summary ? obj.summary : 'No description available';
+  this.length = obj.length ? obj.length : 'No length available'
+}
