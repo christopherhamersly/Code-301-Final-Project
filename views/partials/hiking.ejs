@@ -9,7 +9,7 @@
     <h6> <%= oneTrail.difficulty %> </h6>
     <h6> <%= oneTrail.conditionStatus %> </h6>
     <h7> <%= oneTrail.stars %> </h7>
-    <form action="/favorites" method="POST" >
+    <form action="/location" method="POST" class="add-favorite">
       <input type="hidden" name="api_id" value=<%= oneTrail.api_id %> />
       <input type="hidden" name="image" value="<%= oneTrail.img_medium %>"/> 
       <input type="hidden" name="name" value="<%= oneTrail.name %>"/>
@@ -19,7 +19,17 @@
       <input type="hidden" name="difficulty" value="<%= oneTrail.difficulty %>"/>
       <input type="hidden" name="conditionStatus" value="<%= oneTrail.conditionStatus %>"/>
       <input type="hidden" name="stars" value="<%= oneTrail.stars %>"/>
-      <button type="submit"> Add to my favorites </button>
+      <% if (oneTrail.cached) { %>
+        <a href="/favorites">Link to Favorites</a>
+      <% } else { %>
+        <button type="submit" class="add-favorite">Add to my favorites </button>
+        <!-- <script>
+          console.log('Script loading for <%= oneTrail.api_id %>');
+          $('section#<%= oneTrail.api_id %> form').on('submit', function() {
+            $('section#<%= oneTrail.api_id %> button').replaceWith('<a href="/favorites">Link to Favorites</a>');
+          });
+        </script> -->
+      <% } %>
     </form>
   </section>
   <% }); %>

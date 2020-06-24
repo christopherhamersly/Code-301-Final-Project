@@ -35,8 +35,8 @@ const getLocation = (request, response) => {
   client.query(sqlSelect, sqlSafe)
     .then(sqlData => {
       //START-CONSOLE-TESTING
-      // console.log('sqlData.rows:');
-      // console.log(sqlData.rows);
+      console.log('sqlData.rows:');
+      console.log(sqlData.rows);
       //END-CONSOLE-TESTING
       if (sqlData.rows.length === 0)
       {
@@ -68,8 +68,8 @@ const getLocationFromAPI = (queryType, request, response) => {
   superagent.get(apiURL, apiParams)
     .then(apiData => {
       //START-CONSOLE-TESTING
-      // console.log('apiData.body:');
-      // console.log(apiData.body);
+      console.log('apiData.body:');
+      console.log(apiData.body);
       //END-CONSOLE-TESTING
       let location = new LocationQuery(userName, queryCity, apiData.body[0]);
       saveLocationToDB(queryType, location, response);

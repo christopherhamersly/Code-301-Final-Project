@@ -29,10 +29,11 @@ app.route('/')
   .get(search.searchPage);
 
 app.route('/location')
+  .post((request, response) => favorites.saveTrail(request, response))
   .get((request, response) => location.getLocation(request, response));
 
 app.route('/favorites')
-  .post((request, response) => favorites.saveTrail(request, response));
+  .get((request, response) => favorites.showFavorites(request, response));
 
 // app.route('/climbing')
 // console.log('hello')

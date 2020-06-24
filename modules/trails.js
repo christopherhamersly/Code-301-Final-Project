@@ -1,6 +1,5 @@
 'use strict';
 
-//global vars
 const queryType = 'hiking';
 
 //setup
@@ -10,6 +9,7 @@ const app = express();
 const pg = require('pg');
 const superagent = require('superagent');
 const { query } = require('express');
+
 require('ejs');
 require('dotenv').config();
 
