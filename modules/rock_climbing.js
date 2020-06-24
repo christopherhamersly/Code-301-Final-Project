@@ -45,6 +45,7 @@ module.exports.rockClimbing = rockClimbing;
 
 // constructor
 function Climbs(obj) {
+  let placeholderImage = './public/images/weekend_warrior_imagenotavailable.png'
   this.location = obj.location[1] ? obj.location[1] : 'No city available';
   this.name = obj.name ? obj.name : 'No name available';
   this.type = obj.type ? obj.type : 'No type available';
@@ -52,6 +53,6 @@ function Climbs(obj) {
   this.stars = obj.stars ? obj.stars : 'No rating available';
   this.latitude = obj.latitude ? obj.latitude : 'No info available';
   this.longitude = obj.longitude ? obj.longitude : 'No info available';
-  this.imgMedium = obj.imgMedium ? obj.imgMedium : 'No image available'
+  this.imgMedium = obj.imgMedium ? obj.imgMedium : placeholderImage;
 }
 

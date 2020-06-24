@@ -26,3 +26,33 @@ CREATE TABLE trails (
   "conditionstatus" VARCHAR(255),
   "stars" DECIMAL(2,1)
 );
+
+DROP TABLE IF EXISTS camping; 
+
+
+CREATE TABLE camping(
+"id" SERIAL PRIMARY KEY,
+"api_id" INT,
+"images" VARCHAR(255),
+"name" VARCHAR(255),
+"latitude" DECIMAL(12, 9),
+"longitude" DECIMAL(12, 9),
+"description" VARCHAR(10000),
+"entranceFees" VARCHAR(10000),
+"activities"VARCHAR(10000)
+);
+
+DROP TABLE IF EXISTS climbing;
+
+CREATE TABLE climbing(
+  "id" SERIAL PRIMARY KEY,
+  "api_id" INT,
+  "location" VARCHAR(255),
+  "name" VARCHAR(255),
+  "type" VARCHAR(255),
+  "pitches" VARCHAR(255),
+  "stars" VARCHAR(255),
+  "latitude" DECIMAL(12, 9),
+  "longitude" DECIMAL(12, 9),
+  "imgMedium" VARCHAR(255)
+);
