@@ -20,10 +20,6 @@ client.on('error', err => console.log(err));
 const search = require('./modules/index.js');
 const location = require('./modules/location.js');
 const favorites = require('./modules/favorites.js');
-// const trails = require('./modules/trails.js');
-const camping = require('./modules/camping.js');
-// const climbing = require('./modules/rock_climbing.js');
-
 
 app.route('/')
   .get(search.searchPage);
@@ -34,17 +30,6 @@ app.route('/location')
 
 app.route('/favorites')
   .get((request, response) => favorites.showFavorites(request, response));
-
-// app.route('/climbing')
-// console.log('hello')
-// .post((request, response) => climbing.rockClimbing(request, response));
-
-app.route('/test')
-console.log('we are camping')
-  // .post((request, response) => camping.getCampgrounds(request, response));
-
-app.route('/mountainbiking')
-console.log('we are mountain biking')
 
 client.connect()
   .then(() => {
