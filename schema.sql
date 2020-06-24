@@ -73,3 +73,17 @@ CREATE TABLE climbing(
   "longitude" DECIMAL(12, 9),
   "imgMedium" VARCHAR(255)
 );
+
+DROP TABLE IF EXISTS biking;
+
+CREATE TABLE biking(
+"id" SERIAL PRIMARY KEY,
+"api_id" INT, 
+"location" VARCHAR(255),
+"name" VARCHAR(255),
+"length" VARCHAR(255),
+"summary" VARCHAR(10000),
+"difficulty" VARCHAR(255),
+"stars" VARCHAR(255)
+);
+
