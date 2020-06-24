@@ -1,4 +1,5 @@
 'use strict';
+const queryType = 'climbing';
 
 const express = require('express');
 const app = express();
@@ -28,15 +29,16 @@ const rockClimbing = (location, response) => {
   };
   superagent.get(apiUrl, apiParams)
     .then(apiData => {
-      //START-CONSOLE-TESTING
-      // console.log(apiData.body.routes)
-      // console.log('We are in');
-      //END-CONSOLE-TESTING
       let climbingArray = apiData.body.routes.map(oneClimb => {
         return new Climbs(oneClimb);
       });
-      response.status(200).render('results.ejs', {climbResults: climbingArray});
-    }) .catch(error => {
+      response.status(200).render('results.ejs',
+        {
+          queryType: queryType,
+          climbResults: climbingArray
+        });
+    })
+    .catch(error => {
       console.error('error', error)
     })
 }
