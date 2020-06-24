@@ -1,6 +1,8 @@
 <%- include('./partials/header.ejs') %>
 <h3>Your weekend suggestions</h3>
 
+
+
 <% if (queryType == 'hiking') { %>
   <%- include('./partials/hiking.ejs') %>
 <% } else if (queryType == 'climbing') {  %>
@@ -12,6 +14,15 @@
 <% } else if (queryType == 'snowsports') { %>
   <%- include('./partials/snowsports.ejs') %>
 <% } %>
+
+
+
+
+
+
+
+
+<%- include('./partials/brewery.ejs') %>
 
 
 
