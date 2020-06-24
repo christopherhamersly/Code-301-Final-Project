@@ -26,6 +26,3 @@ CREATE TABLE trails (
   "conditionstatus" VARCHAR(255),
   "stars" DECIMAL(2,1)
 );
-
-
-
