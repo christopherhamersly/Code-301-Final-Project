@@ -49,3 +49,27 @@ client.connect()
     })
   });
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+app.get('/test', testCss);
+
+function testCss(request, response){
+  response.status(200).render('bio.ejs');
+}
