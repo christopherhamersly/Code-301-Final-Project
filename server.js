@@ -43,6 +43,9 @@ app.route('/test')
 console.log('we are camping')
   // .post((request, response) => camping.getCampgrounds(request, response));
 
+app.route('/mountainbiking')
+console.log('we are mountain biking')
+
 client.connect()
   .then(() => {
     app.listen(PORT, () => {
