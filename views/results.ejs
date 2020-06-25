@@ -1,10 +1,10 @@
 
 
 <%- include('./partials/header.ejs') %>
-<div id="resultsPage">
+<div id="suggestions">
 <h3 id="resultsHead">Your Weekend Suggestions</h3>
-<%- include('./partials/music_button') %>
-
+</div>
+<div id="resultsPage">
 
 <% if (queryType == 'hiking') { %>
   <%- include('./partials/hiking.ejs') %>
@@ -20,7 +20,7 @@
 <% } %>
 
 
-
+</div>
 
 
 

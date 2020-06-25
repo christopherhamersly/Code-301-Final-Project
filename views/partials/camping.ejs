@@ -1,7 +1,7 @@
 
-<h4> Camping </h4>
+<h4 class="activity"> Camping </h4>
 <% campResults.forEach(oneCamp => { %>
-
+<div class="results"></div>
   <section id="<%= oneCamp.api_id %>">
     <img src="<%= oneCamp.images %>" alt="<%= oneCamp.name %>" />
     <h5> <%=oneCamp.name %> </h5>
@@ -12,6 +12,7 @@
     <% oneCamp.activities.forEach(aObj => { %>
       <h6> <%= aObj.name %></h6>
     <% }); %>
+  </section>
     <form action="/favorites" method="POST">
       <input type="hidden" name="table_name" value="camping" />
       <input type="hidden" name="api_id" value="<%=oneCamp.api_id %>" />
@@ -27,5 +28,6 @@
       <% } %>
     </form>
   </section>
+</div>
 <% }); %>
 

@@ -1,5 +1,7 @@
-<h4> Mountain Biking </h4>
+
+<h4 class="activity"> Mountain Biking </h4>
 <% mtBikeResults.forEach(oneBike => { %>
+  <div class="results">
   <img src="<%= oneBike.imgMedium %>" alt="<%= oneBike.name %>"/>
   <h5> <%= oneBike.location %> </h5>
   <h5> <%= oneBike.name %> </h5>
@@ -7,17 +9,15 @@
   <h5> <%= oneBike.summary %></h5>
   <h6> <%= oneBike.difficulty %> </h6>
   <h6> <%= oneBike.stars %> stars </h6>
-
-<form action ="/favorites.ejs" method = "POST" >
-  <input type="hidden" name="image" value="<%= oneBike.imgMedium  %>"/> 
-  <input type="hidden" name="location" value="<%= oneBike.location %>"/>
-  <input type="hidden" name="name" value="<%= oneBike.name %>"/>
-  <input type="hidden" name="type" value="<%= oneBike.description %>"/>
-  <input type="hidden" name="difficulty" value="<%= oneBike.difficulty %>"/>
-  <input type="hidden" name="Stars" value="<%= oneBike.stars %>"/>
-  <button type = "submit"> Add to my favorites </button>
-</form>
+  <form action ="/favorites.ejs" method = "POST" >
+    <input type="hidden" name="image" value="<%= oneBike.imgMedium  %>"/> 
+    <input type="hidden" name="location" value="<%= oneBike.location %>"/>
+    <input type="hidden" name="name" value="<%= oneBike.name %>"/>
+    <input type="hidden" name="type" value="<%= oneBike.description %>"/>
+    <input type="hidden" name="difficulty" value="<%= oneBike.difficulty %>"/>
+    <input type="hidden" name="Stars" value="<%= oneBike.stars %>"/>
+    <button type = "submit"> Add to my favorites </button>
+  </form>
+</div>
 <% }); %>
-
-
 

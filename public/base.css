@@ -1,5 +1,9 @@
-body {
+/* body {
   background-color: #175676;
+} */
+
+* {
+  box-sizing: border-box;
 }
 
 /* app.get('/test', testCss);
