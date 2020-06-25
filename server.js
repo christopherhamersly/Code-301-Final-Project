@@ -43,6 +43,10 @@ app.route('/favorites/:api_id')
 app.route('/music')
   .get((request, response) => music.getTunes(request, response));
 
+app.get('/bio', (request, response) => {
+  response.status(200).render('./bio.ejs')
+});
+
 client.connect()
   .then(() => {
     app.listen(PORT, () => {

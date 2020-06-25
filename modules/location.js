@@ -25,12 +25,8 @@ const climbing = require('./rock_climbing.js');
 const mtbiking = require('./mtn_biking.js');
 const snowSports = require('./snow_sports.js');
 // const brewery = require('./brewery.js');
-<<<<<<< HEAD
-// const two = require('./testit.js');
-=======
 // const getTrailsandBrewery = require('./test.js')
 
->>>>>>> 45b546aeb3e402fb52aeb9f2a442d3ca29c8cdcc
 
 const getLocation = (request, response) => {
   //START-CONSOLE-TESTING
