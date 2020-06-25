@@ -31,7 +31,7 @@ const getBrewery = (location, response) => {
         return new Brewery(oneBrew);
       });
       // console.log('Brew Array', brewArray);
-      response.status(200).render('results.ejs',
+      // response.status(200).render('results.ejs',
         {brewery: brewArray});
     }).catch(error => {
       console.error('error', error)

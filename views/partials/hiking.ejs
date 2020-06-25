@@ -1,4 +1,10 @@
 <h4> Hiking </h4>
+<form value="./music" method="GET">
+  <button type="submit">Get Local Music</button>
+  <form value="./music" method="GET">
+    <button type="submit">Get Local Music</button>
+  </form>
+</form>
 <% trailResults.forEach(oneTrail => { %>
   <section id="<%= oneTrail.api_id %>">
     <img src="<%= oneTrail.img_medium %>" alt="<% oneTrail.name %>"/>
@@ -26,12 +32,6 @@
         <a href="/favorites">Link to Favorites</a>
       <% } else { %>
         <button type="submit" class="add-favorite">Add to my favorites </button>
-        <!-- <script>
-          console.log('Script loading for <%= oneTrail.api_id %>');
-          $('section#<%= oneTrail.api_id %> form').on('submit', function() {
-            $('section#<%= oneTrail.api_id %> button').replaceWith('<a href="/favorites">Link to Favorites</a>');
-          });
-        </script> -->
       <% } %>
     </form>
   </section>
