@@ -25,6 +25,7 @@ const climbing = require('./rock_climbing.js');
 const mtbiking = require('./mtn_biking.js');
 const snowSports = require('./snow_sports.js');
 // const brewery = require('./brewery.js');
+// const two = require('./testit.js');
 
 const getLocation = (request, response) => {
   //START-CONSOLE-TESTING

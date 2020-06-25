@@ -1,0 +1,53 @@
+<h4> Hiking </h4>
+<% trailResults.forEach(oneTrail => { %>
+  <section id="<%= oneTrail.api_id %>">
+    <img src="<%= oneTrail.img_medium %>" alt="<% oneTrail.name %>"/>
+    <h5> <%= oneTrail.name %> </h5>
+    <h5> Trail Length: <%= oneTrail.length %> miles. </h5>
+    <h5> Ascent: <%= oneTrail.ascent %> miles.</h5>
+    <p>Trail Summary: <%= oneTrail.summary %> </p>
+    <h6>Difficulty Raining: <%= oneTrail.difficulty %> </h6>
+    <h6>Condition Status: <%= oneTrail.conditionStatus %> </h6>
+    <h7> Star Rating: <%= oneTrail.stars %> </h7>
+    <form action="/favorites" method="POST">
+      <input type="hidden" name="api_id" value=<%= oneTrail.api_id %> />
+      <input type="hidden" name="name" value="<%= oneTrail.name %>"/>
+      <input type="hidden" name="summary" value="<%= oneTrail.summary %>"/>
+      <input type="hidden" name="img_medium" value="<%= oneTrail.img_medium %>"/>
+      <input type="hidden" name="latitude" value="<%= oneTrail.latitude %>"/>
+      <input type="hidden" name="longitude" value="<%= oneTrail.longitude %>"/>
+      <input type="hidden" name="length" value="<%= oneTrail.length %>"/>
+      <input type="hidden" name="ascent" value="<%= oneTrail.ascent %>"/>
+      <input type="hidden" name="high" value="<%= oneTrail.high %>"/>
+      <input type="hidden" name="difficulty" value="<%= oneTrail.difficulty %>"/>
+      <input type="hidden" name="conditionStatus" value="<%= oneTrail.conditionStatus %>"/>
+      <input type="hidden" name="stars" value="<%= oneTrail.stars %>"/>
+      <% if (oneTrail.cached) { %>
+        <a href="/favorites">Link to Favorites</a>
+      <% } else { %>
+        <button type="submit" class="add-favorite">Add to my favorites </button>
+        <!-- <script>
+          console.log('Script loading for <%= oneTrail.api_id %>');
+          $('section#<%= oneTrail.api_id %> form').on('submit', function() {
+            $('section#<%= oneTrail.api_id %> button').replaceWith('<a href="/favorites">Link to Favorites</a>');
+          });
+        </script> -->
+      <% } %>
+    </form>
+  </section>
+  <% }); %>
+
+  <h4> Breweries </h4>
+<% console.log(brewery); %>
+<% brewery.forEach(oneBrew => { %>
+  <h5><%= oneBrew.name %></h5>
+  <h5><%= oneBrew.type %></h5>
+  <h5><%= oneBrew.website %></h5>
+
+  <form action ="/favorites.ejs" method = "POST" >
+    <input type="hidden" name="name" value="<%= oneBrew.name  %>"/> 
+    <input type="hidden" name="type" value="<%= oneBrew.type %>"/>
+    <input type="hidden" name="website" value="<%= oneBrew.website %>"/>
+    <button type = "submit"> Add to my favorites </button>
+  </form>
+<% }); %>
