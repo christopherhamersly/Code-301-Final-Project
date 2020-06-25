@@ -25,6 +25,8 @@ const climbing = require('./rock_climbing.js');
 const mtbiking = require('./mtn_biking.js');
 const snowSports = require('./snow_sports.js');
 // const brewery = require('./brewery.js');
+// const getTrailsandBrewery = require('./test.js')
+
 
 const getLocation = (request, response) => {
   //START-CONSOLE-TESTING
@@ -112,14 +114,14 @@ const activityType = (location, queryType, response) => {
   case 'hiking':
     trails.getTrails(location, response);
     break;
-  // case 'climbing':
-  //   climbing.rockClimbing(location, response);
-  //   break;
+  case 'climbing':
+    climbing.rockClimbing(location, response);
+    break;
   case 'camping':
     camping.getCampgrounds(location, response);
     break;
   case 'mountainbiking':
-    mtBiking.mountainBiking(location, response);
+    mtbiking.mountainBiking(location, response);
     break;
   case 'snowsports':
     snowSports.snowSports(location, response);
