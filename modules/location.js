@@ -122,6 +122,7 @@ const activityType = (location, queryType, response) => {
     break;
   case 'mountainbiking':
     mtbiking.mountainBiking(location, response);
+
     break;
   case 'snowsports':
     snowSports.snowSports(location, response);
@@ -129,7 +130,6 @@ const activityType = (location, queryType, response) => {
   default:
     response.status(404).send('\'Nuffin here');
   }
-  
 };
 
 module.exports.getLocation = getLocation;

@@ -19,96 +19,90 @@ client.on('error', err => console.log(err));
 
 client.connect();
 
-const trails = require('./trails.js');
-
-const saveTrail = (request, response) => {
+const saveActivity = (request, response) => {
   //START-CONSOLE-TESTING
-  console.log('saveTrail, request:');
+  console.log('saveTrail, request.body:');
   console.log(request.body);
   //END-CONSOLE-TESTING
-  let sqlSelect = 'SELECT api_id FROM trails WHERE api_id = ($1);';
+  let sqlSelect = `SELECT api_id FROM ${request.body.table_name} WHERE api_id = ($1);`;
   let sqlSafe = [request.body.api_id];
   client.query(sqlSelect, sqlSafe)
     .then(sqlData => {
       //START-CONSOLE-TESTING
-      console.log('sqlData.rows:');
-      console.log(sqlData.rows);
+      // console.log('sqlData.rows:');
+      // console.log(sqlData.rows);
       //END-CONSOLE-TESTING
       if (sqlData.rows.length === 0)
       {
-        addTrailToDB(request, response);
+        addActivityToDB(request, response);
       }
       //START-CONSOLE-TESTING
       else
       {
-        console.log('Trail already saved to favorites');
+        console.log('Activity already saved to favorites');
       }
       //END-CONSOLE-TESTING
     })
     .catch(error => {
-      console.error('Error checking cache for trail before saving');
+      console.error('Error checking cache for activity before saving');
       console.error(error);
     });
 }
 
-const addTrailToDB = (request, response) => {
+const addActivityToDB = (request, response) => {
   //START-CONSOLE-TESTING
-  console.log('addToFavorites, request.body:');
+  console.log('addActivityToDB, request.body:');
   console.log(request.body);
   //END-CONSOLE-TESTING
-  let sqlInsert = 'INSERT INTO trails (api_id, name, summary, img_medium, latitude, longitude, length, ascent, high, difficulty, conditionStatus, stars) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12);';
-  let {
-    api_id,
-    name,
-    summary,
-    img_medium,
-    latitude,
-    longitude,
-    length,
-    ascent,
-    high,
-    difficulty,
-    conditionStatus,
-    stars
-  } = request.body;
-  let sqlSafe = [api_id, name, summary, img_medium, latitude, longitude, length, ascent, high, difficulty, conditionStatus, stars];
+  let tableName = request.body.table_name;
+  let sqlInsert = getSQLInsertQuery(tableName);
+  let sqlSafe = getSQLSafeValues(tableName, request);
+  //START-CONSOLE-TESTING
+  console.log('SQL insert and safe values:');
+  console.log(sqlInsert);
+  console.log(sqlSafe);
+  //END-CONSOLE-TESTING
   client.query(sqlInsert, sqlSafe)
     .then(() => {
       //START-CONSOLE-TESTING
-      console.log('Inserted trail into DB');
+      console.log('Inserted activity into DB');
       //END-CONSOLE-TESTING
       let requestPath = request.headers.referer.replace(request.headers.origin, '');
-      response.redirect(`${requestPath}#${api_id}`);
+      //START-CONSOLE-TESTING
+      console.log('requestPath:');
+      console.log(requestPath);
+      //END-CONSOLE-TESTING
+      response.redirect(`${requestPath}#${request.body.api_id}`);
     })
     .catch(error => {
-      console.error('Error inserting trail into cache');
+      console.error('Error inserting activity into cache');
       console.error(error);
     });
 };
 
 const showFavorites = (request, response) => {
-  let sqlSelect = 'SELECT * FROM trails;';
-  client.query(sqlSelect)
+  let sqlTrailsSelect = 'SELECT * FROM trails ORDER BY id;';
+  let sqlCampingSelect = 'SELECT * FROM camping ORDER BY id;';
+  let sqlClimbingSelect = 'SELECT * FROM climbing ORDER BY id;';
+  client.query(sqlTrailsSelect.concat(sqlCampingSelect, sqlClimbingSelect))
     .then(sqlData => {
+      let renderObject = {
+        trailData: sqlData[0].rows,
+        campingData: sqlData[1].rows,
+        climbingData: sqlData[2].rows
+      };
       //START-CONSOLE-TESTING
-      console.log('showFavorites, sqlData.rows:');
-      console.log(sqlData.rows);
-      //END-CONSOLE-TESTING
-      // sqlData.rows = sqlData.rows.map(oneCachedTrail => {
-      //   oneCachedTrail.id = oneCachedTrail.api_id;
-      //   oneCachedTrail.imgMedium = oneCachedTrail.img_medium;
-      //   return oneCachedTrail;
+      // console.log('showFavorites, sqlData.rows:');
+      // sqlData.forEach(oneResult => {
+      //   console.log('oneResult.rows:');
+      //   console.log(oneResult.rows);
       // });
-      // let favoriteTrails = sqlData.rows.map(oneCachedTrail => {
-      //   return new trails.Trail(oneCachedTrail);
-      // });
-      //START-CONSOLE-TESTING
-      // console.log('favoriteTrails:');
-      // console.log(favoriteTrails);
-      console.log('right before rendering favorites.ejs, sqlData.rows:');
-      console.log(sqlData.rows);
+      // console.log('renderObject:');
+      // console.log(renderObject);
+      console.log('showFavorites, renderObject.climbingData:');
+      console.log(renderObject.climbingData);
       //END-CONSOLE-TESTING
-      response.render('favorites.ejs', {trailResults: sqlData.rows});
+      response.status(200).render('favorites.ejs', renderObject);
     })
     .catch(error => {
       console.error('Error getting favorites from cache');
@@ -118,14 +112,16 @@ const showFavorites = (request, response) => {
 
 const updateNote = (request, response) => {
   //START-CONSOLE-TESTING
-  console.log('updateNote. request.body:');
+  console.log('updateNote. request.body, request.params:');
   console.log(request.body);
+  console.log(request.params);
   //END-CONSOLE-TESTING
-  let sqlUpdate = 'UPDATE trails SET notes = ($1);';
-  let sqlSafe = [request.body.notes];
+  let sqlUpdate = `UPDATE ${request.body.table_name} SET notes= ($1) WHERE api_id = ($2);`;
+  let sqlSafe = [request.body.notes, request.params.api_id];
   client.query(sqlUpdate, sqlSafe)
     .then(() => {
-      response.redirect('/favorites');
+      let requestPath = request.headers.referer.replace(request.headers.origin, '');
+      response.redirect(`${requestPath}#${request.params.api_id}`);
     })
     .catch(error => {
       console.error('Error updating notes in cache');
@@ -135,10 +131,11 @@ const updateNote = (request, response) => {
 
 const deleteFavorite = (request, response) => {
   //START-CONSOLE-TESTING
-  // console.log('deleteFavorite. request.params:');
-  // console.log(request.params);
+  console.log('deleteFavorite, request.body, request.params:');
+  console.log(request.body);
+  console.log(request.params);
   //END-CONSOLE-TESTING
-  let sqlDelete = 'DELETE FROM trails WHERE api_id = ($1);';
+  let sqlDelete = `DELETE FROM ${request.body.table_name} WHERE api_id = ($1);`;
   let sqlSafe = [request.params.api_id];
   client.query(sqlDelete, sqlSafe)
     .then(() => {
@@ -150,7 +147,79 @@ const deleteFavorite = (request, response) => {
     });
 }
 
-module.exports.saveTrail = saveTrail;
+//helper functions
+const getSQLInsertQuery = (tableName) => {
+  let sqlInsert;
+  switch (tableName) {
+  case 'trails':
+    sqlInsert = 'INSERT INTO trails (api_id, name, summary, img_medium, latitude, longitude, length, ascent, high, difficulty, conditionStatus, stars) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12);';
+    return sqlInsert;
+  case 'camping':
+    sqlInsert = 'INSERT INTO camping (api_id, image, name, latitude, longitude, description, entrance_fees, activities) VALUES ($1, $2, $3, $4, $5, $6, $7, $8);';
+    return sqlInsert;
+  case 'climbing':
+    sqlInsert = 'INSERT INTO climbing (api_id, location, name, type, pitches, stars, latitude, longitude, img_medium) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9);';
+    return sqlInsert;
+  }
+};
+
+const getSQLSafeValues = (tableName, request) => {
+  let sqlSafeValues;
+  switch (tableName) {
+  case 'trails':
+  {
+    let {
+      api_id,
+      name,
+      summary,
+      img_medium,
+      latitude,
+      longitude,
+      length,
+      ascent,
+      high,
+      difficulty,
+      conditionStatus,
+      stars
+    } = request.body;
+    sqlSafeValues = [api_id, name, summary, img_medium, latitude, longitude, length, ascent, high, difficulty, conditionStatus, stars];
+    return sqlSafeValues;
+  }
+  case 'camping':
+  {
+    let {
+      api_id,
+      image,
+      name,
+      latitude,
+      longitude,
+      description,
+      entrance_fees,
+      activities
+    } = request.body;
+    sqlSafeValues = [api_id, image, name, latitude, longitude, description, entrance_fees, activities];
+    return sqlSafeValues;
+  }
+  case 'climbing':
+  {
+    let {
+      api_id,
+      location,
+      name,
+      type,
+      pitches,
+      stars,
+      latitude,
+      longitude,
+      img_medium
+    } = request.body;
+    sqlSafeValues = [api_id, location, name, type, pitches, stars, latitude, longitude, img_medium];
+    return sqlSafeValues;
+  }
+  }
+};
+
+module.exports.saveActivity = saveActivity;
 module.exports.showFavorites = showFavorites;
 module.exports.updateNote = updateNote;
 module.exports.deleteFavorite = deleteFavorite;

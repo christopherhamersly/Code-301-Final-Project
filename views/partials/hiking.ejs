@@ -11,6 +11,7 @@
     <h6>Condition Status: <%= oneTrail.conditionStatus %> </h6>
     <h7> Star Rating: <%= oneTrail.stars %> </h7>
     <form action="/favorites" method="POST">
+      <input type="hidden" name="table_name" value="trails" />
       <input type="hidden" name="api_id" value=<%= oneTrail.api_id %> />
       <input type="hidden" name="name" value="<%= oneTrail.name %>"/>
       <input type="hidden" name="summary" value="<%= oneTrail.summary %>"/>
