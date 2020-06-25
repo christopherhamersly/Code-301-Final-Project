@@ -17,6 +17,8 @@ app.use('/public', express.static('public'));
 // const client = new pg.Client(process.env.DATABASE_URL);
 // client.on('error', err => console.log(err));
 
+
+
 const searchPage = (request, response) => {
   response.render('index.ejs');
 };
