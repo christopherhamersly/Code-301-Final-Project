@@ -54,10 +54,18 @@ client.connect()
     })
   });
 
-
+const test = require('./modules/testit.js')
+const testLocation = {
+  id: 1,
+  search_query: 'Seattle',
+  display_name: 'Seattle, King County, Washington, USA',
+  lat: '47.603832100',
+  lon: '-122.330062400',
+  userName: 'Terp'
+}
 app.get('/testit', getTwoArrays);
-function getTwoArrays(request, response){
-  response.status(200).render('testit.ejs');
+function getTwoArrays(request, response) {
+  test.getTwoArrays(testLocation, response);
 }
 
 
