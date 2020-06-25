@@ -1,5 +1,5 @@
 'use strict';
-
+const queryType = 'music';
 const express = require('express');
 const app = express();
 
@@ -17,10 +17,10 @@ const client = new pg.Client(process.env.DATABASE_URL);
 client.on('error', err => console.log(err));
 
 
-const getTunes = (request, response) => {
-  console.log('In the music function', request.query);
-  // let city = 'kalispell';
-  let tunesUrl = `http://musicovery.com/api/V6/track.php?=new&track=false`
+const getTunes = (location, response) => {
+  console.log('In the music function', location.query);
+  let city = location.search_query;
+  let tunesUrl = `http://musicovery.com/api/V6/artist.php?fct=getfromlocation&location=${city}`
   superagent.get(tunesUrl)
     .then(request => {
       // console.log(request.body.artists.artist)
@@ -30,8 +30,9 @@ const getTunes = (request, response) => {
       // console.log('Tunes Array', tunesArray);
 
 
-      response.status(200).render('resultsFromMusic.ejs',
-    {tunesResults: tunesArray});
+      response.status(200).render('results.ejs',
+        { queryType: queryType,
+          tunesResults: tunesArray});
     }).catch(error => {
       console.error('error', error)
     })

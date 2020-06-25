@@ -1,6 +1,6 @@
 'use strict';
 
-const queryTypeString = 'hiking';
+const queryType = 'hiking';
 
 //setup
 const express = require('express');
@@ -76,7 +76,7 @@ const getTrailsFromAPI = (apiIDsFromCache, location, response) => {
       //END-CONSOLE-TESTING
       response.status(200).render('results.ejs',
         {
-          queryType: queryTypeString,
+          queryType: queryType,
           trailResults: rtnTrails
         });
     })

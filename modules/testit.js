@@ -20,21 +20,22 @@ client.on('error', err => console.log(err));
 
 
 
-async function getTwoArrays(location, response) {
-  let apiURL1 = 'https://www.hikingproject.com/data/get-trails';
-  let apiParams1 = {
-    lat: location.lat,
-    lon: location.lon,
-    maxDistance: 10,
-    key: process.env.HIKING_ROUTES_API_KEY
+async function getTwoArrays(location, response){
+  console.log('in the function');
+  const apiURL1 = 'https://www.hikingproject.com/data/get-trails';
+    const apiParams1 = {
+      lat: location.lat,
+      lon: location.lon,
+      maxDistance: 10,
+      key: process.env.HIKING_ROUTES_API_KEY
   };
-  let city = location.search_query;
-  let apiURL2 =
+  const city = location.search_query;
+  const apiURL2 =
     `https://api.openbrewerydb.org/breweries?by_city=${city}`;
   
-  let apiParams2 = {
-    lat: location.lat,
-    lon: location.lon
+    const apiParams2 = {
+      lat: location.lat,
+      lon: location.lon
   };
   console.log(location);
   const url1 = superagent.get(apiURL1, apiParams1);
@@ -49,21 +50,25 @@ async function getTwoArrays(location, response) {
       let newTrail = new Trail(oneTrail);
       newTrail.cached = apiIDsFromCache.includes(oneTrail.id);
       return newTrail;
-    });
-    let brewArray = apiData.body.map(oneBrew => {
-      return new Brewery(oneBrew);
-    });
+      
+    }).then(brew => {
+          let brewArray = apiData.body.map(oneBrew => {
+          return new Brewery(oneBrew);
+    })
     let trailResults = data1.body;
     let brewery = data2.body;
 
-    response.status(200).render('/testit', { trailResults: oneTrail, brewery: oneBrew })
+      response.status(200).render('/testit', { queryType: queryTypeString, trailResults: rtnTrails, brewery: brewArray })
+ })
+ 
   }).catch(error => {
     console.error('error', error)
   })
 }
 
-module.exports.getTwoArrays = getTwoArrays;
 
+
+// Brewery Constructor
 function Brewery(obj) {
   this.name = obj.name ? obj.name : 'No name available';
   this.type = obj.brewery_type ? obj.brewery_type : 'No info available';
@@ -73,6 +78,8 @@ function Brewery(obj) {
   // this.tag_list = obj.tag_list ? obj.tag_list : 'No info available';
 }
 
+
+// Hiking Constructor
 function Trail(object) {
   let placeholderImage = './public/images/weekend_warrior_imagenotavailable.png'
   this.api_id = object.id;
@@ -89,3 +96,4 @@ function Trail(object) {
   this.conditionStatus = object.conditionStatus ? object.conditionStatus : 'No trail condition available';
   this.stars = object.stars ? object.stars : 'No trail rating available';
 }
+module.exports.getTwoArrays = getTwoArrays;
