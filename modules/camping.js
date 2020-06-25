@@ -71,12 +71,13 @@ const getCampgroundsFromAPI = (apiIDsFromCache, location, response) => {
         return newCampground;
       });
       //START-CONSOLE-TESTING
-      console.log('this is my campingArray', campingArray);
+      // console.log('this is my campingArray', campingArray);
 
       //END-CONSOLE-TESTING
       response.status(200).render('results.ejs',
         {
           queryType: queryTypeString,
+          userName: location.userName,
           campResults: campingArray
         });
     })
@@ -94,8 +95,8 @@ function Camp(obj) {
   this.cached = false;
   this.images = obj.images[0].url ? obj.images[0].url : placeholderImage;
   this.name = obj.name ? obj.name : 'No name available';
-  this.latitude = obj.latitude ? obj.latitude : 'No info available';
-  this.longitude = obj.longitude ? obj.longitude : 'No info available';
+  this.latitude = obj.latitude ? obj.latitude : 0.0;
+  this.longitude = obj.longitude ? obj.longitude : 0.0;
   this.description = obj.description ? obj.description : 'No description available';
   this.entranceFees = obj.entranceFees ? obj.entranceFees : 'No info available';
   this.activities = obj.activities ? obj.activities : 'No info available';
