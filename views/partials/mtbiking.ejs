@@ -1,23 +1,37 @@
 
-<h4 class="activity"> Mountain Biking </h4>
-<% mtBikeResults.forEach(oneBike => { %>
-  <div class="results">
-  <img src="<%= oneBike.imgMedium %>" alt="<%= oneBike.name %>"/>
-  <h5> <%= oneBike.location %> </h5>
-  <h5> <%= oneBike.name %> </h5>
-  <h5> <%= oneBike.length %> miles</h5>
-  <h5> <%= oneBike.summary %></h5>
-  <h6> <%= oneBike.difficulty %> </h6>
-  <h6> <%= oneBike.stars %> stars </h6>
-  <form action ="/favorites.ejs" method = "POST" >
-    <input type="hidden" name="image" value="<%= oneBike.imgMedium  %>"/> 
-    <input type="hidden" name="location" value="<%= oneBike.location %>"/>
-    <input type="hidden" name="name" value="<%= oneBike.name %>"/>
-    <input type="hidden" name="type" value="<%= oneBike.description %>"/>
-    <input type="hidden" name="difficulty" value="<%= oneBike.difficulty %>"/>
-    <input type="hidden" name="Stars" value="<%= oneBike.stars %>"/>
-    <button type = "submit"> Add to my favorites </button>
+<h4> Mountain Biking </h4>
+
+<% mtnBikeResults.forEach(oneMtnBikeRoute => { %>
+  <section id="<%= oneMtnBikeRoute.api_id %>">
+    <img src="<%= oneMtnBikeRoute.img_medium %>" alt="<% oneMtnBikeRoute.name %>"/>
+    <h5> <%= oneMtnBikeRoute.location %> </h5>
+    <h5> <%= oneMtnBikeRoute.name %> </h5>
+    <h5> <%= oneMtnBikeRoute.length %> miles</h5>
+    <h5> <%= oneMtnBikeRoute.summary %></h5>
+    <h6> <%= oneMtnBikeRoute.difficulty %> </h6>
+    <h6> <%= oneMtnBikeRoute.stars %> stars </h6>
+
+    <form action="/favorites" method="POST">
+      <input type="hidden" name="table_name" value="mtn_biking" />
+      <input type="hidden" name="api_id" value=<%= oneMtnBikeRoute.api_id %> />
+      <input type="hidden" name="location" value="<%= oneMtnBikeRoute.location %>"/>
+      <input type="hidden" name="name" value="<%= oneMtnBikeRoute.name %>"/>
+      <input type="hidden" name="type" value="<%= oneMtnBikeRoute.type %>"/>
+      <input type="hidden" name="difficulty" value="<%= oneMtnBikeRoute.difficulty %>"/>
+      <input type="hidden" name="stars" value="<%= oneMtnBikeRoute.stars %>"/>
+      <input type="hidden" name="latitude" value="<%= oneMtnBikeRoute.latitude %>"/>
+      <input type="hidden" name="longitude" value="<%= oneMtnBikeRoute.longitude %>"/>
+      <input type="hidden" name="img_medium" value="<%= oneMtnBikeRoute.img_medium %>"/>
+      <% if (oneMtnBikeRoute.cached) { %>
+        <a href="/favorites">Link to Favorites</a>
+      <% } else { %>
+        <button type="submit" class="add-favorite">Add to my favorites </button>
+      <% } %>
+    </form>
+  </section>
+  <% }); %>
+
+  <form value="./music" method="GET">
+    <button type="submit">Get Local Music</button>
   </form>
-</div>
-<% }); %>
 

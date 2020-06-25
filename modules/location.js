@@ -24,8 +24,14 @@ const camping = require('./camping.js');
 const climbing = require('./rock_climbing.js');
 const mtbiking = require('./mtn_biking.js');
 const snowSports = require('./snow_sports.js');
-// const brewery = require('./brewery.js');
-// const getTrailsandBrewery = require('./test.js')
+
+const brewery = require('./brewery.js');
+const music = require('./music.js');
+const two = require('./testit.js');
+
+
+
+
 
 
 const getLocation = (request, response) => {
@@ -106,10 +112,10 @@ const saveLocationToDB = (queryType, location, response) => {
 
 const activityType = (location, queryType, response) => {
   //START-CONSOLE-TESTING
-  // console.log('activityType, queryType:');
-  // console.log(queryType);
+  console.log('activityType, queryType:');
+  console.log(queryType);
   //END-CONSOLE-TESTING
-  // brewery.getBrewery(location, response);
+  two.getTwoArrays(location,response);
   switch (queryType) {
   case 'hiking':
     trails.getTrails(location, response);
@@ -121,11 +127,17 @@ const activityType = (location, queryType, response) => {
     camping.getCampgrounds(location, response);
     break;
   case 'mountainbiking':
-    mtbiking.mountainBiking(location, response);
+    mtbiking.getMtnBiking(location, response);
 
     break;
   case 'snowsports':
     snowSports.snowSports(location, response);
+    break;
+  case 'brewery':
+    brewery.getBrewery(location, response);
+    break;
+  case 'music':
+    music.getTunes(location,response);
     break;
   default:
     response.status(404).send('\'Nuffin here');

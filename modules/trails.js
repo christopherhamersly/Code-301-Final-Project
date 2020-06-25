@@ -1,6 +1,6 @@
 'use strict';
 
-const queryTypeString = 'hiking';
+const queryType = 'hiking';
 
 //setup
 const express = require('express');
@@ -67,7 +67,7 @@ const getTrailsFromAPI = (apiIDsFromCache, location, response) => {
       apiIDsFromCache = apiIDsFromCache.map(sqlObject => sqlObject.api_id);
       let rtnTrails = apiData.body.trails.map(oneTrail => {
         let newTrail = new Trail(oneTrail);
-        newTrail.cached = apiIDsFromCache.includes(oneTrail.id);
+        newTrail.cached = apiIDsFromCache.includes(oneTrail.id.toString());
         return newTrail;
       });
       //START-CONSOLE-TESTING
@@ -76,7 +76,7 @@ const getTrailsFromAPI = (apiIDsFromCache, location, response) => {
       //END-CONSOLE-TESTING
       response.status(200).render('results.ejs',
         {
-          queryType: queryTypeString,
+          queryType: queryType,
           trailResults: rtnTrails
         });
     })
