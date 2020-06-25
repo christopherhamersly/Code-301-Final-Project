@@ -24,6 +24,7 @@ const camping = require('./camping.js');
 const climbing = require('./rock_climbing.js');
 const mtbiking = require('./mtn_biking.js');
 const snowSports = require('./snow_sports.js');
+
 const brewery = require('./brewery.js');
 const music = require('./music.js');
 const two = require('./testit.js');
