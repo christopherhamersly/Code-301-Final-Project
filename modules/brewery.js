@@ -30,9 +30,12 @@ const getBrewery = (location, response) => {
       let brewArray = apiData.body.map(oneBrew => {
         return new Brewery(oneBrew);
       });
-      // console.log('Brew Array', brewArray);
+      console.log('Brew Array', brewArray);
       response.status(200).render('results.ejs',
-        {brewery: brewArray});
+        {
+          queryType: 'brewery',
+          brewery: brewArray
+        });
     }).catch(error => {
       console.error('error', error)
     })

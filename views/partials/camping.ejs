@@ -1,24 +1,29 @@
 
 <h4> Camping </h4>
 <% campResults.forEach(oneCamp => { %>
-
-<img src="<%= oneCamp.images %>" alt="<%= oneCamp.name %>" />
-<h5> <%=oneCamp.name %> </h5>
-<p> <%= oneCamp.description %> </p>
-<% oneCamp.entranceFees.forEach(feeObj => { %>
-<h5> <%= feeObj.description %> </h5>
-<% }) %>
-
-<% oneCamp.activities.forEach(aObj => { %>
-<h6> <%= aObj.name %></h6>
-<% }) %>
-
-<form action="/favorites.ejs" method="POST">
-  <input type="hidden" name="images" value="<%=oneCamp.images %>" />
-  <input type="hidden" name="name" value="<%=oneCamp.name %>" />
-  <input type="hidden" name="description" value="<%=oneCamp.description %>" />
-  <input type="hidden" name="entranceFees" value="<%=oneCamp.entranceFees%>" />
-  <input type="hidden" name="activities" value="<%=oneCamp.activities %>" />
-  <button type="submit"> Add to my favorites </button>
-</form>
+  <section id="<%= oneCamp.api_id %>">
+    <img src="<%= oneCamp.images %>" alt="<%= oneCamp.name %>" />
+    <h5> <%=oneCamp.name %> </h5>
+    <p> <%= oneCamp.description %> </p>
+    <% oneCamp.entranceFees.forEach(feeObj => { %>
+      <h5> <%= feeObj.description %> </h5>
+    <% }); %>
+    <% oneCamp.activities.forEach(aObj => { %>
+      <h6> <%= aObj.name %></h6>
+    <% }); %>
+    <form action="/favorites" method="POST">
+      <input type="hidden" name="table_name" value="camping" />
+      <input type="hidden" name="api_id" value="<%=oneCamp.api_id %>" />
+      <input type="hidden" name="image" value="<%=oneCamp.images %>" />
+      <input type="hidden" name="name" value="<%=oneCamp.name %>" />
+      <input type="hidden" name="description" value="<%=oneCamp.description %>" />
+      <input type="hidden" name="entranceFees" value="<%=oneCamp.entranceFees%>" />
+      <input type="hidden" name="activities" value="<%=oneCamp.activities %>" />
+      <% if (oneCamp.cached) { %>
+        <a href="/favorites">Link to Favorites</a>
+      <% } else { %>
+        <button type="submit" class="add-favorite">Add to my favorites </button>
+      <% } %>
+    </form>
+  </section>
 <% }); %>
