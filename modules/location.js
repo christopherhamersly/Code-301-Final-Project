@@ -133,7 +133,6 @@ const activityType = (location, queryType, response) => {
   default:
     response.status(404).send('\'Nuffin here');
   }
-  
 };
 
 module.exports.getLocation = getLocation;

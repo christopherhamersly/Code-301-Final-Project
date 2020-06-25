@@ -2,6 +2,8 @@
 const queryType = 'camping';
 
 
+const queryTypeString = 'camping';
+
 const express = require('express');
 const app = express();
 
@@ -10,7 +12,7 @@ const superagent = require('superagent');
 require('ejs');
 require('dotenv').config();
 
-const PORT = process.env.PORT || 3001;
+// const PORT = process.env.PORT || 3001;
 
 app.use(express.urlencoded({ extended: true }));
 app.set('view engine', 'ejs');
@@ -19,33 +21,67 @@ app.use('/public', express.static('public'));
 const client = new pg.Client(process.env.DATABASE_URL);
 client.on('error', err => console.log(err));
 
+client.connect();
+
 const getCampgrounds = (location, response) => {
-  console.log('we are in the function')
-  let apiUrl = 'https://developer.nps.gov/api/v1/parks';
+  //START-CONSOLE-TESTING
+  console.log('getCampgrounds');
   // console.log(location)
+  //END-CONSOLE-TESTING
+  let sqlSelect = 'SELECT api_id FROM camping;';
+  client.query(sqlSelect)
+    .then(sqlData => {
+      //START-CONSOLE-TESTING
+      console.log('getCampgrounds, DB api_ids:');
+      console.log(sqlData.rows);
+      //END-CONSOLE-TESTING
+      getCampgroundsFromAPI(sqlData.rows, location, response);
+    })
+    .catch(error => {
+      console.error('Error checking cache for favorited trails');
+      console.error(error);
+    });
+}
+
+const getCampgroundsFromAPI = (apiIDsFromCache, location, response) => {
+  let apiUrl = 'https://developer.nps.gov/api/v1/parks';
   let apiParams = {
     q: location.search_query,
     limit: 3,
     api_key: process.env.CAMPING_API_KEY
   };
+
   superagent.get(apiUrl, apiParams)
     .then(apiData => {
       //START-CONSOLE-TESTING
+      // console.log('Camping apiData.body.data:');
       // console.log(apiData.body.data);
-      // console.log('We are in');
       //END-CONSOLE-TESTING
+      //flatten the array from an array of objects with a single key-value pair, to
+      //an array of numbers
+      apiIDsFromCache = apiIDsFromCache.map(sqlObject => sqlObject.api_id);
       let campingArray = apiData.body.data.map(oneCamp => {
-        return new Camp(oneCamp);
+        //START-CONSOLE-TESTING
+        // console.log('oneCamp.images:');
+        // console.log(oneCamp.images);
+        //END-CONSOLE-TESTING
+        let newCampground = new Camp(oneCamp);
+        newCampground.cached = apiIDsFromCache.includes(oneCamp.id);
+        return newCampground;
       });
+      //START-CONSOLE-TESTING
       console.log('this is my campingArray', campingArray);
+
+      //END-CONSOLE-TESTING
       response.status(200).render('results.ejs',
         {
-          queryType: queryType,
-          campResults: campingArray });
-    }).catch(error => {
-      console.error('error', error)
-
+          queryType: queryTypeString,
+          campResults: campingArray
+        });
     })
+    .catch(error => {
+      console.error('error', error)
+    });
 
 }
 
@@ -53,14 +89,15 @@ module.exports.getCampgrounds = getCampgrounds;
 
 function Camp(obj) {
   let placeholderImage = './public/images/weekend_warrior_imagenotavailable.png'
-  this.images = obj.images.url ? obj.images.url : placeholderImage;
+  this.api_id = obj.id;
+  this.cached = false;
+  this.images = obj.images[0].url ? obj.images[0].url : placeholderImage;
   this.name = obj.name ? obj.name : 'No name available';
   this.latitude = obj.latitude ? obj.latitude : 'No info available';
   this.longitude = obj.longitude ? obj.longitude : 'No info available';
   this.description = obj.description ? obj.description : 'No description available';
   this.entranceFees = obj.entranceFees ? obj.entranceFees : 'No info available';
   this.activities = obj.activities ? obj.activities : 'No info available';
-  console.log(' OUR HERRRRE activities', this.entranceFees);
 }
 
 

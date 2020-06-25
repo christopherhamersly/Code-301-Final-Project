@@ -33,7 +33,7 @@ app.route('/location')
   .get((request, response) => location.getLocation(request, response));
 
 app.route('/favorites')
-  .post((request, response) => favorites.saveTrail(request, response))
+  .post((request, response) => favorites.saveActivity(request, response))
   .get((request, response) => favorites.showFavorites(request, response));
 
 app.route('/favorites/:api_id')
