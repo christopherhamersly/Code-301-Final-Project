@@ -1,4 +1,6 @@
 'use strict';
+const queryType = 'camping';
+
 
 const queryTypeString = 'camping';
 
@@ -69,6 +71,7 @@ const getCampgroundsFromAPI = (apiIDsFromCache, location, response) => {
       });
       //START-CONSOLE-TESTING
       console.log('this is my campingArray', campingArray);
+
       //END-CONSOLE-TESTING
       response.status(200).render('results.ejs',
         {
@@ -79,6 +82,7 @@ const getCampgroundsFromAPI = (apiIDsFromCache, location, response) => {
     .catch(error => {
       console.error('error', error)
     });
+
 }
 
 module.exports.getCampgrounds = getCampgrounds;

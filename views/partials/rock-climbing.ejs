@@ -1,5 +1,6 @@
 <h4> Rock Climbing </h4>
 <% climbResults.forEach(oneClimb => { %>
+
   <section id=<%= oneClimb.api_id %>>
     <img src="<%= oneClimb.img_medium %>" alt="<%= oneClimb.name %>"/>
     <h5> <%= oneClimb.location %> </h5>
@@ -26,3 +27,4 @@
     </form>
   </section>
   <% }); %>
+

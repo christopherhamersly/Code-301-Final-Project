@@ -24,6 +24,7 @@ const search = require('./modules/index.js');
 const location = require('./modules/location.js');
 const favorites = require('./modules/favorites.js');
 const { response } = require('express');
+const music = require('./modules/music.js');
 
 app.route('/')
   .get(search.searchPage);
@@ -39,6 +40,9 @@ app.route('/favorites/:api_id')
   .put((request, response) => favorites.updateNote(request, response))
   .delete((request, response) => favorites.deleteFavorite(request, response));
 
+app.route('/music')
+  .get((request, response) => music.getTunes(request, response));
+
 client.connect()
   .then(() => {
     app.listen(PORT, () => {
@@ -47,28 +51,15 @@ client.connect()
   });
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-app.get('/test', testCss);
-
-function testCss(request, response){
-  response.status(200).render('bio.ejs');
+app.get('/testit', getTwoArrays);
+function getTwoArrays(request, response){
+  response.status(200).render('testit.ejs');
 }
+
+
+
+
+
+
 
 

@@ -1,6 +1,7 @@
 
 <h4> Camping </h4>
 <% campResults.forEach(oneCamp => { %>
+
   <section id="<%= oneCamp.api_id %>">
     <img src="<%= oneCamp.images %>" alt="<%= oneCamp.name %>" />
     <h5> <%=oneCamp.name %> </h5>
@@ -27,3 +28,4 @@
     </form>
   </section>
 <% }); %>
+
