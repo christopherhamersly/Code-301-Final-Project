@@ -25,12 +25,10 @@ const climbing = require('./rock_climbing.js');
 const mtbiking = require('./mtn_biking.js');
 const snowSports = require('./snow_sports.js');
 // const brewery = require('./brewery.js');
-<<<<<<< HEAD
-// const two = require('./testit.js');
-=======
-// const getTrailsandBrewery = require('./test.js')
 
->>>>>>> 45b546aeb3e402fb52aeb9f2a442d3ca29c8cdcc
+// const two = require('./testit.js');
+
+// const getTrailsandBrewery = require('./test.js')
 
 const getLocation = (request, response) => {
   //START-CONSOLE-TESTING
@@ -110,8 +108,8 @@ const saveLocationToDB = (queryType, location, response) => {
 
 const activityType = (location, queryType, response) => {
   //START-CONSOLE-TESTING
-  // console.log('activityType, queryType:');
-  // console.log(queryType);
+  console.log('activityType, queryType:');
+  console.log(queryType);
   //END-CONSOLE-TESTING
   // brewery.getBrewery(location, response);
   switch (queryType) {
@@ -125,7 +123,7 @@ const activityType = (location, queryType, response) => {
     camping.getCampgrounds(location, response);
     break;
   case 'mountainbiking':
-    mtbiking.mountainBiking(location, response);
+    mtbiking.getMtnBiking(location, response);
 
     break;
   case 'snowsports':

@@ -21,8 +21,8 @@ client.connect();
 
 const saveActivity = (request, response) => {
   //START-CONSOLE-TESTING
-  console.log('saveTrail, request.body:');
-  console.log(request.body);
+  // console.log('saveTrail, request.body:');
+  // console.log(request.body);
   //END-CONSOLE-TESTING
   let sqlSelect = `SELECT api_id FROM ${request.body.table_name} WHERE api_id = ($1);`;
   let sqlSafe = [request.body.api_id];
@@ -51,26 +51,26 @@ const saveActivity = (request, response) => {
 
 const addActivityToDB = (request, response) => {
   //START-CONSOLE-TESTING
-  console.log('addActivityToDB, request.body:');
-  console.log(request.body);
+  // console.log('addActivityToDB, request.body:');
+  // console.log(request.body);
   //END-CONSOLE-TESTING
   let tableName = request.body.table_name;
   let sqlInsert = getSQLInsertQuery(tableName);
   let sqlSafe = getSQLSafeValues(tableName, request);
   //START-CONSOLE-TESTING
-  console.log('SQL insert and safe values:');
-  console.log(sqlInsert);
-  console.log(sqlSafe);
+  // console.log('SQL insert and safe values:');
+  // console.log(sqlInsert);
+  // console.log(sqlSafe);
   //END-CONSOLE-TESTING
   client.query(sqlInsert, sqlSafe)
     .then(() => {
       //START-CONSOLE-TESTING
-      console.log('Inserted activity into DB');
+      // console.log('Inserted activity into DB');
       //END-CONSOLE-TESTING
       let requestPath = request.headers.referer.replace(request.headers.origin, '');
       //START-CONSOLE-TESTING
-      console.log('requestPath:');
-      console.log(requestPath);
+      // console.log('requestPath:');
+      // console.log(requestPath);
       //END-CONSOLE-TESTING
       response.redirect(`${requestPath}#${request.body.api_id}`);
     })
@@ -84,12 +84,14 @@ const showFavorites = (request, response) => {
   let sqlTrailsSelect = 'SELECT * FROM trails ORDER BY id;';
   let sqlCampingSelect = 'SELECT * FROM camping ORDER BY id;';
   let sqlClimbingSelect = 'SELECT * FROM climbing ORDER BY id;';
-  client.query(sqlTrailsSelect.concat(sqlCampingSelect, sqlClimbingSelect))
+  let sqlMtnBikingSelect = 'SELECT * FROM mtn_biking ORDER BY id;';
+  client.query(sqlTrailsSelect.concat(sqlCampingSelect, sqlClimbingSelect, sqlMtnBikingSelect))
     .then(sqlData => {
       let renderObject = {
         trailData: sqlData[0].rows,
         campingData: sqlData[1].rows,
-        climbingData: sqlData[2].rows
+        climbingData: sqlData[2].rows,
+        mtnBikingData: sqlData[3].rows
       };
       //START-CONSOLE-TESTING
       // console.log('showFavorites, sqlData.rows:');
@@ -99,8 +101,8 @@ const showFavorites = (request, response) => {
       // });
       // console.log('renderObject:');
       // console.log(renderObject);
-      console.log('showFavorites, renderObject.climbingData:');
-      console.log(renderObject.climbingData);
+      // console.log('showFavorites, renderObject.climbingData:');
+      // console.log(renderObject.climbingData);
       //END-CONSOLE-TESTING
       response.status(200).render('favorites.ejs', renderObject);
     })
@@ -112,9 +114,9 @@ const showFavorites = (request, response) => {
 
 const updateNote = (request, response) => {
   //START-CONSOLE-TESTING
-  console.log('updateNote. request.body, request.params:');
-  console.log(request.body);
-  console.log(request.params);
+  // console.log('updateNote. request.body, request.params:');
+  // console.log(request.body);
+  // console.log(request.params);
   //END-CONSOLE-TESTING
   let sqlUpdate = `UPDATE ${request.body.table_name} SET notes= ($1) WHERE api_id = ($2);`;
   let sqlSafe = [request.body.notes, request.params.api_id];
@@ -131,9 +133,9 @@ const updateNote = (request, response) => {
 
 const deleteFavorite = (request, response) => {
   //START-CONSOLE-TESTING
-  console.log('deleteFavorite, request.body, request.params:');
-  console.log(request.body);
-  console.log(request.params);
+  // console.log('deleteFavorite, request.body, request.params:');
+  // console.log(request.body);
+  // console.log(request.params);
   //END-CONSOLE-TESTING
   let sqlDelete = `DELETE FROM ${request.body.table_name} WHERE api_id = ($1);`;
   let sqlSafe = [request.params.api_id];
@@ -159,6 +161,9 @@ const getSQLInsertQuery = (tableName) => {
     return sqlInsert;
   case 'climbing':
     sqlInsert = 'INSERT INTO climbing (api_id, location, name, type, pitches, stars, latitude, longitude, img_medium) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9);';
+    return sqlInsert;
+  case 'mtn_biking':
+    sqlInsert = 'INSERT INTO mtn_biking (api_id, location, name, type, difficulty, stars, latitude, longitude, img_medium, summary, length) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11);';
     return sqlInsert;
   }
 };
@@ -214,6 +219,24 @@ const getSQLSafeValues = (tableName, request) => {
       img_medium
     } = request.body;
     sqlSafeValues = [api_id, location, name, type, pitches, stars, latitude, longitude, img_medium];
+    return sqlSafeValues;
+  }
+  case 'mtn_biking':
+  {
+    let {
+      api_id,
+      location,
+      name,
+      type,
+      difficulty,
+      stars,
+      latitude,
+      longitude,
+      img_medium,
+      summary,
+      length
+    } = request.body;
+    sqlSafeValues = [api_id, location, name, type, difficulty, stars, latitude, longitude, img_medium, summary, length];
     return sqlSafeValues;
   }
   }
