@@ -126,6 +126,7 @@ const activityType = (location, queryType, response) => {
     break;
   case 'mountainbiking':
     mtbiking.mountainBiking(location, response);
+
     break;
   case 'snowsports':
     snowSports.snowSports(location, response);
