@@ -1,19 +1,28 @@
 <h4> Rock Climbing </h4>
 <% climbResults.forEach(oneClimb => { %>
-  <img src="<%= oneClimb.imgMedium %>" alt="<%= oneClimb.name %>"/>
-  <h5> <%= oneClimb.location %> </h5>
-  <h5> <%= oneClimb.name %> </h5>
-  <h5> <%= oneClimb.type %> </h5>
-  <h6> <%= oneClimb.pitches %> </h6>
-  <h6> <%= oneClimb.stars %> </h6>
-
-<form action ="/favorites.ejs" method = "POST" >
-  <input type="hidden" name="image" value="<%= oneClimb.imgMedium  %>"/> 
-  <input type="hidden" name="location" value="<%= oneClimb.location %>"/>
-  <input type="hidden" name="name" value="<%= oneClimb.name %>"/>
-  <input type="hidden" name="type (sport or trad)" value="<%= oneClimb.type %>"/>
-  <input type="hidden" name="# of pitches" value="<%= oneClimb.pitches %>"/>
-  <input type="hidden" name="Stars" value="<%= oneClimb.stars %>"/>
-  <button type = "submit"> Add to my favorites </button>
-</form>
-<% }); %>
+  <section id=<%= oneClimb.api_id %>>
+    <img src="<%= oneClimb.img_medium %>" alt="<%= oneClimb.name %>"/>
+    <h5> <%= oneClimb.location %> </h5>
+    <h5> <%= oneClimb.name %> </h5>
+    <h5> <%= oneClimb.type %> </h5>
+    <h6> <%= oneClimb.pitches %> </h6>
+    <h6> <%= oneClimb.stars %> </h6>
+    <form action ="/favorites" method = "POST">
+      <input type="hidden" name="table_name" value="climbing" />
+      <input type="hidden" name="api_id" value="<%= oneClimb.api_id %>" />
+      <input type="hidden" name="location" value="<%= oneClimb.location %>"/>
+      <input type="hidden" name="name" value="<%= oneClimb.name %>"/>
+      <input type="hidden" name="type" value="<%= oneClimb.type %>"/>
+      <input type="hidden" name="pitches" value="<%= oneClimb.pitches %>"/>
+      <input type="hidden" name="stars" value="<%= oneClimb.stars %>"/>
+      <input type="hidden" name="latitude" value="<%= oneClimb.latitude %>"/>
+      <input type="hidden" name="longitude" value="<%= oneClimb.longitude %>"/>
+      <input type="hidden" name="img_medium" value="<%= oneClimb.img_medium  %>"/> 
+      <% if (oneClimb.cached) { %>
+        <a href="/favorites">Link to Favorites</a>
+      <% } else { %>
+        <button type="submit" class="add-favorite">Add to my favorites </button>
+      <% } %>
+    </form>
+  </section>
+  <% }); %>

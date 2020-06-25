@@ -3,28 +3,12 @@
 <h1>Favorites</h1>
 
 <h4> Hiking </h4>
-<% trailResults.forEach(oneTrail => { %>
-  <section id="<%= oneTrail.api_id %>">
-    <img src="<%= oneTrail.img_medium %>" alt="<% oneTrail.name %>"/>
-    <h5> <%= oneTrail.name %> </h5>
-    <h5> <%= oneTrail.length %> </h5>
-    <h5> <%= oneTrail.ascent %> </h5>
-    <p> <%= oneTrail.summary %> </p>
-    <h6> <%= oneTrail.difficulty %> </h6>
-    <h6> <%= oneTrail.conditionStatus %> </h6>
-    <h7> <%= oneTrail.stars %> </h7>
-    <form action="/favorites/<%= oneTrail.api_id %>?_method=put" method="POST">
-        <% if (oneTrail.notes == null || oneTrail.notes === '') { %>
-          <textarea name="notes" id="" cols="60" rows="10" placeholder="Enter your notes here..."></textarea>        
-        <% } else { %>
-          <textarea name="notes" id="" cols="60" rows="10"><%= oneTrail.notes %></textarea>
-        <% } %>
-      <button type="submit">Save Notes</button>
-    </form>
-    <form action="/favorites/<%= oneTrail.api_id %>?_method=delete" method="POST">
-      <button type="submit">Remote From Favorites</button>
-    </form>
-  </section>
-  <% }); %>
+<%- include('./partials/favorites-trail.ejs') %>
+
+<h4>Camping</h4>
+<%- include('./partials/favorites-camping.ejs') %>
+
+<h4>Rocking Climbing</h4>
+<%- include('./partials/favorites-rock-climbing.ejs') %>
 
 <%- include('./partials/footer.ejs') %>

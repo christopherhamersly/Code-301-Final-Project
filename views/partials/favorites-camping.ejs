@@ -1,0 +1,24 @@
+<% if (campingData.length > 0) { %>
+  <% campingData.forEach(oneCamp => { %>
+    <section id="<%= oneCamp.api_id %>">
+      <img src="<%= oneCamp.img_medium %>" alt="<% oneCamp.name %>"/>
+      <h5> <%= oneCamp.name %> </h5>
+      <h5> <%= oneCamp.description %> </h5>
+      <form action="/favorites/<%= oneCamp.api_id %>?_method=put" method="POST">
+        <input type="hidden" name="table_name" value="camping" />
+        <% if (oneCamp.notes == null || oneCamp.notes === '') { %>
+          <textarea name="notes" id="" cols="60" rows="10" placeholder="Enter your notes here..."></textarea>        
+        <% } else { %>
+          <textarea name="notes" id="" cols="60" rows="10"><%= oneCamp.notes %></textarea>
+        <% } %>
+        <button type="submit">Save Notes</button>
+      </form>
+      <form action="/favorites/<%= oneCamp.api_id %>?_method=delete" method="POST">
+        <input type="hidden" name="table_name" value="camping" />
+        <button type="submit">Remote From Favorites</button>
+      </form>
+    </section>
+    <% }); %>
+  <% } else { %>
+    <h5>No campgrounds saved to favorites</h5>
+  <% } %>
