@@ -8,12 +8,11 @@ const app = express();
 
 const pg = require('pg');
 const superagent = require('superagent');
-const { query } = require('express');
 
 require('ejs');
 require('dotenv').config();
 
-const PORT = process.env.PORT || 3001;
+// const PORT = process.env.PORT || 3001;
 
 app.use(express.urlencoded({extended: true}));
 app.set('view engine', 'ejs');
@@ -52,9 +51,7 @@ const getTrailsFromAPI = (apiIDsFromCache, location, response) => {
     maxDistance: 10,
     key: process.env.HIKING_ROUTES_API_KEY
   };
-  //flatten the array from an array of objects with a single key-value pair, to
-  //an array of numbers
-  apiIDsFromCache = apiIDsFromCache.map(sqlObject => sqlObject.api_id);
+
   //START-CONSOLE-TESTING
   // console.log('getTrailsFromAPI, apiIDsFromCache, flattened:');
   // console.log(apiIDsFromCache);
@@ -65,16 +62,19 @@ const getTrailsFromAPI = (apiIDsFromCache, location, response) => {
       // console.log('getTrails apiData.body:');
       // console.log(apiData.body);
       //END-CONSOLE-TESTING
+      //flatten the array from an array of objects with a single key-value pair, to
+      //an array of numbers
+      apiIDsFromCache = apiIDsFromCache.map(sqlObject => sqlObject.api_id);
       let rtnTrails = apiData.body.trails.map(oneTrail => {
         let newTrail = new Trail(oneTrail);
-        newTrail.cached = apiIDsFromCache.includes(oneTrail.id);
+        newTrail.cached = apiIDsFromCache.includes(oneTrail.id.toString());
         return newTrail;
       });
       //START-CONSOLE-TESTING
       // console.log('rtnTrails:');
       // console.log(rtnTrails);
       //END-CONSOLE-TESTING
-      response.render('results.ejs',
+      response.status(200).render('results.ejs',
         {
           queryType: queryType,
           trailResults: rtnTrails
@@ -105,4 +105,3 @@ function Trail(object) {
 }
 
 module.exports.getTrails = getTrails;
-module.exports.Trail = Trail;

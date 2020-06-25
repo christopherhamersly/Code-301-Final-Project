@@ -24,12 +24,20 @@ const camping = require('./camping.js');
 const climbing = require('./rock_climbing.js');
 const mtbiking = require('./mtn_biking.js');
 const snowSports = require('./snow_sports.js');
+
 const brewery = require('./brewery.js');
+const music = require('./music.js');
+const two = require('./testit.js');
+
+
+
+
+
 
 const getLocation = (request, response) => {
   //START-CONSOLE-TESTING
-  console.log('getLocation, request.query:');
-  console.log(request.query);
+  // console.log('getLocation, request.query:');
+  // console.log(request.query);
   //END-CONSOLE-TESTING
   let queryCity = request.query.city;
   let queryType = request.query.type;
@@ -38,8 +46,8 @@ const getLocation = (request, response) => {
   client.query(sqlSelect, sqlSafe)
     .then(sqlData => {
       //START-CONSOLE-TESTING
-      console.log('sqlData.rows:');
-      console.log(sqlData.rows);
+      // console.log('sqlData.rows:');
+      // console.log(sqlData.rows);
       //END-CONSOLE-TESTING
       if (sqlData.rows.length === 0)
       {
@@ -53,8 +61,8 @@ const getLocation = (request, response) => {
       }
     })
     .catch(error => {
-      console.error('Error checking database for location');
-      console.error(error);
+      // console.error('Error checking database for location');
+      // console.error(error);
     });
 };
 
@@ -71,14 +79,14 @@ const getLocationFromAPI = (queryType, request, response) => {
   superagent.get(apiURL, apiParams)
     .then(apiData => {
       //START-CONSOLE-TESTING
-      console.log('apiData.body:');
-      console.log(apiData.body);
+      // console.log('apiData.body:');
+      // console.log(apiData.body);
       //END-CONSOLE-TESTING
       let location = new LocationQuery(userName, queryCity, apiData.body[0]);
       saveLocationToDB(queryType, location, response);
     })
     .catch(error => {
-      console.error('Error getting location data');
+      console.error('Error getting line 83 from location.js location data');
       console.error(error);
     });
 };
@@ -97,8 +105,8 @@ const saveLocationToDB = (queryType, location, response) => {
       activityType(location, queryType, response);
     })
     .catch(error => {
-      console.log('Error adding location to database');
-      console.log(error);
+      // console.log('Error adding location to database');
+      // console.log(error);
     });
 };
 
@@ -107,27 +115,33 @@ const activityType = (location, queryType, response) => {
   console.log('activityType, queryType:');
   console.log(queryType);
   //END-CONSOLE-TESTING
-  brewery.getBrewery(location, response);
+  two.getTwoArrays(location,response);
   switch (queryType) {
   case 'hiking':
     trails.getTrails(location, response);
     break;
-  // case 'climbing':
-  //   climbing.rockClimbing(location, response);
-  //   break;
+  case 'climbing':
+    climbing.rockClimbing(location, response);
+    break;
   case 'camping':
     camping.getCampgrounds(location, response);
     break;
   case 'mountainbiking':
-    mtBiking.mountainBiking(location, response);
+    mtbiking.getMtnBiking(location, response);
+
     break;
   case 'snowsports':
     snowSports.snowSports(location, response);
     break;
+  case 'brewery':
+    brewery.getBrewery(location, response);
+    break;
+  case 'music':
+    music.getTunes(location,response);
+    break;
   default:
     response.status(404).send('\'Nuffin here');
   }
-  
 };
 
 module.exports.getLocation = getLocation;
