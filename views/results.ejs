@@ -1,5 +1,11 @@
 
 <%- include('./partials/header.ejs') %>
+<div id=nav_bar>
+  <ul>
+    <l1><a href="/"> Home </a></l1>
+    <l1><a href="/bio"> Bio </a></l1>
+  </ul>
+</div>
 <div id="resultsPage">
 <h3 id="resultsHead">Your Weekend Suggestions</h3>
 <%- include('./partials/music_button') %>
@@ -14,30 +20,8 @@
   <%- include('./partials/mtbiking.ejs') %>
 <% } else if (queryType == 'snowsports') { %>
   <%- include('./partials/snowsports.ejs') %>
-<<<<<<< HEAD
-<% } %>
-</section>
-
-
-
-
-<%- include('./partials/header.ejs') %>
-<h3>Your weekend suggestions</h3>
-
-
-
-
-
-
-
-
-
-
-
-=======
 
 <% } %> 
->>>>>>> 45b546aeb3e402fb52aeb9f2a442d3ca29c8cdcc
 
 </div>
 
