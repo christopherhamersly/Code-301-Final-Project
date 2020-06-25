@@ -1,4 +1,6 @@
 'use strict';
+const queryType = 'camping';
+
 
 const express = require('express');
 const app = express();
@@ -36,12 +38,15 @@ const getCampgrounds = (location, response) => {
         return new Camp(oneCamp);
       });
       console.log('this is my campingArray', campingArray);
-      response.status(200).render('test.ejs', { campResults: campingArray });
+      response.status(200).render('results.ejs',
+        {
+          queryType: queryType,
+          campResults: campingArray });
     }).catch(error => {
       console.error('error', error)
 
     })
-  // })
+
 }
 
 module.exports.getCampgrounds = getCampgrounds;

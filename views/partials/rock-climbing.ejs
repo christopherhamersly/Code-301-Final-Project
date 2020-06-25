@@ -1,4 +1,7 @@
 <h4> Rock Climbing </h4>
+<form value="./music" method="GET">
+  <button type="submit">Get Local Music</button>
+</form>
 <% climbResults.forEach(oneClimb => { %>
   <img src="<%= oneClimb.imgMedium %>" alt="<%= oneClimb.name %>"/>
   <h5> <%= oneClimb.location %> </h5>
