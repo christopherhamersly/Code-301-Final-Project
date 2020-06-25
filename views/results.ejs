@@ -1,6 +1,12 @@
 
 
 <%- include('./partials/header.ejs') %>
+<div id=nav_bar>
+  <ul>
+    <l1><a href="/"> Home </a></l1>
+    <l1><a href="/bio"> Bio </a></l1>
+  </ul>
+</div>
 <div id="resultsPage">
 <h3 id="resultsHead">Your Weekend Suggestions</h3>
 <%- include('./partials/music_button') %>
@@ -21,6 +27,7 @@
 <% } else if (queryType == 'music') { %>
   <%- include('./partials/music.ejs') %>
 <% } %>
+
 
 
 
