@@ -1,0 +1,25 @@
+<% if (breweryData.length > 0) { %>
+  <% breweryData.forEach(oneBrewery => { %>
+    <section id="<%= oneBrewery.api_id %>">
+      <img src="<%= oneBrewery.img_medium %>" alt="<% oneBrewery.name %>"/>
+      <h5> <%= oneBrewery.name %> </h5>
+      <h6> <%= oneBrewery.type %> </h6>
+      <h6> <%= oneBrewery.website %> </h6>
+      <form action="/favorites/<%= oneBrewery.api_id %>?_method=put" method="POST">
+        <input type="hidden" name="table_name" value="breweries" />
+        <% if (oneBrewery.notes == null || oneBrewery.notes === '') { %>
+          <textarea name="notes" id="" cols="60" rows="10" placeholder="Enter your notes here..."></textarea>        
+        <% } else { %>
+          <textarea name="notes" id="" cols="60" rows="10"><%= oneBrewery.notes %></textarea>
+        <% } %>
+        <button type="submit">Save Notes</button>
+      </form>
+      <form action="/favorites/<%= oneBrewery.api_id %>?_method=delete" method="POST">
+        <input type="hidden" name="table_name" value="breweries" />
+        <button type="submit">Remove From Favorites</button>
+      </form>
+    </section>
+    <% }); %>
+  <% } else { %>
+    <h5>No mountain bike routes saved to favorites</h5>
+  <% } %>

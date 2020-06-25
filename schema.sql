@@ -79,3 +79,17 @@ CREATE TABLE mtn_biking (
   "length" VARCHAR(255),
   "notes" VARCHAR(10000)
 );
+
+
+DROP TABLE IF EXISTS breweries;
+
+CREATE TABLE breweries (
+  "id" SERIAL PRIMARY KEY,
+  "api_id" VARCHAR(255),
+  "name" VARCHAR(255),
+  "latitude" DECIMAL(12, 9),
+  "longitude" DECIMAL(12, 9),
+  "type" VARCHAR(255),
+  "website" VARCHAR(255),
+  "notes" VARCHAR(10000)
+);
