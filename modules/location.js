@@ -26,6 +26,7 @@ const mtbiking = require('./mtn_biking.js');
 const snowSports = require('./snow_sports.js');
 const brewery = require('./brewery.js');
 const music = require('./music.js');
+const two = require('./testit.js');
 
 const getLocation = (request, response) => {
   //START-CONSOLE-TESTING
@@ -108,7 +109,7 @@ const activityType = (location, queryType, response) => {
   // console.log('activityType, queryType:');
   // console.log(queryType);
   //END-CONSOLE-TESTING
-
+  two.getTwoArrays(location,response);
   switch (queryType) {
   case 'hiking':
     trails.getTrails(location, response);
