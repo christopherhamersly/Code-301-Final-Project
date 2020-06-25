@@ -1,4 +1,5 @@
 'use strict';
+const queryType = 'brewery';
 const express = require('express');
 const app = express();
 
@@ -34,7 +35,7 @@ const getBrewery = (location, response) => {
       console.log('Brew Array', brewArray);
       response.status(200).render('results.ejs',
         {
-          queryType: 'brewery',
+          queryType: queryType,
           brewery: brewArray
         });
 

@@ -20,50 +20,69 @@ client.on('error', err => console.log(err));
 
 
 
-async function getTwoArrays(location, response) {
-  let apiURL1 = 'https://www.hikingproject.com/data/get-trails';
-  let apiParams1 = {
-    lat: location.lat,
-    lon: location.lon,
-    maxDistance: 10,
-    key: process.env.HIKING_ROUTES_API_KEY
+async function getTwoArrays(location, response){
+  console.log('in the function');
+  console.log('LOCATION', location);
+ try{const apiURL1 = 'https://www.hikingproject.com/data/get-trails';
+    const apiParams1 = {
+       key: process.env.HIKING_ROUTES_API_KEY,
+      lat: location.lat,
+      lon: location.lon,
+      maxDistance: 10
+     
   };
-  let city = location.search_query;
-  let apiURL2 =
+  const city = location.search_query;
+  const apiURL2 =
     `https://api.openbrewerydb.org/breweries?by_city=${city}`;
   
-  let apiParams2 = {
-    lat: location.lat,
-    lon: location.lon
-  };
-  console.log(location);
-  const url1 = superagent.get(apiURL1, apiParams1);
-  const url2 = superagent.get(apiURL2, apiParams2);
+  //   const apiParams2 = {
+  //     lat: location.lat,
+  //     lon: location.lon
+  // };
+  // console.log(location);
+  const apiURL3 =
+  `http://musicovery.com/api/V6/artist.php?fct=getfromlocation&location=${city}`
+  
+  
+  const url1 = superagent.get(apiURL1).query(apiParams1);
+  const url2 = superagent.get(apiURL2);
+  const url3 = superagent.get(apiURL3);
 
-  const [data1, data2] = await Promise.all([
+  var [data1, data2, data3] = await Promise.all([
     url1,
-    url2
-  ]).then(result => {
-    console.log(data1.body, data2.body);
+    url2,
+    url3
+  ])}catch(error) { console.log('ERROR', error)};
+  // .then(result => {
+  //   console.log(data1.body, data2.body);
     let rtnTrails = data1.body.trails.map(oneTrail => {
-      let newTrail = new Trail(oneTrail);
-      newTrail.cached = apiIDsFromCache.includes(oneTrail.id);
-      return newTrail;
+      // let newTrail = 
+      return new Trail(oneTrail);
+      // newTrail.cached = apiIDsFromCache.includes(oneTrail.id);
+      // return newTrail;
     });
-    let brewArray = apiData.body.map(oneBrew => {
-      return new Brewery(oneBrew);
+      
+  //   }).then(brew => {
+     let brewArray = data2.body.map(oneBrew => {
+    return new Brewery(oneBrew);
     });
-    let trailResults = data1.body;
-    let brewery = data2.body;
+ 
+    let tunesArray = data3.body.artists.artist.map(oneTune => {
+      return new Song(oneTune);
+    });
+    console.log('Results from promise.all', data1.body, data2.body);
+  
+    // var trailResults = data1.body;
+    // var brewery = data2.body;
 
-    response.status(200).render('/testit', { trailResults: oneTrail, brewery: oneBrew })
-  }).catch(error => {
-    console.error('error', error)
-  })
-}
+      response.status(200).render('./partials/testit.ejs', { trailResults: rtnTrails, brewery: brewArray, tunesResults: tunesArray })
+   }
+ 
 
-module.exports.getTwoArrays = getTwoArrays;
 
+
+
+// Brewery Constructor
 function Brewery(obj) {
   this.name = obj.name ? obj.name : 'No name available';
   this.type = obj.brewery_type ? obj.brewery_type : 'No info available';
@@ -73,6 +92,8 @@ function Brewery(obj) {
   // this.tag_list = obj.tag_list ? obj.tag_list : 'No info available';
 }
 
+
+// Hiking Constructor
 function Trail(object) {
   let placeholderImage = './public/images/weekend_warrior_imagenotavailable.png'
   this.api_id = object.id;
@@ -89,3 +110,11 @@ function Trail(object) {
   this.conditionStatus = object.conditionStatus ? object.conditionStatus : 'No trail condition available';
   this.stars = object.stars ? object.stars : 'No trail rating available';
 }
+
+// Music constructor
+function Song (obj) {
+  this.name = obj.name;
+  this.genre = obj.genre
+}
+
+module.exports.getTwoArrays = getTwoArrays;

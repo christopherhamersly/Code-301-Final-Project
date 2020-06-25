@@ -1,3 +1,4 @@
+
 <h4> Hiking </h4>
 <% trailResults.forEach(oneTrail => { %>
   <section id="<%= oneTrail.api_id %>">
@@ -51,3 +52,9 @@
     <button type = "submit"> Add to my favorites </button>
   </form>
 <% }); %>
+
+<h4> Suggested Local Artists </h4>
+<% tunesResults.forEach(oneTune => { %>
+  <h5><%= oneTune.name %></h5>
+  <h5><%= oneTune.genre %></h5>
+<% }) %>
