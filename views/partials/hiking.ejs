@@ -1,16 +1,18 @@
-<h4> Hiking </h4>
+<h4 class="activity"> Hiking </h4>
    
 <% trailResults.forEach(oneTrail => { %>
-  <section id="<%= oneTrail.api_id %>">
-    <img src="<%= oneTrail.img_medium %>" alt="<% oneTrail.name %>"/>
-    <h5> <%= oneTrail.name %> </h5>
-    <h5> Trail Length: <%= oneTrail.length %> miles. </h5>
-    <h5> Ascent: <%= oneTrail.ascent %> miles.</h5>
-    <p>Trail Summary: <%= oneTrail.summary %> </p>
-    <h6>Difficulty Raining: <%= oneTrail.difficulty %> </h6>
-    <h6>Condition Status: <%= oneTrail.conditionStatus %> </h6>
-    <h7> Star Rating: <%= oneTrail.stars %> </h7>
-    <form action="/favorites" method="POST">
+  <div class="results">
+    <section id="<%= oneTrail.api_id %>">
+      <img src="<%= oneTrail.img_medium %>" alt="<% oneTrail.name %>"/>
+      <h5> <%= oneTrail.name %> </h5>
+      <h5> Trail Length: <%= oneTrail.length %> miles. </h5>
+      <h5> Ascent: <%= oneTrail.ascent %> miles.</h5>
+      <p>Trail Summary: <%= oneTrail.summary %> </p>
+      <h6>Difficulty Raining: <%= oneTrail.difficulty %> </h6>
+      <h6>Condition Status: <%= oneTrail.conditionStatus %> </h6>
+      <h7> Star Rating: <%= oneTrail.stars %> </h7>
+    </section>
+    <form class="favorites" action="/favorites" method="POST">
       <input type="hidden" name="table_name" value="trails" />
       <input type="hidden" name="api_id" value=<%= oneTrail.api_id %> />
       <input type="hidden" name="name" value="<%= oneTrail.name %>"/>
@@ -30,9 +32,6 @@
         <button type="submit" class="add-favorite">Add to my favorites </button>
       <% } %>
     </form>
-  </section>
+  </div>
   <% }); %>
 
-  <form value="./music" method="GET">
-    <button type="submit">Get Local Music</button>
-  </form>

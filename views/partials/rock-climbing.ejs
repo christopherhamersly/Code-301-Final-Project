@@ -1,6 +1,6 @@
-<h4> Rock Climbing </h4>
+<h4 class="activity"> Rock Climbing </h4>
 <% climbResults.forEach(oneClimb => { %>
-
+<div class="results">
   <section id=<%= oneClimb.api_id %>>
     <img src="<%= oneClimb.img_medium %>" alt="<%= oneClimb.name %>"/>
     <h5> <%= oneClimb.location %> </h5>
@@ -8,6 +8,7 @@
     <h5> <%= oneClimb.type %> </h5>
     <h6> <%= oneClimb.pitches %> </h6>
     <h6> <%= oneClimb.stars %> </h6>
+  </section>
     <form action ="/favorites" method = "POST">
       <input type="hidden" name="table_name" value="climbing" />
       <input type="hidden" name="api_id" value="<%= oneClimb.api_id %>" />
@@ -25,6 +26,6 @@
         <button type="submit" class="add-favorite">Add to my favorites </button>
       <% } %>
     </form>
-  </section>
+</div>
   <% }); %>
 

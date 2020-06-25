@@ -1,6 +1,6 @@
 
-<h4> Snow Sports </h4>
-
+<h4 class="activity"> Snow Sports </h4>
+<div class="results">
 <% snowSportsResults.forEach(oneRoute => { %>
   <img src="<%= oneRoute.imgMedium %>" alt="<%= oneRoute.name %>"/>
   <h5> <%= oneRoute.location %> </h5>
@@ -18,6 +18,7 @@
   <input type="hidden" name="Stars" value="<%= oneRoute.stars %>"/>
   <button type = "submit"> Add to my favorites </button>
 </form>
+</div>
 <% }); %>
 
 
