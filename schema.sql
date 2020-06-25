@@ -62,16 +62,20 @@ CREATE TABLE climbing (
 );
 
 
-DROP TABLE IF EXISTS biking;
+DROP TABLE IF EXISTS mtn_biking;
 
-CREATE TABLE biking(
-"id" SERIAL PRIMARY KEY,
-"api_id" VARCHAR(255), 
-"location" VARCHAR(255),
-"name" VARCHAR(255),
-"length" VARCHAR(255),
-"summary" VARCHAR(10000),
-"difficulty" VARCHAR(255),
-"stars" VARCHAR(255)
+CREATE TABLE mtn_biking (
+  "id" SERIAL PRIMARY KEY,
+  "api_id" VARCHAR(255), 
+  "location" VARCHAR(255),
+  "name" VARCHAR(255),
+  "type" VARCHAR(255),
+  "difficulty" VARCHAR(255),
+  "stars" VARCHAR(255),
+  "latitude" DECIMAL(12, 9),
+  "longitude" DECIMAL(12, 9),
+  "img_medium" VARCHAR(255),
+  "summary" VARCHAR(10000),
+  "length" VARCHAR(255),
+  "notes" VARCHAR(10000)
 );
-

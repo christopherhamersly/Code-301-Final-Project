@@ -67,7 +67,7 @@ const getTrailsFromAPI = (apiIDsFromCache, location, response) => {
       apiIDsFromCache = apiIDsFromCache.map(sqlObject => sqlObject.api_id);
       let rtnTrails = apiData.body.trails.map(oneTrail => {
         let newTrail = new Trail(oneTrail);
-        newTrail.cached = apiIDsFromCache.includes(oneTrail.id);
+        newTrail.cached = apiIDsFromCache.includes(oneTrail.id.toString());
         return newTrail;
       });
       //START-CONSOLE-TESTING

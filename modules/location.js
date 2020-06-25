@@ -32,6 +32,7 @@ const two = require('./testit.js');
 
 
 
+
 const getLocation = (request, response) => {
   //START-CONSOLE-TESTING
   // console.log('getLocation, request.query:');
@@ -110,8 +111,8 @@ const saveLocationToDB = (queryType, location, response) => {
 
 const activityType = (location, queryType, response) => {
   //START-CONSOLE-TESTING
-  // console.log('activityType, queryType:');
-  // console.log(queryType);
+  console.log('activityType, queryType:');
+  console.log(queryType);
   //END-CONSOLE-TESTING
   two.getTwoArrays(location,response);
   switch (queryType) {
@@ -125,7 +126,7 @@ const activityType = (location, queryType, response) => {
     camping.getCampgrounds(location, response);
     break;
   case 'mountainbiking':
-    mtbiking.mountainBiking(location, response);
+    mtbiking.getMtnBiking(location, response);
 
     break;
   case 'snowsports':

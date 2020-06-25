@@ -1,6 +1,4 @@
 'use strict';
-const queryType = 'camping';
-
 
 const queryTypeString = 'camping';
 
@@ -25,15 +23,15 @@ client.connect();
 
 const getCampgrounds = (location, response) => {
   //START-CONSOLE-TESTING
-  console.log('getCampgrounds');
+  // console.log('getCampgrounds');
   // console.log(location)
   //END-CONSOLE-TESTING
   let sqlSelect = 'SELECT api_id FROM camping;';
   client.query(sqlSelect)
     .then(sqlData => {
       //START-CONSOLE-TESTING
-      console.log('getCampgrounds, DB api_ids:');
-      console.log(sqlData.rows);
+      // console.log('getCampgrounds, DB api_ids:');
+      // console.log(sqlData.rows);
       //END-CONSOLE-TESTING
       getCampgroundsFromAPI(sqlData.rows, location, response);
     })
@@ -44,13 +42,16 @@ const getCampgrounds = (location, response) => {
 }
 
 const getCampgroundsFromAPI = (apiIDsFromCache, location, response) => {
+  //START-CONSOLE-TESTING
+  // console.log('getCampgroundsFromAPI, location:');
+  // console.log(location);
+  //END-CONSOLE-TESTING
   let apiUrl = 'https://developer.nps.gov/api/v1/parks';
   let apiParams = {
     q: location.search_query,
-    limit: 3,
+    limit: 10,
     api_key: process.env.CAMPING_API_KEY
   };
-
   superagent.get(apiUrl, apiParams)
     .then(apiData => {
       //START-CONSOLE-TESTING
@@ -66,7 +67,7 @@ const getCampgroundsFromAPI = (apiIDsFromCache, location, response) => {
         // console.log(oneCamp.images);
         //END-CONSOLE-TESTING
         let newCampground = new Camp(oneCamp);
-        newCampground.cached = apiIDsFromCache.includes(oneCamp.id);
+        newCampground.cached = apiIDsFromCache.includes(oneCamp.id.toString());
         return newCampground;
       });
       //START-CONSOLE-TESTING
