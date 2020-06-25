@@ -51,13 +51,10 @@ client.connect()
   });
 
 
-
-
-
-
-
-
-
+app.get('/testit', getTwoArrays);
+function getTwoArrays(request, response){
+  response.status(200).render('testit.ejs');
+}
 
 
 
