@@ -1,21 +1,21 @@
 <%- include('./partials/header.ejs') %>
-
+<div id="indexPage"> 
 <form action="/location" method="GET">  
-  <h2>What is your name?</h2>
+  <h2 class="formTitle">What is your name?</h2>
   <input type="text" name="userName" placeholder="Enter your name!" required>
-  <h2>Where do you want to go?</h2>
+  <h2 class="formTitle">Where do you want to go?</h2>
   <input type="text" name="city" placeholder="Enter a city or zipcode" required>
-  <h2>How much time do you have?</h2>
-  <input type="text" name="time" placeholder="Enter amount of time" required>
-  <h2>How do you want to spend your weekend?</h2>
-  <select name="type">
+  <!-- <h2>How much time do you have?</h2>
+  <input type="text" name="time" placeholder="Enter amount of time" required> -->
+  <h2 class="formTitle">How do you want to spend your weekend?</h2>
+  <select name="type" id="dropdown">
     <option value="hiking">Hiking</option>
     <option value="climbing">Rock Climbing</option>
     <option value="camping">Camping</option>
     <option value="mountainbiking">Mountain Biking</option>
     <option value="snowsports">Snow Sports</option>
   </select>
-  <button type="submit">Click Me Bitch (says Daisy)</button>
+  <button id="indexButton" type="submit">Find Your Aventure</button>
 </form>
-
+</div>
 <%- include('./partials/footer.ejs') %>

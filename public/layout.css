@@ -20,7 +20,7 @@ body{
 @media only screen and (min-width: 992px){
   body{
     width:100%;
-    background-color: #da7635;
+    background-color: #307351;
 
   }
 #bioPage{
@@ -52,4 +52,31 @@ body{
     grid-row-start: 4;
     grid-row-end: 5;
   }
+#indexPage{
+  background-image: url(/public/images/road-sun-rays-path.jpg);
+  display:grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: 50px 300px 300px;
+}
+form{
+  grid-column-start: 2;
+  grid-column-end: 5;
+  grid-row-start: 2;
+  grid-row-end: 4;
+}
+#resultsPage{
+   background-color:#DA7635;
+  display:grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: 100px 1fr 1fr 1fr 1fr;
+}
+#activityResults{
+  grid-column-start: 1;
+  grid-column-end: 3;
+  grid-row-start: 2;
+} 
+#resultsHead{
+  grid-column-start: 2;
+  grid-column-end: 5;
+}
 }

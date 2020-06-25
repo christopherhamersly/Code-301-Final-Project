@@ -27,6 +27,7 @@ const snowSports = require('./snow_sports.js');
 // const brewery = require('./brewery.js');
 // const getTrailsandBrewery = require('./test.js')
 
+
 const getLocation = (request, response) => {
   //START-CONSOLE-TESTING
   console.log('getLocation, request.query:');

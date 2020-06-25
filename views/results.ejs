@@ -1,10 +1,12 @@
+
 <%- include('./partials/header.ejs') %>
-<h3>Your weekend suggestions</h3>
+<div id="resultsPage">
+<h3 id="resultsHead">Your Weekend Suggestions</h3>
 
 
-
-
-<% } if (queryType == 'climbing') {  %>
+<% if (queryType == 'hiking') { %>
+  <%- include('./partials/hiking.ejs') %>
+<% } else if (queryType == 'climbing') {  %>
   <%- include('./partials/rock-climbing.ejs') %>
 <% } else if (queryType == 'camping') { %>
   <%- include('./partials/camping.ejs') %>
@@ -12,17 +14,7 @@
   <%- include('./partials/mtbiking.ejs') %>
 <% } else if (queryType == 'snowsports') { %>
   <%- include('./partials/snowsports.ejs') %>
+
 <% } %> 
-
-
-
-
-
-
-
-
-
-
-
 
 <%- include('./partials/footer.ejs') %>

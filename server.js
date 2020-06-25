@@ -43,18 +43,12 @@ app.route('/favorites/:api_id')
 app.route('/music')
   .get((request, response) => music.getTunes(request, response));
 
-
 client.connect()
   .then(() => {
     app.listen(PORT, () => {
       console.log(`Listening on ${PORT}`);
     })
   });
-
-
-
-
-
 
 
 
