@@ -1,5 +1,5 @@
 'use strict';
-const queryType = 'mountainbiking';
+const queryTypeString = 'mountainbiking';
 
 const express = require('express');
 const app = express();
@@ -9,8 +9,6 @@ const superagent = require('superagent');
 require('ejs');
 require('dotenv').config();
 
-const PORT = process.env.PORT || 3001;
-
 app.use(express.urlencoded({extended: true}));
 app.set('view engine', 'ejs');
 app.use('/public', express.static('public'));
@@ -18,8 +16,34 @@ app.use('/public', express.static('public'));
 const client = new pg.Client(process.env.DATABASE_URL);
 client.on('error', err => console.log(err));
 
-const mountainBiking = (location, response) => {
-  console.log('we are in the mountain biking function')
+client.connect();
+
+const getMtnBiking = (location, response) => {
+  //START-CONSOLE-TESTING
+  // console.log('getMtnBiking, location:');
+  // console.log(location);
+  //END-CONSOLE-TESTING
+  let sqlSelect = 'SELECT api_id FROM mtn_biking;';
+  client.query(sqlSelect)
+    .then(sqlData => {
+      //START-CONSOLE-TESTING
+      // console.log('getTrails, DB api_ids:');
+      // console.log(sqlData.rows);
+      //END-CONSOLE-TESTING
+      getMtnBikingFromAPI(sqlData.rows, location, response);
+    })
+    .catch(error => {
+      console.error('Error checking cache for favorited mtn biking routes');
+      console.error(error);
+    });
+};
+
+const getMtnBikingFromAPI = (apiIDsFromCache, location, response) => {
+  //START-CONSOLE-TESTING
+  // console.log('getMtnBikingFromAPI, apisFromCache, location:');
+  // console.log(apiIDsFromCache);
+  // console.log(location);
+  //END-CONSOLE-TESTING
   let apiUrl = 'https://www.mtbproject.com/data/get-trails';
   let apiParams = {
     lat: location.lat,
@@ -28,26 +52,42 @@ const mountainBiking = (location, response) => {
     key: process.env.MTN_BIKING_API_KEY
   };
   superagent.get(apiUrl, apiParams)
-  // console.log('results', results.body);
     .then(apiData => {
-      // console.log(apiData.body.trails)
-      let mtnbikearrary = apiData.body.trails.map(oneBike => {
-        return new MtBikes(oneBike);
+      //flatten the array from an array of objects with a single key-value pair, to
+      //an array of numbers
+      apiIDsFromCache = apiIDsFromCache.map(sqlObject => sqlObject.api_id);
+      //START-CONSOLE-TESTING
+      // console.log('apiData.body:');
+      // console.log(apiData.body);
+      //END-CONSOLE-TESTING
+      let mtnBikeRoutes = apiData.body.trails.map(oneRoute => {
+        let newMtnBikeRoute = new MtnBikeRoute(oneRoute);
+        newMtnBikeRoute.cached = apiIDsFromCache.includes(oneRoute.id.toString());
+        return newMtnBikeRoute;
       });
+      //START-CONSOLE-TESTING
+      // console.log('mtnBikeRoutes:');
+      // console.log(mtnBikeRoutes);
+      //END-CONSOLE-TESTING
       response.status(200).render('results.ejs',
         {
-          queryType: queryType,
-          mtBikeResults: mtnbikearrary
+          queryType: queryTypeString,
+          mtnBikeResults: mtnBikeRoutes
         });
-    }) .catch(error => {
-      console.error('error', error)
     })
-}
+    .catch(error => {
+      console.error('Error getting mtn biking data from API');
+      console.error(error);
+    });
+};
 
-module.exports.mountainBiking = mountainBiking;
+module.exports.getMtnBiking = getMtnBiking;
 
 // constructor
-function MtBikes(obj) {
+function MtnBikeRoute(obj) {
+  let placeholderImage = './public/images/weekend_warrior_imagenotavailable.png'
+  this.api_id = obj.id;
+  this.cached = false;
   this.location = obj.location ? obj.location : 'No city available';
   this.name = obj.name ? obj.name : 'No name available';
   this.type = obj.type ? obj.type : 'No type available';
@@ -55,7 +95,7 @@ function MtBikes(obj) {
   this.stars = obj.stars ? obj.stars : 'No rating available';
   this.latitude = obj.latitude ? obj.latitude : 'No info available';
   this.longitude = obj.longitude ? obj.longitude : 'No info available';
-  this.imgMedium = obj.imgMedium ? obj.imgMedium : 'No image available';
+  this.img_medium = obj.imgMedium ? obj.imgMedium : placeholderImage;
   this.summary = obj.summary ? obj.summary : 'No description available';
   this.length = obj.length ? obj.length : 'No length available'
 }
