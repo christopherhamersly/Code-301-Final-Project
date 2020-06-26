@@ -1,6 +1,11 @@
 <%- include('./partials/header.ejs') %>
 
-<h1>Favorites</h1>
+<h4 class="activity">Favorites</h4>
+
+<div id=nav_bar>
+  <a class="nav" href="/"> Home </a>
+  <a class="nav" href="/bio"> About Us </a>
+</div>
 
 <h4> Hiking </h4>
 <%- include('./partials/favorites-trail.ejs') %>
@@ -13,5 +18,8 @@
 
 <h4>Mountain Biking</h4>
 <%- include('./partials/favorites-mtn-biking.ejs') %>
+
+<h4>Breweries</h4>
+<%- include('./partials/favorites-breweries.ejs') %>
 
 <%- include('./partials/footer.ejs') %>

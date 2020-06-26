@@ -1,7 +1,7 @@
 
 <h4 class="activity"> Camping </h4>
 <% campResults.forEach(oneCamp => { %>
-<div class="results"></div>
+  <div class="results">
   <section id="<%= oneCamp.api_id %>">
     <img src="<%= oneCamp.images %>" alt="<%= oneCamp.name %>" />
     <h5> <%=oneCamp.name %> </h5>
@@ -27,7 +27,6 @@
         <button type="submit" class="add-favorite">Add to my favorites </button>
       <% } %>
     </form>
-  </section>
 </div>
 <% }); %>
 

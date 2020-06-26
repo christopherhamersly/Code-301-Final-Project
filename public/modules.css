@@ -1,8 +1,6 @@
-/* // h tags */
 
-/* h1 {
-background-color: red;
-} */
+
+
 
 /* header */
 #logo {
@@ -26,16 +24,17 @@ background-color: red;
   width: 12%;
 }
 
+
 #logo2:hover {
 opacity:10%;
 }
-/* #headerText{
+ #headerText{
   font-size: 1.5em;
   font-weight: bold;
   font-family: 'Oswald', sans-serif;
   margin-left:52%;
   padding-bottom:10px;
-} */
+} 
 
 h2{
 background-color:#da7635;
@@ -63,8 +62,8 @@ h3 {
 h5{
   font-size: 2em;
   padding: 10px;
-  font-family: 'Quicksand', sans-serif;
 
+  font-family: 'Quicksand', sans-serif;
 
 }
 
@@ -74,6 +73,7 @@ h6 {
   font-family: 'Quicksand', sans-serif;
 }
 
+
 h7 {
   font-size: 1em;
   font-style: italic;
@@ -81,6 +81,7 @@ h7 {
   font-family: 'Quicksand', sans-serif;
 
 } 
+
 
 p{
   font-size: 1.5em;
@@ -161,12 +162,30 @@ background-color: #654236;
 
 .bioPic{
   width: 50%;
-  height:auto;
+  max-height: 500px;
   display:block;
   margin: auto;
   padding-top: 25px;
   padding-bottom: 10px;
+}
 
+.paragraph{
+  background-color: rgb(164, 161, 158);
+  border: 4px solid #DA7635;
+  border-radius: 5px;
+  padding: 20px;
+  
+}
+
+.social{
+  margin-left: 5px;
+  width: 20px;
+}
+
+ul{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
 }
 
 /* results page */

@@ -1,5 +1,6 @@
 <% if (campingData.length > 0) { %>
   <% campingData.forEach(oneCamp => { %>
+    <div class="results">
     <section id="<%= oneCamp.api_id %>">
       <img src="<%= oneCamp.img_medium %>" alt="<% oneCamp.name %>"/>
       <h5> <%= oneCamp.name %> </h5>
@@ -18,6 +19,7 @@
         <button type="submit">Remote From Favorites</button>
       </form>
     </section>
+  </div>
     <% }); %>
   <% } else { %>
     <h5>No campgrounds saved to favorites</h5>
