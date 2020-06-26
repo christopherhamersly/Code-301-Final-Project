@@ -8,25 +8,29 @@
     <a class="nav" href="/bio"> About Us </a>
 </div>
 
+
+
+
 <div id="resultsPage">
 
-<% if (queryType == 'hiking') { %>
-  <%- include('./partials/hiking.ejs') %>
-<% } else if (queryType == 'climbing') {  %>
-  <%- include('./partials/rock-climbing.ejs') %>
-<% } else if (queryType == 'camping') { %>
-  <%- include('./partials/camping.ejs') %>
-<% } else if (queryType == 'mountainbiking') { %>
-  <%- include('./partials/mtbiking.ejs') %>
-<% } else if (queryType == 'snowsports') { %>
-  <%- include('./partials/snowsports.ejs') %>
-<% } else if (queryType == 'brewery') { %>
-  <%- include('./partials/brewery.ejs') %>
-<% } else if (queryType == 'music') { %>
-  <%- include('./partials/music.ejs') %>
-<% } %>
 
 
+<div id="resultsPage">
+  <% if (queryType == 'hiking') { %>
+    <%- include('./partials/hiking.ejs') %>
+  <% } else if (queryType == 'climbing') {  %>
+    <%- include('./partials/rock-climbing.ejs') %>
+  <% } else if (queryType == 'camping') { %>
+    <%- include('./partials/camping.ejs') %>
+  <% } else if (queryType == 'mountainbiking') { %>
+    <%- include('./partials/mtbiking.ejs') %>
+  <% } else if (queryType == 'snowsports') { %>
+    <%- include('./partials/snowsports.ejs') %>
+  <% } else if (queryType == 'brewery') { %>
+    <%- include('./partials/brewery.ejs') %>
+  <% } else if (queryType == 'music') { %>
+    <%- include('./partials/music.ejs') %>
+  <% } %>
 </div>
 
 

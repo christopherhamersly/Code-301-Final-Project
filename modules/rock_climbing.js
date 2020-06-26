@@ -61,6 +61,7 @@ const getRockClimbingFromAPI = (apiIDsFromCache, location, response) => {
       response.status(200).render('results.ejs',
         {
           queryType: queryType,
+          userName: location.userName,
           climbResults: climbingArray
         });
     })
@@ -81,8 +82,8 @@ function Climbs(obj) {
   this.type = obj.type ? obj.type : 'No type available';
   this.pitches = obj.pitches ? obj.pitches : 'No info available';
   this.stars = obj.stars ? obj.stars : 'No rating available';
-  this.latitude = obj.latitude ? obj.latitude : 'No info available';
-  this.longitude = obj.longitude ? obj.longitude : 'No info available';
+  this.latitude = obj.latitude ? obj.latitude : 0.0;
+  this.longitude = obj.longitude ? obj.longitude : 0.0;
   this.img_medium = obj.imgMedium ? obj.imgMedium : placeholderImage;
 }
 

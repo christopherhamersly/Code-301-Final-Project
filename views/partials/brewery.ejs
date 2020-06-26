@@ -1,17 +1,23 @@
-
-
 <h4> Breweries </h4>
-<% console.log('brewery.ejs, brewery:') %>
-<% console.log(brewery); %>
-<% brewery.forEach(oneBrew => { %>
-  <h5><%= oneBrew.name %></h5>
-  <h5><%= oneBrew.type %></h5>
-  <h5><%= oneBrew.website %></h5>
 
-  <form action ="/favorites.ejs" method = "POST" >
-    <input type="hidden" name="name" value="<%= oneBrew.name  %>"/> 
-    <input type="hidden" name="type" value="<%= oneBrew.type %>"/>
-    <input type="hidden" name="website" value="<%= oneBrew.website %>"/>
-    <button type = "submit"> Add to my favorites </button>
-  </form>
+<% brewery.forEach(oneBrew => { %>
+  <section id="<%= oneBrew.api_id %>">
+    <h5><%= oneBrew.name %></h5>
+    <h5><%= oneBrew.type %></h5>
+    <h5><%= oneBrew.website %></h5>
+    <form action="/favorites" method="POST">
+      <input type="hidden" name="table_name" value="breweries" />
+      <input type="hidden" name="api_id" value=<%= oneBrew.api_id %> />
+      <input type="hidden" name="name" value="<%= oneBrew.name %>"/>
+      <input type="hidden" name="latitude" value="<%= oneBrew.latitude %>"/>
+      <input type="hidden" name="longitude" value="<%= oneBrew.longitude %>"/>
+      <input type="hidden" name="type" value="<%= oneBrew.type %>"/>
+      <input type="hidden" name="website" value="<%= oneBrew.website %>"/>
+      <% if (oneBrew.cached) { %>
+        <a href="/favorites">Link to Favorites</a>
+      <% } else { %>
+        <button type="submit" class="add-favorite">Add to my favorites</button>
+      <% } %>
+    </form>
+  </section>  
 <% }); %>
