@@ -134,7 +134,7 @@ form{
   margin-bottom: 50px;
 }
 
-
+#suggestions{
   height: 200px;
 }
 
@@ -148,6 +148,8 @@ form{
   border: 2px solid #DA7635;
   border-radius: 5px;
   cursor: pointer;
+  font-weight: bold;
+  color: #307351;
   margin-right: 5px;
   padding-left: 15px;
   padding-right: 15px;
@@ -212,5 +214,24 @@ margin-top: 10px;
 max-height: 300px; 
 width: 70%;  
 }
+
+
+/* #music_body{
+  background-color: rgb(164, 161, 158);
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+} */
+
+/* #music_header{
+  display: grid;
+  text-align: center;
+  /* float: center; */
+  /* grid-column-start: 2;
+  grid-column-end: 5;
+  grid-row-start: 1;
+  padding: 10px;
+}  */
 
 }

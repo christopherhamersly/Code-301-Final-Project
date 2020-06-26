@@ -201,7 +201,10 @@ ul{
 
 /* brewery results */
 #brewery_container {
+  margin:auto;
  width: 200px;
+ margin-bottom: 15px;
+ background-image: url(/public/images/brew.jpg);
 }
 
 #breweries_header {
@@ -218,7 +221,7 @@ ul{
   font-size: 2em;
   background-color: #DA7635;
   opacity: 90%;
-  height: 160px;
+  height: 180px;
   margin: auto;
 }
 
@@ -230,29 +233,49 @@ ul{
   
 }
 
+#brewery_website{
+  /* box-shadow:inset 0px 1px 0px 0px #54a3f7;
+  background: linear-gradient(to bottom, #007dc1 5%, to #175676 100%); */
+  background-color:rgb(210, 149, 108);
+  border-radius: 5px;
+  /* border: 1px solid #124d77; */
+  display: block;
+  margin: auto;
+  cursor:pointer;
+  font-family: 'Oswald', sans-serif;
+  font-size: 20px;
+  padding: 6px 25px;
+  text-decoration: none;
+  color:#307351;
+  /* text-shadow: 0px 1px 0px #154682; */
+
+}
+
 /* music results */
 
+
+
 #music_containerTwo {
-display: flex;
-flex-direction: row;
-flex-wrap: wrap;
+  align-items: center;
+  background-color:#DA7635;
+  border: 3px solid rgba(62, 41, 27, 0.305);
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 5px;
+
 }
 
 #music_container {
-  width: 200px;
+  align-items: center;
+  background-color:#DA7635;
+  border-radius: 5px;
   display: flex;
+  flex-wrap: wrap;
   flex-direction: column;
-  height:auto;
-}
-
-#music_header{
-  text-align: center;
-  float: center;
-  grid-column-start: 1;
-  grid-column-end: 6;
-  grid-row-start: 1;
-  padding: 10px;
-
+  justify-content: space-between;
+  margin: 5px; 
 }
 
 #music_name{
@@ -282,4 +305,18 @@ flex-wrap: wrap;
   padding-right: 15px;
   text-decoration: none;
   width: 50px;
+}
+
+.add-favorite{
+  background-color: rgb(218, 159, 120);
+  border: 2px solid #DA7635;
+  font-weight: bold;
+  color:  #307351;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-right: 5px;
+  padding-left: 15px;
+  padding-right: 15px;
+  text-decoration: none;
+  width: 100px;
 }
