@@ -3,17 +3,11 @@
 <%- include('./partials/header.ejs') %>
 
 <div id="suggestions">
-
-<div id=nav_bar>
-  <ul>
-    <l1><a href="/"> Home </a></l1>
-    <l1><a href="/bio"> Bio </a></l1>
-  </ul>
+  <h3 id="resultsHead">Your Weekend Suggestions</h3>
+    <a class="nav" href="/"> Home </a>
+    <a class="nav" href="/bio"> About Us </a>
 </div>
-<div id="resultsPage">
 
-<h3 id="resultsHead">Your Weekend Suggestions</h3>
-</div>
 <div id="resultsPage">
 
 <% if (queryType == 'hiking') { %>

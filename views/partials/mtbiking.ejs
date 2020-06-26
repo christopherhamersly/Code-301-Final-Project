@@ -1,7 +1,8 @@
 
-<h4> Mountain Biking </h4>
+<h4 class="activity"> Mountain Biking </h4>
 
 <% mtnBikeResults.forEach(oneMtnBikeRoute => { %>
+  <div class="results">
   <section id="<%= oneMtnBikeRoute.api_id %>">
     <img src="<%= oneMtnBikeRoute.img_medium %>" alt="<% oneMtnBikeRoute.name %>"/>
     <h5> <%= oneMtnBikeRoute.location %> </h5>
@@ -10,7 +11,7 @@
     <h5> <%= oneMtnBikeRoute.summary %></h5>
     <h6> <%= oneMtnBikeRoute.difficulty %> </h6>
     <h6> <%= oneMtnBikeRoute.stars %> stars </h6>
-
+  </section>
     <form action="/favorites" method="POST">
       <input type="hidden" name="table_name" value="mtn_biking" />
       <input type="hidden" name="api_id" value=<%= oneMtnBikeRoute.api_id %> />
@@ -28,10 +29,8 @@
         <button type="submit" class="add-favorite">Add to my favorites </button>
       <% } %>
     </form>
-  </section>
+</div>
   <% }); %>
 
-  <form value="./music" method="GET">
-    <button type="submit">Get Local Music</button>
-  </form>
+
 
