@@ -1,4 +1,3 @@
-
   
 <h4 id="breweries_header"> Breweries </h4>
 
@@ -7,8 +6,8 @@
     <div id="brewery_container">
     <h5 id="brewery_name"><%= oneBrew.name %></h5>
     <h5 id="brewery_type">Brewery Type: <%= oneBrew.type %></h5>
-    <h5 id="brewery_website"><a href="<%= oneBrew.website %>" target="blank">Brewery Website</a></h5>
-    </div>
+    <h5 ><a id="brewery_website" href="<%= oneBrew.website %>" target="blank">Brewery Website</a></h5>
+    
     <form action="/favorites" method="POST">
       <input type="hidden" name="table_name" value="breweries" />
       <input type="hidden" name="api_id" value=<%= oneBrew.api_id %> />
@@ -25,3 +24,4 @@
     </form>
   </section>  
 <% }); %>
+</div>
