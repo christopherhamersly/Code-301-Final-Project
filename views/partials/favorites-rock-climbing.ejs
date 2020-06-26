@@ -5,8 +5,8 @@
       <h5> <%= oneClimb.location %> </h5>
       <h5> <%= oneClimb.name %> </h5>
       <h5> <%= oneClimb.type %> </h5>
-      <h6> <%= oneClimb.pitches %> </h6>
-      <h6> <%= oneClimb.stars %> </h6>
+      <h6> <%= oneClimb.pitches %> pitches </h6>
+      <h6> <%= oneClimb.stars %> stars </h6>
       <form action="/favorites/<%= oneClimb.api_id %>?_method=put" method="POST">
         <input type="hidden" name="table_name" value="climbing" />
         <% if (oneClimb.notes == null || oneClimb.notes === '') { %>

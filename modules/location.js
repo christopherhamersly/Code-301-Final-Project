@@ -115,7 +115,7 @@ const activityType = (location, queryType, response) => {
   console.log('activityType, queryType:');
   console.log(queryType);
   //END-CONSOLE-TESTING
-  two.getTwoArrays(location,response);
+  // two.getTwoArrays(location,response);
   switch (queryType) {
   case 'hiking':
     trails.getTrails(location, response);

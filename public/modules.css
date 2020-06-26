@@ -25,6 +25,10 @@ background-color: red;
   opacity: 70%;
   width: 12%;
 }
+
+#logo2:hover {
+opacity:10%;
+}
 /* #headerText{
   font-size: 1.5em;
   font-weight: bold;
@@ -52,12 +56,14 @@ h3 {
  h4 {
    font-size: 4em;
    padding: 15px;
+   font-family: 'Quicksand', sans-serif;
 
 }
 
 h5{
   font-size: 2em;
   padding: 10px;
+  font-family: 'Quicksand', sans-serif;
 
 
 }
@@ -65,12 +71,14 @@ h5{
 h6 {
   font-size: 1em;
   padding: 7px;
+  font-family: 'Quicksand', sans-serif;
 }
 
 h7 {
   font-size: 1em;
   font-style: italic;
   padding: 7px;
+  font-family: 'Quicksand', sans-serif;
 
 } 
 
@@ -122,6 +130,7 @@ input {
   padding: 10px;
   margin-top: 10px;
   margin-bottom: 10px;
+  font-family: 'Quicksand', sans-serif;
 }
 
 
@@ -169,4 +178,89 @@ background-color: #654236;
   border-radius: 5px;
   margin: 20px;
   cursor: pointer;
+}
+
+/* brewery results */
+#brewery_container {
+ width: 200px;
+}
+
+#breweries_header {
+  text-align: center;
+  float: center;
+  grid-column-start: 1;
+  grid-column-end: 6;
+  grid-row-start: 1;
+  padding: 10px;
+}
+
+#brewery_name {
+  font-family: 'Oswald', sans-serif;
+  font-size: 2em;
+  background-color: #DA7635;
+  opacity: 90%;
+  height: 160px;
+  margin: auto;
+}
+
+#brewery_type {
+  font-style: italic;
+  font-size: 1.5em;
+  opacity: 75%;
+  background-color: #DA7635;
+  
+}
+
+/* music results */
+
+#music_containerTwo {
+display: flex;
+flex-direction: row;
+flex-wrap: wrap;
+}
+
+#music_container {
+  width: 200px;
+  display: flex;
+  flex-direction: column;
+  height:auto;
+}
+
+#music_header{
+  text-align: center;
+  float: center;
+  grid-column-start: 1;
+  grid-column-end: 6;
+  grid-row-start: 1;
+  padding: 10px;
+
+}
+
+#music_name{
+  font-family: 'Oswald', sans-serif;
+  font-size: 2em;
+  background-color: #DA7635;
+  opacity: 90%;
+  height: 160px;
+  margin: auto;
+}
+
+#music_genre {
+  font-style: italic;
+  font-size: 1.5em;
+  opacity: 75%;
+  background-color: #DA7635;
+}
+
+
+.nav{
+  background-color: rgb(218, 159, 120);
+  border: 2px solid #DA7635;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-right: 5px;
+  padding-left: 15px;
+  padding-right: 15px;
+  text-decoration: none;
+  width: 50px;
 }
