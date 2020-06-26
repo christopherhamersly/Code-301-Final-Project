@@ -1,13 +1,15 @@
 <% if (mtnBikingData.length > 0) { %>
   <% mtnBikingData.forEach(oneMtnBikeRoute => { %>
-    <section id="<%= oneMtnBikeRoute.api_id %>">
-      <img src="<%= oneMtnBikeRoute.img_medium %>" alt="<% oneMtnBikeRoute.name %>"/>
-      <h5> <%= oneMtnBikeRoute.location %> </h5>
-      <h5> <%= oneMtnBikeRoute.name %> </h5>
-      <h5> <%= oneMtnBikeRoute.length %> miles</h5>
-      <h5> <%= oneMtnBikeRoute.summary %></h5>
-      <h6> <%= oneMtnBikeRoute.difficulty %> </h6>
-      <h6> <%= oneMtnBikeRoute.stars %> stars </h6>
+    <div class="favoritespage">
+      <section id="<%= oneMtnBikeRoute.api_id %>">
+        <img src="<%= oneMtnBikeRoute.img_medium %>" alt="<% oneMtnBikeRoute.name %>"/>
+        <h5> <%= oneMtnBikeRoute.location %> </h5>
+        <h5> <%= oneMtnBikeRoute.name %> </h5>
+        <h5> <%= oneMtnBikeRoute.length %> miles</h5>
+        <h5> <%= oneMtnBikeRoute.summary %></h5>
+        <h6> <%= oneMtnBikeRoute.difficulty %> </h6>
+        <h6> <%= oneMtnBikeRoute.stars %> stars </h6>
+      </section>
       <form action="/favorites/<%= oneMtnBikeRoute.api_id %>?_method=put" method="POST">
         <input type="hidden" name="table_name" value="mtn_biking" />
         <% if (oneMtnBikeRoute.notes == null || oneMtnBikeRoute.notes === '') { %>
@@ -21,8 +23,9 @@
         <input type="hidden" name="table_name" value="mtn_biking" />
         <button type="submit">Remove From Favorites</button>
       </form>
-    </section>
+    </div>
     <% }); %>
   <% } else { %>
     <h5>No mountain bike routes saved to favorites</h5>
   <% } %>
+
