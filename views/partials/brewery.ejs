@@ -7,7 +7,7 @@
     <div id="brewery_container">
     <h5 id="brewery_name"><%= oneBrew.name %></h5>
     <h5 id="brewery_type">Brewery Type: <%= oneBrew.type %></h5>
-    <h5 id="brewery_website"><%= oneBrew.website %></h5>
+    <h5 id="brewery_website"><a href="<%= oneBrew.website %>" target="blank">Brewery Website</a></h5>
     </div>
     <form action="/favorites" method="POST">
       <input type="hidden" name="table_name" value="breweries" />
