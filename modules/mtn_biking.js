@@ -72,6 +72,7 @@ const getMtnBikingFromAPI = (apiIDsFromCache, location, response) => {
       response.status(200).render('results.ejs',
         {
           queryType: queryTypeString,
+          userName: location.userName,
           mtnBikeResults: mtnBikeRoutes
         });
     })
@@ -93,8 +94,8 @@ function MtnBikeRoute(obj) {
   this.type = obj.type ? obj.type : 'No type available';
   this.difficulty = obj.difficulty ? obj.difficulty : 'No difficulty available';
   this.stars = obj.stars ? obj.stars : 'No rating available';
-  this.latitude = obj.latitude ? obj.latitude : 'No info available';
-  this.longitude = obj.longitude ? obj.longitude : 'No info available';
+  this.latitude = obj.latitude ? obj.latitude : 0.0;
+  this.longitude = obj.longitude ? obj.longitude : 0.0;
   this.img_medium = obj.imgMedium ? obj.imgMedium : placeholderImage;
   this.summary = obj.summary ? obj.summary : 'No description available';
   this.length = obj.length ? obj.length : 'No length available'

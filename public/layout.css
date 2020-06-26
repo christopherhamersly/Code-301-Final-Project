@@ -81,12 +81,18 @@ body{
     grid-column-end: 5;
     grid-row-start: 4;
     grid-row-end: 5;
+    margin-top: 180px;
+  }
+
+  #steve{
+    margin-bottom: 35px;
   }
   #paul{
     grid-column-start: 2;
     grid-column-end: 3;
     grid-row-start: 4;
     grid-row-end: 5;
+    margin-top: 180px;
   }
 #indexPage{
   background-image: url(/public/images/road-sun-rays-path.jpg);
@@ -119,10 +125,47 @@ form{
 }
 
 #suggestions{
-  height: 100px;
+  height: 150px;
+}
+
+#nav_bar{
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+
+.nav{
+  background-color: rgb(218, 159, 120);
+  border: 2px solid #DA7635;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-right: 5px;
+  padding-left: 15px;
+  padding-right: 15px;
+  text-decoration: none;
+  width: 50px;
+}
+
+.nav:after{
+  text-decoration: none;
+}
+
+.about{
+  margin-top: 20px;
 }
 
 .results{
+  align-items: center;
+  background-color:#DA7635;
+  border: 3px solid rgba(62, 41, 27, 0.305);
+  border-radius: 5px;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 5px;
+}
+
+.favoritespage{
   align-items: center;
   background-color:#DA7635;
   border: 3px solid rgba(62, 41, 27, 0.305);
@@ -141,9 +184,9 @@ form{
 }
 
 img{
-  margin-top: 10px;
-  max-height: 300px;
-  width: 70%;
+margin-top: 10px; 
+max-height: 300px; 
+width: 70%;  
 }
 
 }

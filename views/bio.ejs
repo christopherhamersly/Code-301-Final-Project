@@ -1,32 +1,30 @@
 <%- include('./partials/header.ejs') %>
 <div id=nav_bar>
-  <ul>
-    <l1><a href="/"> Home </a></l1>
-    <l1><a href="/favorites"> Favorites </a></l1>
-  </ul>
+    <a class="nav" href="/"> Home </a>
+    <a class="nav" href="/favorites"> Favorites </a>
 </div>
 <div id="bioPage">
   <section id="daisy">
 <h2>Daisy</h2>
 <img class="bioPic" src="/public/images/daisy_weekend_warrior.jpg"/>
-<p>Hello, I am Daisy and I am a software developer living in Kalispell, Montana. My work history includes a lot of customer service in both the food and retail industries, and I also have studied psychology. I love working with people and being creative, and I believe I can utilize both things to be a successful software developer as I want to make sure the client gets what they want. I love to learn and look forward to being in a career that gives a challenge and encourages me to learn more every day.
+<p class="paragraph">Hello, I am Daisy and I am a software developer living in Kalispell, Montana. My work history includes a lot of customer service in both the food and retail industries, and I also have studied psychology. I love working with people and being creative, and I believe I can utilize both things to be a successful software developer as I want to make sure the client gets what they want. I love to learn and look forward to being in a career that gives a challenge and encourages me to learn more every day.
 </p>
 <ul id="social_media_links">
   <li>
     <a id="social_media_icons" href="https://www.linkedin.com/in/daisyjane-johnson-7a7975186/" target="_blank">
-    <img src="/public/images/linkedin_logo_weekend_warrior.png"/>LinkedIn</a>
+    <img class="social" src="/public/images/linkedin_logo_weekend_warrior.png"/></a>
   </li>
   <li>
     <a id="social_media_icons" href="https://github.com/daisyjanejohnson" target="_blank">
-    <img src="/public/images/github_logo_weekend_warrior.png">GitHub</a></li>
+    <img class="social"  src="/public/images/github_logo_weekend_warrior.png"></a></li>
   <li>
-    <a id="social_media_icons" href="daisyjane.johnson@gmail.com" target="_blank"><img src="/public/images/email_logo_weekend_warrior.png"></a>Email</li>
+    <a id="social_media_icons" href="daisyjane.johnson@gmail.com" target="_blank"><img class="social"  src="/public/images/email_logo_weekend_warrior.png"></a></li>
 </ul>
 </section>
 <section id="stephen">
 <h2>Steve</h2>
-<img class="bioPic" src="/public/images/steve_weekend_warrior.jpg"/>
-<p>Steve is a Seattle-based software developer seeking the intersection
+<img id="steve" class="bioPic" src="/public/images/steve_weekend_warrior.jpg"/>
+<p class="paragraph">Steve is a Seattle-based software developer seeking the intersection
   of thoughtful product design and audio technology. With a diverse set of 
   career experiences ranging from public education to corporate leadership, 
   Steve wishes to leverage technology as an agent for positive change in 
@@ -34,56 +32,57 @@
   <ul id="social_media_links">
     <li>
       <a id="social_media_icons" href="https://www.linkedin.com/in/stephentbaldock/" target="_blank">
-      <img id="social_media_icons" src="/public/images/linkedin_logo_weekend_warrior.png"/>LinkedIn</a>
+      <img class="social"  id="social_media_icons" src="/public/images/linkedin_logo_weekend_warrior.png"/></a>
     </li>
     <li>
-      <a href="https://github.com/christopherhamersly" target="_blank"><img src="/public/images/github_logo_weekend_warrior.png">GitHub</a>
+      <a href="https://github.com/christopherhamersly" target="_blank"><img class="social"  src="/public/images/github_logo_weekend_warrior.png"></a>
     </li>
     <li>
-      <a id="social_media_icons" href="stephenbaldock78@gmail.com" target="_blank"><img src="/public/images/email_logo_weekend_warrior.png">Email</a></li>
+      <a id="social_media_icons" href="stephenbaldock78@gmail.com" target="_blank"><img class="social"  src="/public/images/email_logo_weekend_warrior.png"></a></li>
   </ul>
 </section>
 <section id="chris">
 <h2>Chris</h2>
 <img class="bioPic" src="/public/images/chris_weekend_warrior.png"/>
-<p>Hi, I’m Chris, and I’m a software developer based in Seattle.  I plan to use my previous experience in graphic design and screenprinting, to transition to a new career in software development.  In my previous career, as a small business owner, I had direct contact with clients and worked daily with them to create products they were proud of.  Additionally, I had to be flexible in my processes to deliver the best product.  With any trade, I had to do constant research and practice to keep my skills sharp and up to date.  I look forward to starting down this path with software development.</p>
+<p class="paragraph">Hi, I’m Chris, and I’m a software developer based in Seattle.  I plan to use my previous experience in graphic design and screenprinting, to transition to a new career in software development.  In my previous career, as a small business owner, I had direct contact with clients and worked daily with them to create products they were proud of.  Additionally, I had to be flexible in my processes to deliver the best product.  With any trade, I had to do constant research and practice to keep my skills sharp and up to date.  I look forward to starting down this path with software development.</p>
 <ul id="social_media_links">
   <li>
       <a id="social_media_icons" href="https://www.linkedin.com/in/christopher-hamersly/" target="_blank">
-      <img id="social_media_icons" src="/public/images/linkedin_logo_weekend_warrior.png"/>Linked In</a>
+      <img class="social"  id="social_media_icons" src="/public/images/linkedin_logo_weekend_warrior.png"/></a>
   </li>
   <li>
       <a id="social_media_icons" href="https://github.com/christopherhamersly" target="_blank">
-      <img src="/public/images/github_logo_weekend_warrior.png">GitHub</a></li>
+      <img class="social"  src="/public/images/github_logo_weekend_warrior.png"></a></li>
   <li>
       <a href="christopherhamersly@gmail.com" target="_blank">
-      <img src="/public/images/email_logo_weekend_warrior.png">Email</a>
+      <img class="social"  src="/public/images/email_logo_weekend_warrior.png"></a>
   </li>
 </ul>
 </section>
 <section id="paul">
 <h2>Paul</h2>
-<p>Hi, I’m Paul.  I’m a software developer with a background in client success.  In my client- facing career roles.  I learned how to see deeply inside how of what a client thinks they want, and simultaneously beyond it.  I became a developer after I realized how well computer science and programming mesh my varied interests from literature to physics.  I enjoy the process of building elegant, intricate, mechanisms in object oriented code, and then getting to see how those pieces come together to form an emergent whole.  I am most interested in back-end development, but also enjoy and excel at full stack-web development.  I thrive best when able to be curious and explore while solving new challenges, both as a part of a team and independently.
+<img class="bioPic" src="/public/images/paul.png"/>
+<p class="paragraph">Hi, I’m Paul.  I’m a software developer with a background in client success.  In my client- facing career roles.  I learned how to see deeply inside how of what a client thinks they want, and simultaneously beyond it.  I became a developer after I realized how well computer science and programming mesh my varied interests from literature to physics.  I enjoy the process of building elegant, intricate, mechanisms in object oriented code, and then getting to see how those pieces come together to form an emergent whole.  I am most interested in back-end development, but also enjoy and excel at full stack-web development.  I thrive best when able to be curious and explore while solving new challenges, both as a part of a team and independently.
 </p>
 <ul id="social_media_links">
   <li>
     <a id="social_media_icons" href="https://www.linkedin.com/in/paulmichaelrest/" target="_blank">
-    <img id="social_media_icons" src="/public/images/linkedin_logo_weekend_warrior.png"/>LinkedIn</a>
+    <img class="social"  id="social_media_icons" src="/public/images/linkedin_logo_weekend_warrior.png"/></a>
   </li>
   <li>
     <a id="social_media_icons" href="https://github.com/paulmrest/" target="_blank">
-    <img src="/public/images/github_logo_weekend_warrior.png">Github</a></li>
+    <img class="social"  src="/public/images/github_logo_weekend_warrior.png"></a></li>
   <li>
     <a id="social_media_icons" href="https://www.facebook.com/paul.rest.5/" target="_blank">
-      <img src="/public/images/facebook_logo_weekend_warrior.png">
-      Facebook</a></li>
+      <img class="social"  src="/public/images/facebook_logo_weekend_warrior.png">
+      </a></li>
   <li>
     <a id="social_media_icons" href="https://twitter.com/vaticdart" target="_blank">
-      <img src="/public/images/twitter_logo_weekend_warrior.png">
-      Twitter</a></li>
+      <img class="social"  src="/public/images/twitter_logo_weekend_warrior.png">
+     </a></li>
   <li>
     <a id="social_media_icons" href="mailto:paulmrest@gmail.com" target="_blank">
-    <img src="/public/images/email_logo_weekend_warrior.png">Email</a>
+    <img class="social" src="/public/images/email_logo_weekend_warrior.png"></a>
   </li>
 
   

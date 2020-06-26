@@ -4,7 +4,6 @@ const express = require('express');
 const app = express();
 
 const pg = require('pg');
-const superagent = require('superagent');
 require('ejs');
 require('dotenv').config();
 
@@ -23,7 +22,6 @@ app.use(methodOverride('_method'));
 const search = require('./modules/index.js');
 const location = require('./modules/location.js');
 const favorites = require('./modules/favorites.js');
-const { response } = require('express');
 const music = require('./modules/music.js');
 
 app.route('/')

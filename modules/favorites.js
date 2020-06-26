@@ -85,13 +85,15 @@ const showFavorites = (request, response) => {
   let sqlCampingSelect = 'SELECT * FROM camping ORDER BY id;';
   let sqlClimbingSelect = 'SELECT * FROM climbing ORDER BY id;';
   let sqlMtnBikingSelect = 'SELECT * FROM mtn_biking ORDER BY id;';
-  client.query(sqlTrailsSelect.concat(sqlCampingSelect, sqlClimbingSelect, sqlMtnBikingSelect))
+  let sqlBreweriesSelect = 'SELECT * FROM breweries ORDER BY id;';
+  client.query(sqlTrailsSelect.concat(sqlCampingSelect, sqlClimbingSelect, sqlMtnBikingSelect, sqlBreweriesSelect))
     .then(sqlData => {
       let renderObject = {
         trailData: sqlData[0].rows,
         campingData: sqlData[1].rows,
         climbingData: sqlData[2].rows,
-        mtnBikingData: sqlData[3].rows
+        mtnBikingData: sqlData[3].rows,
+        breweryData: sqlData[4].rows
       };
       //START-CONSOLE-TESTING
       // console.log('showFavorites, sqlData.rows:');
@@ -165,6 +167,9 @@ const getSQLInsertQuery = (tableName) => {
   case 'mtn_biking':
     sqlInsert = 'INSERT INTO mtn_biking (api_id, location, name, type, difficulty, stars, latitude, longitude, img_medium, summary, length) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11);';
     return sqlInsert;
+  case 'breweries':
+    sqlInsert = 'INSERT INTO breweries (api_id, name, latitude, longitude, type, website) VALUES ($1, $2, $3, $4, $5, $6);';
+    return sqlInsert;
   }
 };
 
@@ -237,6 +242,19 @@ const getSQLSafeValues = (tableName, request) => {
       length
     } = request.body;
     sqlSafeValues = [api_id, location, name, type, difficulty, stars, latitude, longitude, img_medium, summary, length];
+    return sqlSafeValues;
+  }
+  case 'breweries':
+  {
+    let {
+      api_id,
+      name,
+      latitude,
+      longitude,
+      type,
+      website
+    } = request.body;
+    sqlSafeValues = [api_id, name, latitude, longitude, type, website];
     return sqlSafeValues;
   }
   }
