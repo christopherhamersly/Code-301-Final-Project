@@ -1,28 +1,30 @@
+<div class="favoritespage">
 <% if (mtnBikingData.length > 0) { %>
   <% mtnBikingData.forEach(oneMtnBikeRoute => { %>
-    <section id="<%= oneMtnBikeRoute.api_id %>">
-      <img src="<%= oneMtnBikeRoute.img_medium %>" alt="<% oneMtnBikeRoute.name %>"/>
-      <h5> <%= oneMtnBikeRoute.location %> </h5>
-      <h5> <%= oneMtnBikeRoute.name %> </h5>
-      <h5> <%= oneMtnBikeRoute.length %> miles</h5>
-      <h5> <%= oneMtnBikeRoute.summary %></h5>
-      <h6> <%= oneMtnBikeRoute.difficulty %> </h6>
-      <h6> <%= oneMtnBikeRoute.stars %> stars </h6>
+      <section id="<%= oneMtnBikeRoute.api_id %>">
+        <h4>Mountain Biking</h4>
+        <img src="<%= oneMtnBikeRoute.img_medium %>" alt="<% oneMtnBikeRoute.name %>"/>
+        <h5> <%= oneMtnBikeRoute.location %> </h5>
+        <h5> <%= oneMtnBikeRoute.name %> </h5>
+        <h5> <%= oneMtnBikeRoute.length %> miles</h5>
+        <h5> <%= oneMtnBikeRoute.summary %></h5>
+        <h6> <%= oneMtnBikeRoute.difficulty %> </h6>
+        <h6> <%= oneMtnBikeRoute.stars %> stars </h6>
+      </section>
       <form action="/favorites/<%= oneMtnBikeRoute.api_id %>?_method=put" method="POST">
         <input type="hidden" name="table_name" value="mtn_biking" />
         <% if (oneMtnBikeRoute.notes == null || oneMtnBikeRoute.notes === '') { %>
-          <textarea name="notes" id="" cols="60" rows="10" placeholder="Enter your notes here..."></textarea>        
+          <textarea name="notes" id="" cols="40" rows="10" placeholder="Enter your notes here..."></textarea>        
         <% } else { %>
-          <textarea name="notes" id="" cols="60" rows="10"><%= oneMtnBikeRoute.notes %></textarea>
+          <textarea name="notes" id="" cols="40" rows="10"><%= oneMtnBikeRoute.notes %></textarea>
         <% } %>
         <button type="submit">Save Notes</button>
       </form>
       <form action="/favorites/<%= oneMtnBikeRoute.api_id %>?_method=delete" method="POST">
         <input type="hidden" name="table_name" value="mtn_biking" />
-        <button type="submit">Remote From Favorites</button>
+        <button type="submit">Remove From Favorites</button>
       </form>
-    </section>
-    <% }); %>
-  <% } else { %>
-    <h5>No mountain bike routes saved to favorites</h5>
-  <% } %>
+      <% }); %>
+      <% } %>
+    </div>
+

@@ -27,7 +27,7 @@ const snowSports = require('./snow_sports.js');
 
 const brewery = require('./brewery.js');
 const music = require('./music.js');
-const two = require('./testit.js');
+// const two = require('./testit2.js');
 
 
 
@@ -79,8 +79,8 @@ const getLocationFromAPI = (queryType, request, response) => {
   superagent.get(apiURL, apiParams)
     .then(apiData => {
       //START-CONSOLE-TESTING
-      // console.log('apiData.body:');
-      // console.log(apiData.body);
+      // console.log('apiData:');
+      // console.log(apiData);
       //END-CONSOLE-TESTING
       let location = new LocationQuery(userName, queryCity, apiData.body[0]);
       saveLocationToDB(queryType, location, response);
@@ -112,10 +112,12 @@ const saveLocationToDB = (queryType, location, response) => {
 
 const activityType = (location, queryType, response) => {
   //START-CONSOLE-TESTING
-  console.log('activityType, queryType:');
-  console.log(queryType);
+  // console.log('activityType, queryType:');
+  // console.log(queryType);
+  // console.log('activityType, location:');
+  // console.log(location);
   //END-CONSOLE-TESTING
-  two.getTwoArrays(location,response);
+
   switch (queryType) {
   case 'hiking':
     trails.getTrails(location, response);
@@ -128,13 +130,12 @@ const activityType = (location, queryType, response) => {
     break;
   case 'mountainbiking':
     mtbiking.getMtnBiking(location, response);
-
     break;
   case 'snowsports':
     snowSports.snowSports(location, response);
     break;
   case 'brewery':
-    brewery.getBrewery(location, response);
+    brewery.getBreweries(location, response);
     break;
   case 'music':
     music.getTunes(location,response);
@@ -151,7 +152,7 @@ function LocationQuery(userName, search_query, object) {
   this.userName = userName;
   this.search_query = search_query;
   this.display_name = object.display_name ? object.display_name : 'No display name available';
-  this.lat = object.lat ? object.lat : 'No latitude available';
-  this.lon = object.lon ? object.lon : 'No longitude available';
+  this.lat = object.lat ? object.lat : 0.0;
+  this.lon = object.lon ? object.lon : 0.0;
   this.icon = object.icon ? object.icon : 'No icon available';
 }

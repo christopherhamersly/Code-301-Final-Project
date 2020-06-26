@@ -1,18 +1,23 @@
 <% if (climbingData.length > 0) { %>
   <% climbingData.forEach(oneClimb => { %>
+      <div class="favoritespage">
     <section id="<%= oneClimb.api_id %>">
+      <h4>Rock Climbing</h4>
       <img src="<%= oneClimb.img_medium %>" alt="<%= oneClimb.name %>"/>
       <h5> <%= oneClimb.location %> </h5>
       <h5> <%= oneClimb.name %> </h5>
       <h5> <%= oneClimb.type %> </h5>
+
       <h6> <%= oneClimb.pitches %> </h6>
       <h6> <%= oneClimb.stars %> </h6>
+    </section>
+
       <form action="/favorites/<%= oneClimb.api_id %>?_method=put" method="POST">
         <input type="hidden" name="table_name" value="climbing" />
         <% if (oneClimb.notes == null || oneClimb.notes === '') { %>
-          <textarea name="notes" id="" cols="60" rows="10" placeholder="Enter your notes here..."></textarea>        
+          <textarea name="notes" id="" cols="40" rows="10" placeholder="Enter your notes here..."></textarea>        
         <% } else { %>
-          <textarea name="notes" id="" cols="60" rows="10"><%= oneClimb.notes %></textarea>
+          <textarea name="notes" id="" cols="40" rows="10"><%= oneClimb.notes %></textarea>
         <% } %>
         <button type="submit">Save Notes</button>
       </form>
@@ -20,8 +25,6 @@
         <input type="hidden" name="table_name" value="climbing" />
         <button type="submit">Remove From Favorites</button>
       </form>
-    </section>
+  </div>
   <% }); %>
-<% } else { %>
-  <h5>No rock climbing routes saved to favorites</h5>
 <% } %>

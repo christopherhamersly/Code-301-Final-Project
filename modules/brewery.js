@@ -8,7 +8,7 @@ const superagent = require('superagent');
 require('ejs');
 require('dotenv').config();
 
-const PORT = process.env.PORT || 3001;
+// const PORT = process.env.PORT || 3001;
 
 app.use(express.urlencoded({ extended: true }));
 app.set('view engine', 'ejs');
@@ -17,55 +17,72 @@ app.use('/public', express.static('public'));
 const client = new pg.Client(process.env.DATABASE_URL);
 client.on('error', err => console.log(err));
 
-const getBrewery = (location, response) => {
-  console.log('In the function');
-  let city = location.search_query;
-  let apiUrl = `https://api.openbrewerydb.org/breweries?by_city=${city}`;
+client.connect();
+
+const getBreweries = (location, response) => {
+  //START-CONSOLE-TESTING
+  // console.log('getBreweries, location:');
+  // console.log(location);
+  //END-CONSOLE-TESTING
+  let sqlSelect = 'SELECT api_id FROM breweries;';
+  client.query(sqlSelect)
+    .then(sqlData => {
+      //START-CONSOLE-TESTING
+      // console.log('getTrails, DB api_ids:');
+      // console.log(sqlData.rows);
+      //END-CONSOLE-TESTING
+      getBreweriesFromAPI(sqlData.rows, location, response);
+    })
+    .catch(error => {
+      console.error('Error checking cache for favorited breweries');
+      console.error(error);
+    });
+}
+
+const getBreweriesFromAPI = (apiIDsFromCache, location, response) => {
+  let apiUrl = 'https://api.openbrewerydb.org/breweries';
   let apiParams = {
-    lat: location.lat,
-    lon: location.lon
+    by_city: location.search_query
   };
   superagent.get(apiUrl, apiParams)
     .then(apiData => {
+      //START-CONSOLE-TESTING
+      // console.log('getBreweriesFromAPI, apiData.body:');
       // console.log(apiData.body);
+      //END-CONSOLE-TESTING
+      //flatten the array from an array of objects with a single key-value pair, to
+      //an array of numbers
+      apiIDsFromCache = apiIDsFromCache.map(sqlObject => sqlObject.api_id);
       let brewArray = apiData.body.map(oneBrew => {
-        return new Brewery(oneBrew);
+        let newBrewery = new Brewery(oneBrew);
+        newBrewery.cached = apiIDsFromCache.includes(oneBrew.id.toString());
+        return newBrewery;
       });
-
-      console.log('Brew Array', brewArray);
+      //START-CONSOLE-TESTING
+      // console.log('getBreweriesFromAPI, brewArray:');
+      // console.log(brewArray);
+      //END-CONSOLE-TESTING
       response.status(200).render('results.ejs',
         {
           queryType: queryType,
+          userName: location.userName,
           brewery: brewArray
         });
-
-    }).catch(error => {
-      console.error('error', error)
     })
-}
+    .catch(error => {
+      console.error('Error getting brewery data from API');
+      console.error(error);
+    });
+};
 
-module.exports.getBrewery = getBrewery;
+module.exports.getBreweries = getBreweries;
 
 function Brewery(obj) {
+  this.api_id = obj.id;
+  this.cached = false;
   this.name = obj.name ? obj.name : 'No name available';
   this.type = obj.brewery_type ? obj.brewery_type : 'No info available';
-  this.latitude = obj.latitude ? obj.latitude : 'No info available';
-  this.longitude = obj.longitude ? obj.longitude : 'No info available';
-  this.webiste = obj.website_url ? obj.website_url : 'No website available';
-  // this.tag_list = obj.tag_list ? obj.tag_list : 'No info available';
+  this.latitude = obj.latitude ? obj.latitude : 0.0;
+  this.longitude = obj.longitude ? obj.longitude : 0.0;
+  this.website = obj.website_url ? obj.website_url : 'No website available';
 }
-
-// { id: 247,
-//   name: 'Lost Forty Brewing',
-//   brewery_type: 'micro',
-//   street: '501 Byrd St',
-//   city: 'Little Rock',
-//   state: 'Arkansas',
-//   postal_code: '72202',
-//   country: 'United States',
-//   longitude: '-92.260019',
-//   latitude: '34.742845',
-//   phone: '5013197275',
-//   website_url: 'http://www.lost40brewing.com/',
-//   updated_at: '2018-08-23T23:23:24.018Z',
-//   tag_list: [] }\

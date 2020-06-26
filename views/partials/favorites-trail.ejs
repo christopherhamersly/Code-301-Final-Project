@@ -1,20 +1,25 @@
+<div class="favoritespage">
 <% if (trailData.length > 0) { %>
 <% trailData.forEach(oneTrail => { %>
   <section id="<%= oneTrail.api_id %>">
+    <h4> Hiking </h4>
     <img src="<%= oneTrail.img_medium %>" alt="<% oneTrail.name %>"/>
     <h5> <%= oneTrail.name %> </h5>
-    <h5> <%= oneTrail.length %> </h5>
-    <h5> <%= oneTrail.ascent %> </h5>
+    <h5> <%= oneTrail.length %> miles</h5>
+    <h5> <%= oneTrail.ascent %> feet</h5>
     <p> <%= oneTrail.summary %> </p>
-    <h6> <%= oneTrail.difficulty %> </h6>
+    <h6> <%= oneTrail.difficulty %> (difficulty)</h6>
     <h6> <%= oneTrail.conditionStatus %> </h6>
+
     <h7> <%= oneTrail.stars %> </h7>
+  </section>
+
     <form action="/favorites/<%= oneTrail.api_id %>?_method=put" method="POST">
       <input type="hidden" name="table_name" value="trails" />
       <% if (oneTrail.notes == null || oneTrail.notes === '') { %>
-        <textarea name="notes" id="" cols="60" rows="10" placeholder="Enter your notes here..."></textarea>        
+        <textarea name="notes" id="" cols="40" rows="10" placeholder="Enter your notes here..."></textarea>        
       <% } else { %>
-        <textarea name="notes" id="" cols="60" rows="10"><%= oneTrail.notes %></textarea>
+        <textarea name="notes" id="" cols="40" rows="10"><%= oneTrail.notes %></textarea>
       <% } %>
       <button type="submit">Save Notes</button>
     </form>
@@ -22,8 +27,6 @@
       <input type="hidden" name="table_name" value="trails" />
       <button type="submit">Remote From Favorites</button>
     </form>
-  </section>
-  <% }); %>
-<% } else { %>
-  <h5>No trails saved to favorites</h5>
-<% } %>
+    <% }); %>
+    <% } %>
+  </div>

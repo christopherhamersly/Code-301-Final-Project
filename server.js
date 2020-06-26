@@ -4,7 +4,6 @@ const express = require('express');
 const app = express();
 
 const pg = require('pg');
-const superagent = require('superagent');
 require('ejs');
 require('dotenv').config();
 
@@ -23,7 +22,6 @@ app.use(methodOverride('_method'));
 const search = require('./modules/index.js');
 const location = require('./modules/location.js');
 const favorites = require('./modules/favorites.js');
-const { response } = require('express');
 const music = require('./modules/music.js');
 
 app.route('/')
@@ -54,19 +52,19 @@ client.connect()
     })
   });
 
-const test = require('./modules/testit.js')
-const testLocation = {
-  id: 1,
-  search_query: 'Seattle',
-  display_name: 'Seattle, King County, Washington, USA',
-  lat: '47.603832100',
-  lon: '-122.330062400',
-  userName: 'Terp'
-}
-app.get('/testit', getTwoArrays);
-function getTwoArrays(request, response) {
-  test.getTwoArrays(testLocation, response);
-}
+// const test = require('./modules/testit2.js')
+// const testLocation = {
+//   id: 1,
+//   search_query: 'Seattle',
+//   display_name: 'Seattle, King County, Washington, USA',
+//   lat: '47.603832100',
+//   lon: '-122.330062400',
+//   userName: 'Terp'
+// }
+// app.get('/testit2', getThreeArrays);
+// function getThreeArrays(request, response) {
+//   test.getThreeArrays(testLocation, response);
+// }
 
 
 
