@@ -3,12 +3,12 @@
   <section id="<%= oneTrail.api_id %>">
     <img src="<%= oneTrail.img_medium %>" alt="<% oneTrail.name %>"/>
     <h5> <%= oneTrail.name %> </h5>
-    <h5> <%= oneTrail.length %> </h5>
-    <h5> <%= oneTrail.ascent %> </h5>
+    <h5> <%= oneTrail.length %> miles</h5>
+    <h5> <%= oneTrail.ascent %> feet</h5>
     <p> <%= oneTrail.summary %> </p>
-    <h6> <%= oneTrail.difficulty %> </h6>
+    <h6> <%= oneTrail.difficulty %> (difficulty)</h6>
     <h6> <%= oneTrail.conditionStatus %> </h6>
-    <h7> <%= oneTrail.stars %> </h7>
+    <h7> <%= oneTrail.stars %> stars</h7>
     <form action="/favorites/<%= oneTrail.api_id %>?_method=put" method="POST">
       <input type="hidden" name="table_name" value="trails" />
       <% if (oneTrail.notes == null || oneTrail.notes === '') { %>

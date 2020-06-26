@@ -5,7 +5,7 @@
   <section id="<%= oneCamp.api_id %>">
     <img src="<%= oneCamp.images %>" alt="<%= oneCamp.name %>" />
     <h5> <%=oneCamp.name %> </h5>
-    <p> <%= oneCamp.description %> </p>
+    <p>Description: <%= oneCamp.description %> </p>
     <% oneCamp.entranceFees.forEach(feeObj => { %>
       <h5> <%= feeObj.description %> </h5>
     <% }); %>

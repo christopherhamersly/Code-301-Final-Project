@@ -1,7 +1,10 @@
 
-
-<h4> Suggested Local Artists </h4>
-<% tunesResults.forEach(oneTune => { %>
-  <h5><%= oneTune.name %></h5>
-  <h5><%= oneTune.genre %></h5>
+<h4 id="music_header"> Suggested Local Artists </h4>
+<!-- <div id="music_containerTwo"> -->
+  <% tunesResults.forEach(oneTune => { %>
+    <div id="music_container">
+  <h5 id="music_name"><%= oneTune.name %></h5>
+  <h5 id="music_genre"><%= oneTune.genre %></h5>
 <% }) %>
+</div>
+<!-- </div> -->
