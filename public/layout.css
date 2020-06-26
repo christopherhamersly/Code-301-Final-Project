@@ -24,6 +24,11 @@ body{
     margin-top: 10px;
     width: 70%;
   }
+  
+  img:hover{
+    opacity: 75%;
+    transition: 2s;
+  }
 
   #indexPage{
     background-image: url(/public/images/road-sun-rays-path.jpg);
@@ -36,8 +41,7 @@ body{
   }
 
   #suggestions{
-    height: 100px;
-
+    height: 150px;
   }
 
   #resultsPage{
@@ -87,6 +91,11 @@ body{
   #steve{
     margin-bottom: 35px;
   }
+
+  #stephen:hover {
+    opacity:75%;
+  }
+
   #paul{
     grid-column-start: 2;
     grid-column-end: 3;
@@ -122,10 +131,11 @@ form{
   grid-column-start: 2;
   grid-column-end: 5;
   line-height: 100px;
+  margin-bottom: 50px;
 }
 
-#suggestions{
-  height: 150px;
+
+  height: 200px;
 }
 
 #nav_bar{
@@ -151,6 +161,7 @@ form{
 
 .about{
   margin-top: 20px;
+
 }
 
 .results{
